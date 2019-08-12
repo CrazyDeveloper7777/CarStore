@@ -7,6 +7,5 @@ namespace CarShop.Data.Models.Vehicles
 {
     public class Bus : LargerVehicle, IBus
     {
-
     }
 }

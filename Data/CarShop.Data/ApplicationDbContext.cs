@@ -92,6 +92,19 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                entity
+                .HasMany(owner => owner.Vehicles)
+                .WithOne(vehicle => vehicle.Owner)
+                .HasForeignKey(vehicle => vehicle.OwnerId);
+
+                entity
+                .HasMany(dealer => dealer.Ads)
+                .WithOne(ad => ad.Dealer)
+                .HasForeignKey(ad => ad.DealerId);
+            });
         }
 
         private static void ConfigureUserIdentityRelations(ModelBuilder builder)

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CarShop.Data.Models.Vehicles
 {
-    public class LargerVehicle : Vehicle, ILargerVehicle
+    public abstract class LargerVehicle : Vehicle, ILargerVehicle
     {
         [Required]
         public int SeatsCount { get; set; }
@@ -14,6 +14,7 @@ namespace CarShop.Data.Models.Vehicles
         [Required]
         public int AxlesCount { get; set; }
 
+        [Range(0, 999999)]
         public int LoadInKg { get; set; }
     }
 }

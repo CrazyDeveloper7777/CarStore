@@ -7,6 +7,10 @@ namespace CarShop.Data.Models.Vehicles
 {
     public interface IVehicle
     {
+        ApplicationUser Owner { get; set; }
+
+        string OwnerId { get; set; }
+
         string EngineType { get; set; }
 
         int Power { get; set; }

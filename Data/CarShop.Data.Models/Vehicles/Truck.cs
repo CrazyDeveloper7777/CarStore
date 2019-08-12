@@ -8,9 +8,5 @@ namespace CarShop.Data.Models.Vehicles
 {
     public class Truck : LargerVehicle, ITruck
     {
-        public Truck()
-        {
-            
-        }
     }
 }

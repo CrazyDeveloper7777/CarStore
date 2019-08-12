@@ -6,6 +6,7 @@ namespace CarShop.Data.Models
 
     using CarShop.Data.Common.Models;
     using CarShop.Data.Models.Ads;
+    using CarShop.Data.Models.Vehicles;
     using Microsoft.AspNetCore.Identity;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
@@ -18,6 +19,7 @@ namespace CarShop.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Ads = new HashSet<Ad>();
+            this.Vehicles = new HashSet<Vehicle>();
         }
 
         public ApplicationUser(string name)
@@ -42,5 +44,7 @@ namespace CarShop.Data.Models
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         public virtual ICollection<Ad> Ads { get; set; }
+
+        public virtual ICollection<Vehicle> Vehicles { get; set; }
     }
 }

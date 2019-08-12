@@ -9,6 +9,10 @@
 
     public abstract class Vehicle : BaseDeletableModel<string>, IVehicle
     {
+        public ApplicationUser Owner { get; set; }
+
+        public string OwnerId { get; set; }
+
         [Required]
         [Range(typeof(decimal), "0", "9999999")]
         public decimal Price { get; set; }

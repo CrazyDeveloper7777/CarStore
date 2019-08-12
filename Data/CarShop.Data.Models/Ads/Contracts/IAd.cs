@@ -7,10 +7,6 @@ namespace CarShop.Data.Models.Ads
 {
     public interface IAd
     {
-        Vehicle Vehicle { get; set; }
-
-        string VehicleId { get; set; }
-
         string PhoneNumber { get; set; }
 
         DateTime Validity { get; set; }
