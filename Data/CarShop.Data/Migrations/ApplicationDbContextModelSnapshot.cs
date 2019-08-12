@@ -19,6 +19,47 @@ namespace CarShop.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CarShop.Data.Models.Ads.Ad", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Currency");
+
+                    b.Property<string>("DealerId");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<DateTime>("Validity");
+
+                    b.Property<string>("VehicleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DealerId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("Ads");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Ad");
+                });
+
             modelBuilder.Entity("CarShop.Data.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -139,6 +180,55 @@ namespace CarShop.Data.Migrations
                     b.ToTable("Settings");
                 });
 
+            modelBuilder.Entity("CarShop.Data.Models.Vehicles.Vehicle", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Brand");
+
+                    b.Property<string>("Color");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
+                    b.Property<string>("EngineType");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime>("ManufacturedOn");
+
+                    b.Property<string>("Model");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<string>("PopulatedPlace");
+
+                    b.Property<int>("Power");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<string>("Region");
+
+                    b.Property<int>("Run");
+
+                    b.Property<int>("State");
+
+                    b.Property<int>("Transmission");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Vehicles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Vehicle");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -223,6 +313,80 @@ namespace CarShop.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CarShop.Data.Models.Ads.TopAd", b =>
+                {
+                    b.HasBaseType("CarShop.Data.Models.Ads.Ad");
+
+                    b.HasDiscriminator().HasValue("TopAd");
+                });
+
+            modelBuilder.Entity("CarShop.Data.Models.Ads.VipAd", b =>
+                {
+                    b.HasBaseType("CarShop.Data.Models.Ads.Ad");
+
+                    b.HasDiscriminator().HasValue("VipAd");
+                });
+
+            modelBuilder.Entity("CarShop.Data.Models.Vehicles.Bus", b =>
+                {
+                    b.HasBaseType("CarShop.Data.Models.Vehicles.Vehicle");
+
+                    b.Property<int>("AxlesCount");
+
+                    b.Property<int>("LoadInKg");
+
+                    b.Property<int>("SeatsCount");
+
+                    b.HasDiscriminator().HasValue("Bus");
+                });
+
+            modelBuilder.Entity("CarShop.Data.Models.Vehicles.Car", b =>
+                {
+                    b.HasBaseType("CarShop.Data.Models.Vehicles.Vehicle");
+
+                    b.HasDiscriminator().HasValue("Car");
+                });
+
+            modelBuilder.Entity("CarShop.Data.Models.Vehicles.Motorcycle", b =>
+                {
+                    b.HasBaseType("CarShop.Data.Models.Vehicles.Vehicle");
+
+                    b.Property<int>("CubicMeter");
+
+                    b.Property<int>("TactsOfEngine");
+
+                    b.Property<int>("TypeOfCooling");
+
+                    b.HasDiscriminator().HasValue("Motorcycle");
+                });
+
+            modelBuilder.Entity("CarShop.Data.Models.Vehicles.Truck", b =>
+                {
+                    b.HasBaseType("CarShop.Data.Models.Vehicles.Vehicle");
+
+                    b.Property<int>("AxlesCount")
+                        .HasColumnName("Truck_AxlesCount");
+
+                    b.Property<int>("LoadInKg")
+                        .HasColumnName("Truck_LoadInKg");
+
+                    b.Property<int>("SeatsCount")
+                        .HasColumnName("Truck_SeatsCount");
+
+                    b.HasDiscriminator().HasValue("Truck");
+                });
+
+            modelBuilder.Entity("CarShop.Data.Models.Ads.Ad", b =>
+                {
+                    b.HasOne("CarShop.Data.Models.ApplicationUser", "Dealer")
+                        .WithMany("Ads")
+                        .HasForeignKey("DealerId");
+
+                    b.HasOne("CarShop.Data.Models.Vehicles.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

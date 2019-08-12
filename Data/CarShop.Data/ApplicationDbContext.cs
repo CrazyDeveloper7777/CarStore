@@ -8,7 +8,9 @@
 
     using CarShop.Data.Common.Models;
     using CarShop.Data.Models;
+    using CarShop.Data.Models.Ads;
 
+    using CarShop.Data.Models.Vehicles;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +27,20 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Ad> Ads { get; set; }
+
+        public DbSet<VipAd> VipAds { get; set; }
+
+        public DbSet<TopAd> TopAds { get; set; }
+
+        public DbSet<Car> Cars { get; set; }
+
+        public DbSet<Truck> Trucks { get; set; }
+
+        public DbSet<Bus> Buses { get; set; }
+
+        public DbSet<Motorcycle> Motorcycles { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -50,6 +66,8 @@
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
+            builder.Entity<Vehicle>().ToTable("Vehicles");
+
             ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);
@@ -58,7 +76,9 @@
 
             // Set global query filter for not deleted entities only
             var deletableEntityTypes = entityTypes
-                .Where(et => et.ClrType != null && typeof(IDeletableEntity).IsAssignableFrom(et.ClrType));
+                .Where(et => et.ClrType != null && typeof(IDeletableEntity).IsAssignableFrom(et.ClrType) &&
+                              et.ClrType.BaseType != typeof(Vehicle) && et.ClrType.BaseType != typeof(LargerVehicle) &&
+                              et.ClrType.BaseType != typeof(Ad));
             foreach (var deletableEntityType in deletableEntityTypes)
             {
                 var method = SetIsDeletedQueryFilterMethod.MakeGenericMethod(deletableEntityType.ClrType);

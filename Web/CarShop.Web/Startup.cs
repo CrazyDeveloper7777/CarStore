@@ -4,8 +4,10 @@
 
     using CarShop.Data;
     using CarShop.Data.Common;
+    using CarShop.Data.Common.Models;
     using CarShop.Data.Common.Repositories;
     using CarShop.Data.Models;
+    using CarShop.Data.Models.Vehicles;
     using CarShop.Data.Repositories;
     using CarShop.Data.Seeding;
     using CarShop.Services.Data;
@@ -114,6 +116,7 @@
 
                 if (env.IsDevelopment())
                 {
+                    dbContext.Database.EnsureDeleted();
                     dbContext.Database.Migrate();
                 }
 
