@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using CarShop.Data.Models.Ads;
     using CarShop.Data.Models.Vehicles;
@@ -30,13 +31,6 @@
                               new UserSeeder(),
                               new SettingsSeeder(),
                           };
-            await dbContext.Trucks.AddAsync(new Truck());
-            await dbContext.Buses.AddAsync(new Bus());
-            await dbContext.Motorcycles.AddAsync(new Motorcycle());
-            await dbContext.Cars.AddAsync(new Car());
-            await dbContext.Ads.AddAsync(new Ad());
-            await dbContext.VipAds.AddAsync(new VipAd());
-            await dbContext.TopAds.AddAsync(new TopAd());
 
             foreach (var seeder in seeders)
             {
