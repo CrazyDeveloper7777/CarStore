@@ -13,6 +13,7 @@
     using CarShop.Services.Data;
     using CarShop.Services.Mapping;
     using CarShop.Services.Messaging;
+    using CarShop.Services.Users;
     using CarShop.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
@@ -87,14 +88,14 @@
                     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 });
 
-            services
-                .Configure<CookiePolicyOptions>(options =>
-                {
-                    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                    options.CheckConsentNeeded = context => true;
-                    options.MinimumSameSitePolicy = SameSiteMode.Lax;
-                    options.ConsentCookie.Name = ".AspNetCore.ConsentCookie";
-                });
+            //services
+            //    .Configure<CookiePolicyOptions>(options =>
+            //    {
+            //        // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            //        options.CheckConsentNeeded = context => true;
+            //        options.MinimumSameSitePolicy = SameSiteMode.Lax;
+            //        options.ConsentCookie.Name = ".AspNetCore.ConsentCookie";
+            //    });
 
             services.AddSingleton(this.configuration);
 
@@ -111,6 +112,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISmsSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IUsersService, UsersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

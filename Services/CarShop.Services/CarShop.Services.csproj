@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Web\CarShop.Web.ViewModels\CarShop.Web.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

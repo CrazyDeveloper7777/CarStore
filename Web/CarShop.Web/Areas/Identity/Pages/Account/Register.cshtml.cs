@@ -3,9 +3,9 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-
+    using CarShop.Common.Attributes;
     using CarShop.Data.Models;
-
+    using CarShop.Services.Users;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
@@ -47,7 +47,7 @@
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? this.Url.Content("~/");
+            returnUrl = $"/Users/ConfirmAccount";
             if (this.ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = this.Input.Username, Email = this.Input.Email };
@@ -55,20 +55,7 @@
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User created a new account with password.");
-
-                    var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = this.Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { userId = user.Id, code = code },
-                        protocol: this.Request.Scheme);
-
-                    await this.emailSender.SendEmailAsync(
-                        this.Input.Email,
-                        "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    await this.signInManager.SignInAsync(user, isPersistent: false);
+                    this.TempData["Username"] = this.Input.Username;
                     return this.LocalRedirect(returnUrl);
                 }
 
@@ -83,11 +70,11 @@
         }
 
         public class InputModel
-        {
+        {            
             [Required]
+            [UniqueUsername]
             public string Username { get; set; }
 
-            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }

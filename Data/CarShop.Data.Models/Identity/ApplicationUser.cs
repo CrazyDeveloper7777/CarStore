@@ -37,6 +37,10 @@ namespace CarShop.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }

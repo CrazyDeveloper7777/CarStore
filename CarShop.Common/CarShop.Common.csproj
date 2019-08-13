@@ -18,4 +18,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Services\CarShop.Services\CarShop.Services.csproj" />
+  </ItemGroup>
+
 </Project>

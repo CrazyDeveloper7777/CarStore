@@ -2,6 +2,7 @@
     background-color: gainsboro;
 }
 
-label{
-    text-align: center;
+#dropdown-menu{
+    margin-top: 10px;
+    margin-left: 10px
 }
