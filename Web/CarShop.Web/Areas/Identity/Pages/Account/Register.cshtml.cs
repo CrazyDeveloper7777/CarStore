@@ -47,7 +47,7 @@
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = $"/Users/ConfirmAccount";
+            returnUrl = "/Identity/Account/Login";
             if (this.ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = this.Input.Username, Email = this.Input.Email };
@@ -55,8 +55,9 @@
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User created a new account with password.");
-                    this.TempData["Username"] = this.Input.Username;
-                    return this.LocalRedirect(returnUrl);
+
+                    var message = "You have successfully registered.";
+                    return this.LocalRedirect(returnUrl + "?message=" + message);
                 }
 
                 foreach (var error in result.Errors)
@@ -70,12 +71,14 @@
         }
 
         public class InputModel
-        {            
+        {
             [Required]
             [UniqueUsername]
             public string Username { get; set; }
 
+            [Required]
             [EmailAddress]
+            [UniqueEmail]
             [Display(Name = "Email")]
             public string Email { get; set; }
 

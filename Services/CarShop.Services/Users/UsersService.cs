@@ -6,22 +6,30 @@ using System.Threading;
 using System.Threading.Tasks;
 using CarShop.Data.Common.Repositories;
 using CarShop.Data.Models;
-using CarShop.Web.ViewModels.Users;
 
 namespace CarShop.Services.Users
 {
     public class UsersService : IUsersService
     {
-        private readonly IDeletableEntityRepository<ApplicationUser> usersService;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
         public UsersService(IDeletableEntityRepository<ApplicationUser> usersService)
         {
-            this.usersService = usersService;
+            this.usersRepository = usersService;
         }
 
-        public bool CheckForUniqueUsernameAsync(string userName)
+        public async Task<bool> CheckForUniqueEmail(string email)
         {
-            if (this.usersService.All().Any(u => u.UserName == userName))
+
+            if (this.usersRepository.AllWithDeleted().Any(u => u.Email == email && u.IsDeleted))
+            {
+                var user = this.usersRepository.AllWithDeleted().FirstOrDefault(u => u.Email == email);
+                this.usersRepository.HardDelete(user);
+                await this.usersRepository.SaveChangesAsync();
+
+                return true;
+            }
+            else if (this.usersRepository.All().Any(u => u.Email == email))
             {
                 return false;
             }
@@ -29,16 +37,54 @@ namespace CarShop.Services.Users
             return true;
         }
 
-        public async Task PushDataOfConfirmationAsync(ConfirmAccountViewModel model, string userName)
+        public async Task<bool> CheckForUniqueUsernameAsync(string userName)
         {
-            var user = this.usersService.All().FirstOrDefault(u => u.UserName == userName);
+            if (this.usersRepository.AllWithDeleted().Any(u => u.UserName == userName && u.IsDeleted))
+            {
+                var user = this.usersRepository.AllWithDeleted().FirstOrDefault(u => u.UserName == userName);
+                this.usersRepository.HardDelete(user);
+                await this.usersRepository.SaveChangesAsync();
 
-            user.Email = model.Email;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
+                return true;
+            }
+            else if (this.usersRepository.All().Any(u => u.UserName == userName))
+            {
+                return false;
+            }
 
-            this.usersService.Update(user);
-            await this.usersService.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task DeleteUserAsync(ApplicationUser user)
+        {
+            this.usersRepository.Delete(user);
+            await this.usersRepository.SaveChangesAsync();
+        }
+
+        public async Task PersistChangedPersonalData(ApplicationUser user, string firstName, string lastName, string country, string city)
+        {
+            if(firstName != null)
+            {
+                user.FirstName = firstName;
+            }
+
+            if (lastName != null)
+            {
+                user.LastName = lastName;
+            }
+
+            if (country != null)
+            {
+                user.Country = country;
+            }
+
+            if (city != null)
+            {
+                user.City = city;
+            }
+
+            this.usersRepository.Update(user);
+            await this.usersRepository.SaveChangesAsync();
         }
     }
 }

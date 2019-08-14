@@ -63,16 +63,17 @@
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await this.signInManager.PasswordSignInAsync(this.Input.Username, this.Input.Password, this.Input.RememberMe, lockoutOnFailure: true);
+                var result = await this.signInManager.PasswordSignInAsync(this.Input.Username, this.Input.Password, isPersistent: true, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User logged in.");
-                    return this.LocalRedirect(returnUrl);
+                    var message = "You have successfully logged in.";
+                    return this.LocalRedirect($"/Home/Index?message={message}");
                 }
 
                 if (result.RequiresTwoFactor)
                 {
-                    return this.RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = this.Input.RememberMe });
+                    return this.RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl });
                 }
 
                 if (result.IsLockedOut)
@@ -83,7 +84,8 @@
                 else
                 {
                     this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return this.Page();
+                    var message = "Error: Invalid username or password.";
+                    return this.Redirect($"/Identity/Account/Login?message={message}");
                 }
             }
 
@@ -102,9 +104,6 @@
             [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
-
-            [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
         }
     }
 }

@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
 
     using CarShop.Data.Models;
-
+    using CarShop.Services.Users;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -18,15 +18,18 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ILogger<DeletePersonalDataModel> logger;
+        private readonly IUsersService usersService;
 
         public DeletePersonalDataModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            IUsersService usersService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
+            this.usersService = usersService;
         }
 
         [BindProperty]
@@ -64,16 +67,8 @@
                 }
             }
 
-            var result = await this.userManager.DeleteAsync(user);
-            var userId = await this.userManager.GetUserIdAsync(user);
-            if (!result.Succeeded)
-            {
-                throw new InvalidOperationException($"Unexpected error occurred deleting user with ID '{userId}'.");
-            }
-
+            await this.usersService.DeleteUserAsync(user);
             await this.signInManager.SignOutAsync();
-
-            this.logger.LogInformation("User with ID '{UserId}' deleted themselves.", userId);
 
             return this.Redirect("~/");
         }

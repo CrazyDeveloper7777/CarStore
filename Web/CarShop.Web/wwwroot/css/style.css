@@ -6,3 +6,12 @@
     margin-top: 10px;
     margin-left: 10px
 }
+
+a.settings-link.active {
+    background-color: #343A40 !important;
+}
+
+.verticalLine {
+    border-left: 4px solid #343A40;
+    margin-right: 15px;
+}

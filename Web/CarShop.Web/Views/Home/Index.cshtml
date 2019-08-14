@@ -1,18 +1,20 @@
 ﻿@{
     this.ViewData["Title"] = "Home Page";
+    
 }
 
-    <div class="text-center">
-        <h1 class="m-5 display-4 font-weight-bold">Welcome to CarShop!</h1>
-        <hr class="bg-dark w-50 mx-auto" style="height: 2px" />
-        @if (this.User.Identity.IsAuthenticated)
-        {
-            <h3 class="text-white"><a class="text-dark" asp-controller="Ads" asp-action="Search"><strong>Explore</strong></a> <span class="text-dark">cars you may like some.</span></h3>
-            <h3 class="text-white"><span class="text-dark">Or you can have some</span> <a class="text-dark" asp-controller="Ads" asp-action="Search"><strong>for sale.</strong></a></h3>
-        }
-        else
-        {
-            <h3 class="text-white"><a class="text-dark" asp-area="Identity" asp-page="/Account/Register"><strong>Register</strong></a> <span class="text-dark">if you don't have account.</span></h3>
-            <h3 class="text-white"><span class="text-dark">If you have and want to become a dealer</span> <a class="text-dark" asp-area="Identity" asp-page="/Account/Login"><strong>Login</strong></a></h3>
-        }
-    </div>
+
+<div class="text-center">
+    <h1 class="m-5 display-4 font-weight-bold">Welcome to CarShop!</h1>
+    <hr class="bg-dark w-50 mx-auto" style="height: 2px" />
+    @if (this.User.Identity.IsAuthenticated)
+    {
+        <h3 class="text-white"><a class="text-dark" asp-controller="Ads" asp-action="Search"><strong>Explore</strong></a> <span class="text-dark">cars you may like some.</span></h3>
+        <h3 class="text-white"><span class="text-dark">Or you can have some</span> <a class="text-dark" asp-controller="Ads" asp-action="Search"><strong>for sale.</strong></a></h3>
+    }
+    else
+    {
+        <h3 class="text-white"><a class="text-dark" asp-area="Identity" asp-page="/Account/Register"><strong>Register</strong></a> <span class="text-dark">if you don't have account.</span></h3>
+        <h3 class="text-white"><span class="text-dark">If you have and want to become a dealer</span> <a class="text-dark" asp-area="Identity" asp-page="/Account/Login"><strong>Login</strong></a></h3>
+    }
+</div>

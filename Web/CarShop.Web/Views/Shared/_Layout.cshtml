@@ -65,6 +65,12 @@
 
                 var path = this.Url.ActionContext.HttpContext.Request.Path.ToString();
             }
+
+            @if (this.Context.Request.Query["message"].ToString() != "")
+            {
+                var message = this.Context.Request.Query["message"].ToString();
+                <partial name="Partials/_AlertMessage" for="@message" />
+            }
             @if (paths.Contains(path))
             {
                 <partial name="Partials/_MainCategoryPartial" />

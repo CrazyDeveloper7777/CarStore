@@ -32,14 +32,9 @@
         {
             await this.signInManager.SignOutAsync();
             this.logger.LogInformation("User logged out.");
-            if (returnUrl != null)
-            {
-                return this.LocalRedirect(returnUrl);
-            }
-            else
-            {
-                return this.Page();
-            }
+
+            var message = "You have succesfully logout.";
+            return this.LocalRedirect($"/Home/Index/?message={message}");
         }
     }
 }

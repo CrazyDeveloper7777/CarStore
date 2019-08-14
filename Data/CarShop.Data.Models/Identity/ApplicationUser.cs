@@ -41,6 +41,10 @@ namespace CarShop.Data.Models
 
         public string LastName { get; set; }
 
+        public string Country { get; set; }
+
+        public string City { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
