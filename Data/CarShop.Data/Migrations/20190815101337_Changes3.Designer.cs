@@ -4,14 +4,16 @@ using CarShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190815101337_Changes3")]
+    partial class Changes3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,12 +42,6 @@ namespace CarShop.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired();
-
-                    b.Property<string>("PopulatedPlace")
-                        .IsRequired();
-
-                    b.Property<string>("Region")
                         .IsRequired();
 
                     b.Property<string>("VehicleType")
@@ -206,8 +202,6 @@ namespace CarShop.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<int>("Currency");
-
                     b.Property<DateTime?>("DeletedOn");
 
                     b.Property<string>("Description");
@@ -228,9 +222,15 @@ namespace CarShop.Data.Migrations
 
                     b.Property<string>("OwnerId");
 
+                    b.Property<string>("PopulatedPlace")
+                        .IsRequired();
+
                     b.Property<int>("Power");
 
-                    b.Property<int>("Price");
+                    b.Property<decimal>("Price");
+
+                    b.Property<string>("Region")
+                        .IsRequired();
 
                     b.Property<int>("Run");
 

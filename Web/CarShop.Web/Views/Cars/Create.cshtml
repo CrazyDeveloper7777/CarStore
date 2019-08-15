@@ -1,1 +1,107 @@
-﻿
+﻿@using CarShop.Web.ViewModels.Cars
+@using CarShop.Data.Models.Vehicles
+@using CarShop.Data.Models.Vehicles.Enums.Cars
+@using CarShop.Data.Models.Vehicles.Enums.Vehicle
+@using CarShop.Data.Models.Ads.Enums
+@model CreateCarViewModel
+
+@{
+    var message = "Fields in <span class=\"text-danger font-weight-bold\">RED</span> are required.";
+}
+
+<h1 class="text-center font-weight-bold">Create car</h1>
+<hr class="bg-dark w-50 mx-auto" style="height: 2px" />
+<div class="w-50 text-center mx-auto alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    @Html.Raw(message)
+</div>
+<div class="container-fluid">
+    <form asp-controller="Cars" asp-action="Create" method="post" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center">
+        <div class="form-group col-3 m-1">
+            <label asp-for="Brand" class="text-danger"></label>
+            <input asp-for="Brand" placeholder="Brand..." class="form-control" />
+            <span asp-validation-for="Brand"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Model" class="text-danger"></label>
+            <input asp-for="Model" placeholder="Model..." class="form-control" />
+            <span asp-validation-for="Model"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="EngineType" class="text-danger"></label>
+            <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
+                <option selected="selected" disabled>Select engine type</option>
+            </select>
+            <span asp-validation-for="EngineType"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="State"></label>
+            <select asp-for="State" asp-items="Html.GetEnumSelectList<VehicleState>()" class="form-control">
+                <option selected="selected">All</option>
+            </select>
+            <span asp-validation-for="State"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Power" class="text-danger"></label>
+            <input asp-for="Power" placeholder="Power in horse power..." class="form-control" />
+            <span asp-validation-for="Power"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Transmission"></label>
+            <select asp-for="Transmission" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
+                <option selected="selected">All</option>
+            </select>
+            <span asp-validation-for="Transmission"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Price" class="text-danger"></label>
+            <input asp-for="Price" placeholder="Price..." class="form-control" />
+            <span asp-validation-for="Price"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Currency" class="text-danger"></label>
+            <select asp-for="Currency" asp-items="Html.GetEnumSelectList<CurrencyType>()" class="form-control">
+                <option selected="selected" disabled>Select currency</option>
+            </select>
+            <span asp-validation-for="Currency"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Run" class="text-danger"></label>
+            <input asp-for="Run" placeholder="Run in kilometers..." class="form-control" />
+            <span asp-validation-for="Run"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Month" class="text-danger"></label>
+            <select asp-for="Month" asp-items="Html.GetEnumSelectList<Months>()" class="form-control">
+                <option selected="selected" disabled>Select month</option>
+            </select>
+            <span asp-validation-for="Month"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Year" class="text-danger"></label>
+            <select asp-for="Year" class="form-control">
+                <option selected="selected" disabled>Select year</option>
+                @for (int i = 1930; i <= DateTime.Now.Year; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+            <span asp-validation-for="Year"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Color"></label>
+            <input asp-for="Color" placeholder="Color..." class="form-control" />
+            <span asp-validation-for="Color"></span>
+        </div>
+        <hr class="bg-dark mx-auto w-100" style="height: 2px" />
+        <div class="form-group col-12 m-1">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" placeholder="Description..." class="form-control"></textarea>
+            <span asp-validation-for="Description"></span>
+        </div>
+        <hr class="bg-dark mx-auto w-100" style="height: 2px" />
+        <div class="d-flex justify-content-center col-12 row mt-5">
+            <button type="submit" class="btn btn-dark text-white col-6">Create car</button>
+        </div>
+    </form>
+</div>

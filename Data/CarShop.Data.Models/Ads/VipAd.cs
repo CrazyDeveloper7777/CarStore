@@ -7,5 +7,6 @@ namespace CarShop.Data.Models.Ads
 {
     public class VipAd : Ad, IVipAd
     {
+        public string PhoneNumber2 { get; set; }
     }
 }

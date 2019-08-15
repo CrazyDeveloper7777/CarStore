@@ -42,6 +42,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Ads" asp-action="Create"><i class="fa fa-car"></i> Create ad</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Vehicles" asp-action="Create"><i class="fa fa-car"></i> Create vehicle</a>
+                            </li>
                         }
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Ads" asp-action="Search"><i class="fa fa-search"></i> Search ads</a>
@@ -61,6 +64,7 @@
                    "/Buses/Create",
                    "/Motorcycles/Create",
                    "/Trucks/Create",
+                   "/Vehicles/Create"
                };
 
                 var path = this.Url.ActionContext.HttpContext.Request.Path.ToString();

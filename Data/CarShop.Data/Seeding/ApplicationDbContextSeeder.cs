@@ -11,6 +11,7 @@
 
     public class ApplicationDbContextSeeder : ISeeder
     {
+
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             if (dbContext == null)
@@ -30,7 +31,7 @@
                               new RolesSeeder(),
                               new UserSeeder(),
                               new SettingsSeeder(),
-                          };
+                          };           
 
             foreach (var seeder in seeders)
             {

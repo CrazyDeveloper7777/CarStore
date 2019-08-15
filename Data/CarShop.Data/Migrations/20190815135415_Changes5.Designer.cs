@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190812100718_InitCreate")]
-    partial class InitCreate
+    [Migration("20190815135415_Changes5")]
+    partial class Changes5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -27,8 +27,6 @@ namespace CarShop.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("CreatedOn");
-
-                    b.Property<string>("Currency");
 
                     b.Property<string>("DealerId");
 
@@ -43,19 +41,23 @@ namespace CarShop.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired();
 
-                    b.Property<DateTime>("Validity");
+                    b.Property<string>("PopulatedPlace")
+                        .IsRequired();
 
-                    b.Property<string>("VehicleId");
+                    b.Property<string>("Region")
+                        .IsRequired();
+
+                    b.Property<string>("VehicleType")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
                     b.HasIndex("DealerId");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("VehicleId");
 
                     b.ToTable("Ads");
 
@@ -103,8 +105,12 @@ namespace CarShop.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("City");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<string>("Country");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -115,7 +121,11 @@ namespace CarShop.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FirstName");
+
                     b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -132,6 +142,10 @@ namespace CarShop.Data.Migrations
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("PhoneNumber2");
+
+                    b.Property<string>("PhoneNumber3");
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
@@ -187,34 +201,38 @@ namespace CarShop.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Brand");
+                    b.Property<string>("Brand")
+                        .IsRequired();
 
                     b.Property<string>("Color");
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<int>("Currency");
+
                     b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<string>("Description");
 
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<string>("EngineType");
+                    b.Property<int>("EngineType");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime>("ManufacturedOn");
 
-                    b.Property<string>("Model");
+                    b.Property<string>("Model")
+                        .IsRequired();
 
                     b.Property<DateTime?>("ModifiedOn");
 
-                    b.Property<string>("PopulatedPlace");
+                    b.Property<string>("OwnerId");
 
                     b.Property<int>("Power");
 
-                    b.Property<decimal>("Price");
-
-                    b.Property<string>("Region");
+                    b.Property<int>("Price");
 
                     b.Property<int>("Run");
 
@@ -225,6 +243,8 @@ namespace CarShop.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Vehicles");
 
@@ -321,12 +341,19 @@ namespace CarShop.Data.Migrations
                 {
                     b.HasBaseType("CarShop.Data.Models.Ads.Ad");
 
+                    b.Property<string>("PhoneNumber2");
+
+                    b.Property<string>("PhoneNumber3");
+
                     b.HasDiscriminator().HasValue("TopAd");
                 });
 
             modelBuilder.Entity("CarShop.Data.Models.Ads.VipAd", b =>
                 {
                     b.HasBaseType("CarShop.Data.Models.Ads.Ad");
+
+                    b.Property<string>("PhoneNumber2")
+                        .HasColumnName("VipAd_PhoneNumber2");
 
                     b.HasDiscriminator().HasValue("VipAd");
                 });
@@ -385,10 +412,13 @@ namespace CarShop.Data.Migrations
                     b.HasOne("CarShop.Data.Models.ApplicationUser", "Dealer")
                         .WithMany("Ads")
                         .HasForeignKey("DealerId");
+                });
 
-                    b.HasOne("CarShop.Data.Models.Vehicles.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId");
+            modelBuilder.Entity("CarShop.Data.Models.Vehicles.Vehicle", b =>
+                {
+                    b.HasOne("CarShop.Data.Models.ApplicationUser", "Owner")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("OwnerId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

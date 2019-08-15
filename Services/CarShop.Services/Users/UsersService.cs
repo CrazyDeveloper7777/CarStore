@@ -61,9 +61,16 @@ namespace CarShop.Services.Users
             await this.usersRepository.SaveChangesAsync();
         }
 
-        public async Task PersistChangedPersonalData(ApplicationUser user, string firstName, string lastName, string country, string city)
+        public async Task<string> GetUserIdByUsernameAsync(string userName)
         {
-            if(firstName != null)
+            var id = this.usersRepository.All().FirstOrDefault(u => u.UserName == userName).Id;
+
+            return id;
+        }
+
+        public async Task PersistChangedPersonalData(ApplicationUser user, string firstName, string lastName, string country, string city, string phone, string phone2, string phone3)
+        {
+            if (firstName != null)
             {
                 user.FirstName = firstName;
             }
@@ -82,6 +89,12 @@ namespace CarShop.Services.Users
             {
                 user.City = city;
             }
+
+            user.PhoneNumber = phone;
+
+            user.PhoneNumber2 = phone2;
+
+            user.PhoneNumber3 = phone3;
 
             this.usersRepository.Update(user);
             await this.usersRepository.SaveChangesAsync();

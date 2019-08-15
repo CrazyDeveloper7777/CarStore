@@ -1,4 +1,6 @@
-﻿namespace CarShop.Data.Models.Vehicles
+﻿using System.ComponentModel;
+
+namespace CarShop.Data.Models.Vehicles
 {
     public enum VehicleState
     {

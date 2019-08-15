@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-
+    using CarShop.Common.Attributes;
     using CarShop.Data.Models;
     using CarShop.Services.Users;
     using Microsoft.AspNetCore.Identity;
@@ -55,6 +55,7 @@
 
             var userName = await this.userManager.GetUserNameAsync(user);
             var email = await this.userManager.GetEmailAsync(user);
+            var phone = await this.userManager.GetPhoneNumberAsync(user);
 
             this.Username = userName;
             this.Email = email;
@@ -65,6 +66,9 @@
                 LastName = user.LastName,
                 City = user.City,
                 Country = user.Country,
+                PhoneNumber = phone,
+                PhoneNumber2 = user.PhoneNumber2,
+                PhoneNumber3 = user.PhoneNumber3,
             };
 
             return this.Page();
@@ -83,7 +87,7 @@
                 return this.NotFound($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
             }
 
-            await this.usersService.PersistChangedPersonalData(user, this.Input.FirstName, this.Input.LastName, this.Input.Country, this.Input.City);
+            await this.usersService.PersistChangedPersonalData(user, this.Input.FirstName, this.Input.LastName, this.Input.Country, this.Input.City, this.Input.PhoneNumber, this.Input.PhoneNumber2, this.Input.PhoneNumber3);
 
             await this.signInManager.RefreshSignInAsync(user);
             this.StatusMessage = "Your profile has been updated";
@@ -132,6 +136,15 @@
             public string Country { get; set; }
 
             public string City { get; set; }
+
+            [BGPhoneNumber]
+            public string PhoneNumber { get; set; }
+
+            [BGPhoneNumber]
+            public string PhoneNumber2 { get; set; }
+
+            [BGPhoneNumber]
+            public string PhoneNumber3 { get; set; }
         }
     }
 }

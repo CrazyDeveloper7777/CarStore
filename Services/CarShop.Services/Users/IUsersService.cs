@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 {
     public interface IUsersService
     {
+        Task<string> GetUserIdByUsernameAsync(string userName);
 
         Task<bool> CheckForUniqueUsernameAsync(string userName);
 
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
         Task DeleteUserAsync(ApplicationUser user);
 
-        Task PersistChangedPersonalData(ApplicationUser user, string firstName, string lastName, string country, string city);
+        Task PersistChangedPersonalData(ApplicationUser user, string firstName, string lastName, string country, string city, string phone, string phone2, string phone3);
 
     }
 }

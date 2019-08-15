@@ -1,4 +1,5 @@
 ﻿
+using CarShop.Data.Models.Vehicles.Enums.Vehicle;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,11 +12,11 @@ namespace CarShop.Data.Models.Vehicles
 
         string OwnerId { get; set; }
 
-        string EngineType { get; set; }
+        EngineType EngineType { get; set; }
 
         int Power { get; set; }
 
-        decimal Price { get; set; }
+        int Price { get; set; }
 
         DateTime ManufacturedOn { get; set; }
 
@@ -31,8 +32,6 @@ namespace CarShop.Data.Models.Vehicles
 
         TransmissionType Transmission { get; set; }
 
-        string Region { get; set; }
-
-        string PopulatedPlace { get; set; }
+        string Description { get; set; }
     }
 }

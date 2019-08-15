@@ -3,7 +3,7 @@ namespace CarShop.Data.Models
 {
     using System;
     using System.Collections.Generic;
-
+    using System.ComponentModel.DataAnnotations;
     using CarShop.Data.Common.Models;
     using CarShop.Data.Models.Ads;
     using CarShop.Data.Models.Vehicles;
@@ -44,6 +44,12 @@ namespace CarShop.Data.Models
         public string Country { get; set; }
 
         public string City { get; set; }
+
+        [Phone]
+        public string PhoneNumber2 { get; set; }
+
+        [Phone]
+        public string PhoneNumber3 { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

@@ -10,12 +10,13 @@
     using CarShop.Data.Models.Vehicles;
     using CarShop.Data.Repositories;
     using CarShop.Data.Seeding;
+    using CarShop.Services.Cars;
     using CarShop.Services.Data;
     using CarShop.Services.Mapping;
     using CarShop.Services.Messaging;
     using CarShop.Services.Users;
     using CarShop.Web.ViewModels;
-
+    using CarShop.Web.ViewModels.Cars;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -113,12 +114,15 @@
             services.AddTransient<ISmsSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<ICarsService, CarsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+            AutoMapperConfig.RegisterMappings(
+                typeof(ErrorViewModel).GetTypeInfo().Assembly,
+                typeof(CreateCarViewModel).GetTypeInfo().Assembly);
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())

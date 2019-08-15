@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190812144010_InitCreate")]
-    partial class InitCreate
+    [Migration("20190815131532_Changes4")]
+    partial class Changes4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,9 +27,6 @@ namespace CarShop.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("CreatedOn");
-
-                    b.Property<string>("Currency")
-                        .IsRequired();
 
                     b.Property<string>("DealerId");
 
@@ -47,7 +44,14 @@ namespace CarShop.Data.Migrations
                     b.Property<string>("PhoneNumber")
                         .IsRequired();
 
-                    b.Property<DateTime>("Validity");
+                    b.Property<string>("PopulatedPlace")
+                        .IsRequired();
+
+                    b.Property<string>("Region")
+                        .IsRequired();
+
+                    b.Property<string>("VehicleType")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -101,8 +105,12 @@ namespace CarShop.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("City");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<string>("Country");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -113,7 +121,11 @@ namespace CarShop.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FirstName");
+
                     b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -130,6 +142,10 @@ namespace CarShop.Data.Migrations
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("PhoneNumber2");
+
+                    b.Property<string>("PhoneNumber3");
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
@@ -192,13 +208,16 @@ namespace CarShop.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<int>("Currency");
+
                     b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<string>("Description");
 
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<string>("EngineType")
-                        .IsRequired();
+                    b.Property<int>("EngineType");
 
                     b.Property<bool>("IsDeleted");
 
@@ -211,15 +230,9 @@ namespace CarShop.Data.Migrations
 
                     b.Property<string>("OwnerId");
 
-                    b.Property<string>("PopulatedPlace")
-                        .IsRequired();
-
                     b.Property<int>("Power");
 
                     b.Property<decimal>("Price");
-
-                    b.Property<string>("Region")
-                        .IsRequired();
 
                     b.Property<int>("Run");
 
@@ -328,12 +341,19 @@ namespace CarShop.Data.Migrations
                 {
                     b.HasBaseType("CarShop.Data.Models.Ads.Ad");
 
+                    b.Property<string>("PhoneNumber2");
+
+                    b.Property<string>("PhoneNumber3");
+
                     b.HasDiscriminator().HasValue("TopAd");
                 });
 
             modelBuilder.Entity("CarShop.Data.Models.Ads.VipAd", b =>
                 {
                     b.HasBaseType("CarShop.Data.Models.Ads.Ad");
+
+                    b.Property<string>("PhoneNumber2")
+                        .HasColumnName("VipAd_PhoneNumber2");
 
                     b.HasDiscriminator().HasValue("VipAd");
                 });

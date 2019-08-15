@@ -20,7 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\CarShop.Services.Mapping\CarShop.Services.Mapping.csproj" />
     <ProjectReference Include="..\CarShop.Data.Common\CarShop.Data.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Vehicles\Enums\Buses\" />
+    <Folder Include="Vehicles\Enums\Trucks\" />
   </ItemGroup>
   
 </Project>

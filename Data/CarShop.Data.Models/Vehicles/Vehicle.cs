@@ -1,7 +1,8 @@
 ﻿namespace CarShop.Data.Models.Vehicles
 {
     using CarShop.Data.Common.Models;
-    
+    using CarShop.Data.Models.Ads.Enums;
+    using CarShop.Data.Models.Vehicles.Enums.Vehicle;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -13,9 +14,14 @@
 
         public string OwnerId { get; set; }
 
+        public string Description { get; set; }
+
         [Required]
-        [Range(typeof(decimal), "0", "9999999")]
-        public decimal Price { get; set; }
+        [Range(0, 9999999)]
+        public int Price { get; set; }
+
+        [Required]
+        public CurrencyType Currency { get; set; }
 
         [Required]
         public string Brand { get; set; }
@@ -24,7 +30,7 @@
         public string Model { get; set; }
 
         [Required]
-        public string EngineType { get; set; }
+        public EngineType EngineType { get; set; }
 
         public int Power { get; set; }
 
@@ -37,12 +43,6 @@
         public VehicleState State { get; set; }
 
         public TransmissionType Transmission { get; set; }
-
-        [Required]
-        public string Region { get; set; }
-
-        [Required]
-        public string PopulatedPlace { get; set; }
 
         [Required]
         public DateTime ManufacturedOn { get; set; }

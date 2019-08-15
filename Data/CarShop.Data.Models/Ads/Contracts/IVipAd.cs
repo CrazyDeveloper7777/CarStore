@@ -6,6 +6,6 @@ namespace CarShop.Data.Models.Ads.Contracts
 {
     public interface IVipAd
     {
-
+        string PhoneNumber2 { get; set; }
     }
 }
