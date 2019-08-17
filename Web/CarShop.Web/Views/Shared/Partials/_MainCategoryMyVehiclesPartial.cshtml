@@ -1,0 +1,12 @@
+﻿<div class="dropdown d-flex justify-content-center mb-3">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Choose vehicle type
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" asp-controller="Vehicles" asp-action="MyVehicles">All vehicles</a>
+        <a class="dropdown-item" asp-controller="Cars" asp-action="MyCars">Cars</a>
+        <a class="dropdown-item" asp-controller="Trucks" asp-action="MyTrucks">Trucks</a>
+        <a class="dropdown-item" asp-controller="Buses" asp-action="MyBuses">Buses</a>
+        <a class="dropdown-item" asp-controller="Motorcycles" asp-action="MyMotorcycles">Motorcycles</a>
+    </div>
+</div>

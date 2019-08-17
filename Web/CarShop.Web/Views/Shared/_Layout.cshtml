@@ -42,9 +42,6 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Ads" asp-action="Create"><i class="fa fa-car"></i> Create ad</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Vehicles" asp-action="Create"><i class="fa fa-car"></i> Create vehicle</a>
-                            </li>
                         }
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Ads" asp-action="Search"><i class="fa fa-search"></i> Search ads</a>
@@ -57,27 +54,10 @@
 
     <div>
         <main role="main" class="pb-3 bg-carshop">
-            @{ var paths = new string[] {
-                   "/Ads/Create",
-                   "/Ads/Search",
-                   "/Cars/Create",
-                   "/Buses/Create",
-                   "/Motorcycles/Create",
-                   "/Trucks/Create",
-                   "/Vehicles/Create"
-               };
-
-                var path = this.Url.ActionContext.HttpContext.Request.Path.ToString();
-            }
-
             @if (this.Context.Request.Query["message"].ToString() != "")
             {
                 var message = this.Context.Request.Query["message"].ToString();
                 <partial name="Partials/_AlertMessage" for="@message" />
-            }
-            @if (paths.Contains(path))
-            {
-                <partial name="Partials/_MainCategoryPartial" />
             }
             @this.RenderBody()
         </main>

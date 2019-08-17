@@ -1,4 +1,5 @@
-﻿using CarShop.Web.ViewModels.Cars;
+﻿using CarShop.Data.Models.Vehicles;
+using CarShop.Web.ViewModels.Cars;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,7 @@ namespace CarShop.Services.Cars
     public interface ICarsService
     {
         Task CreateAsync(CreateCarViewModel model);
+
+        Task<ICollection<Car>> GetAllCarsByUserId(string userId);
     }
 }

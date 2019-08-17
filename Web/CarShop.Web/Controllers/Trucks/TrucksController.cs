@@ -14,5 +14,10 @@ namespace CarShop.Web.Controllers
         {
             return this.View();
         }
+
+        public IActionResult MyTrucks()
+        {
+            return this.View();
+        }
     }
 }

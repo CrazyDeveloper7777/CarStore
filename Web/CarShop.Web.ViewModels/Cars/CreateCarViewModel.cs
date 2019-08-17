@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CarShop.Data.Models.Ads.Enums;
+using CarShop.Data.Models.Images;
 using CarShop.Data.Models.Vehicles;
 using CarShop.Data.Models.Vehicles.Enums.Vehicle;
 using CarShop.Services.Mapping;
@@ -35,6 +36,8 @@ namespace CarShop.Web.ViewModels.Cars
         [Display(Name = "Power *")]
         public int Power { get; set; }
 
+        [Required]
+        [Display(Name = "Color *")]
         public string Color { get; set; }
 
         [Required]
@@ -42,8 +45,12 @@ namespace CarShop.Web.ViewModels.Cars
         [Display(Name = "Run *")]
         public int Run { get; set; }
 
+        [Required]
+        [Display(Name = "State *")]
         public VehicleState State { get; set; }
 
+        [Required]
+        [Display(Name = "Transmission *")]
         public TransmissionType Transmission { get; set; }
 
         [Required]

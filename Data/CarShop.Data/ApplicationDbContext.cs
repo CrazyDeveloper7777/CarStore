@@ -9,7 +9,7 @@
     using CarShop.Data.Common.Models;
     using CarShop.Data.Models;
     using CarShop.Data.Models.Ads;
-
+    using CarShop.Data.Models.Images;
     using CarShop.Data.Models.Vehicles;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
@@ -41,6 +41,8 @@
         public DbSet<Bus> Buses { get; set; }
 
         public DbSet<Motorcycle> Motorcycles { get; set; }
+
+        public DbSet<Image> Images { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -77,8 +79,10 @@
             // Set global query filter for not deleted entities only
             var deletableEntityTypes = entityTypes
                 .Where(et => et.ClrType != null && typeof(IDeletableEntity).IsAssignableFrom(et.ClrType) &&
-                              et.ClrType.BaseType != typeof(Vehicle) && et.ClrType.BaseType != typeof(LargerVehicle) &&
-                              et.ClrType.BaseType != typeof(Ad));
+                              et.ClrType.BaseType != typeof(Vehicle) && 
+                              et.ClrType.BaseType != typeof(LargerVehicle) &&
+                              et.ClrType.BaseType != typeof(Ad) &&
+                              et.ClrType.BaseType != typeof(Image));
             foreach (var deletableEntityType in deletableEntityTypes)
             {
                 var method = SetIsDeletedQueryFilterMethod.MakeGenericMethod(deletableEntityType.ClrType);
@@ -104,6 +108,15 @@
                 .HasMany(dealer => dealer.Ads)
                 .WithOne(ad => ad.Dealer)
                 .HasForeignKey(ad => ad.DealerId);
+            });
+
+            builder.Entity<Vehicle>(entity =>
+            {
+                entity
+                .HasMany(v => v.Images)
+                .WithOne(i => i.Vehicle)
+                .HasForeignKey(i => i.VehicleId)
+                .OnDelete(DeleteBehavior.Restrict);
             });
         }
 

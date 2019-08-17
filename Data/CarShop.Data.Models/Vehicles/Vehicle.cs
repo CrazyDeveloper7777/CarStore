@@ -2,6 +2,7 @@
 {
     using CarShop.Data.Common.Models;
     using CarShop.Data.Models.Ads.Enums;
+    using CarShop.Data.Models.Images;
     using CarShop.Data.Models.Vehicles.Enums.Vehicle;
     using System;
     using System.Collections.Generic;
@@ -13,8 +14,6 @@
         public ApplicationUser Owner { get; set; }
 
         public string OwnerId { get; set; }
-
-        public string Description { get; set; }
 
         [Required]
         [Range(0, 9999999)]
@@ -32,19 +31,29 @@
         [Required]
         public EngineType EngineType { get; set; }
 
+        [Required]
         public int Power { get; set; }
 
+        [Required]
         public string Color { get; set; }
 
         [Required]
         [Range(typeof(decimal), "0", "9999999")]
         public int Run { get; set; }
 
+        [Required]
         public VehicleState State { get; set; }
 
+        [Required]
         public TransmissionType Transmission { get; set; }
 
         [Required]
         public DateTime ManufacturedOn { get; set; }
+
+        public string Description { get; set; }
+
+        public BaseImage BaseImage { get; set; }
+
+        public ICollection<Image> Images { get; set; }
     }
 }

@@ -9,8 +9,9 @@
     var message = "Fields in <span class=\"text-danger font-weight-bold\">RED</span> are required.";
 }
 
-<h1 class="text-center font-weight-bold">Create car</h1>
-<hr class="bg-dark w-50 mx-auto" style="height: 2px" />
+<h1 class="text-center font-weight-bold m-4">Welcome to create car page.</h1>
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+<partial name="Partials/_MainCategoryCreateVehiclePartial" />
 <div class="w-50 text-center mx-auto alert alert-info alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     @Html.Raw(message)
@@ -35,7 +36,7 @@
             <span asp-validation-for="EngineType"></span>
         </div>
         <div class="form-group col-3 m-1">
-            <label asp-for="State"></label>
+            <label asp-for="State" class="text-danger"></label>
             <select asp-for="State" asp-items="Html.GetEnumSelectList<VehicleState>()" class="form-control">
                 <option selected="selected">All</option>
             </select>
@@ -47,7 +48,7 @@
             <span asp-validation-for="Power"></span>
         </div>
         <div class="form-group col-3 m-1">
-            <label asp-for="Transmission"></label>
+            <label asp-for="Transmission" class="text-danger"></label>
             <select asp-for="Transmission" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
                 <option selected="selected">All</option>
             </select>
@@ -89,7 +90,7 @@
             <span asp-validation-for="Year"></span>
         </div>
         <div class="form-group col-3 m-1">
-            <label asp-for="Color"></label>
+            <label asp-for="Color" class="text-danger"></label>
             <input asp-for="Color" placeholder="Color..." class="form-control" />
             <span asp-validation-for="Color"></span>
         </div>

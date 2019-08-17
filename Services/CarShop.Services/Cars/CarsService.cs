@@ -25,5 +25,13 @@ namespace CarShop.Services.Cars
             await this.carsRepository.AddAsync(car);
             await this.carsRepository.SaveChangesAsync();
         }
+
+        public async Task<ICollection<Car>> GetAllCarsByUserId(string userId)
+        {
+            var cars = this.carsRepository.All().Where(c => c.OwnerId == userId).ToList();
+
+
+            return cars;
+        }
     }
 }
