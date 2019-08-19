@@ -5,12 +5,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using CarShop.Data.Common.Models;
 using CarShop.Data.Models.Ads.Enums;
+using CarShop.Data.Models.Images;
 using CarShop.Data.Models.Vehicles;
 
 namespace CarShop.Data.Models.Ads
 {
     public class Ad : BaseDeletableModel<string>, IAd
     {
+        public Ad()
+        {
+            this.Images = new HashSet<Image>();
+        }
+
         [Required]
         public string VehicleType { get; set; }
 
@@ -28,5 +34,7 @@ namespace CarShop.Data.Models.Ads
 
         [Required]
         public string PopulatedPlace { get; set; }
+
+        public ICollection<Image> Images { get; set; }
     }
 }

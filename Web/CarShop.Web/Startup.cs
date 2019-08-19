@@ -15,6 +15,7 @@
     using CarShop.Services.Mapping;
     using CarShop.Services.Messaging;
     using CarShop.Services.Users;
+    using CarShop.Services.Vehicles;
     using CarShop.Web.ViewModels;
     using CarShop.Web.ViewModels.Cars;
     using Microsoft.AspNetCore.Builder;
@@ -115,6 +116,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICarsService, CarsService>();
+            services.AddTransient<IVehiclesService, VehiclesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

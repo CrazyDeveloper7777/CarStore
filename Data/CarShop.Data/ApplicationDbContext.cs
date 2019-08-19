@@ -79,10 +79,9 @@
             // Set global query filter for not deleted entities only
             var deletableEntityTypes = entityTypes
                 .Where(et => et.ClrType != null && typeof(IDeletableEntity).IsAssignableFrom(et.ClrType) &&
-                              et.ClrType.BaseType != typeof(Vehicle) && 
+                              et.ClrType.BaseType != typeof(Vehicle) &&
                               et.ClrType.BaseType != typeof(LargerVehicle) &&
-                              et.ClrType.BaseType != typeof(Ad) &&
-                              et.ClrType.BaseType != typeof(Image));
+                              et.ClrType.BaseType != typeof(Ad));
             foreach (var deletableEntityType in deletableEntityTypes)
             {
                 var method = SetIsDeletedQueryFilterMethod.MakeGenericMethod(deletableEntityType.ClrType);
@@ -110,13 +109,25 @@
                 .HasForeignKey(ad => ad.DealerId);
             });
 
-            builder.Entity<Vehicle>(entity =>
+            builder.Entity<ApplicationUser>(entity =>
             {
                 entity
-                .HasMany(v => v.Images)
-                .WithOne(i => i.Vehicle)
-                .HasForeignKey(i => i.VehicleId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasMany(owner => owner.Vehicles)
+                .WithOne(vehicle => vehicle.Owner)
+                .HasForeignKey(vehicle => vehicle.OwnerId);
+
+                entity
+                .HasMany(dealer => dealer.Ads)
+                .WithOne(ad => ad.Dealer)
+                .HasForeignKey(ad => ad.DealerId);
+            });
+
+            builder.Entity<Ad>(entity =>
+            {
+                entity
+                .HasMany(ad => ad.Images)
+                .WithOne(image => image.Ad)
+                .HasForeignKey(image => image.AdId);
             });
         }
 

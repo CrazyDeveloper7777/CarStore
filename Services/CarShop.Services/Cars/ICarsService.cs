@@ -1,4 +1,5 @@
 ﻿using CarShop.Data.Models.Vehicles;
+using CarShop.Data.Models.Vehicles.Contracts;
 using CarShop.Web.ViewModels.Cars;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,12 @@ namespace CarShop.Services.Cars
     {
         Task CreateAsync(CreateCarViewModel model);
 
-        Task<ICollection<Car>> GetAllCarsByUserId(string userId);
+        Task EditAsync(EditCarInputModel carModel);
+
+        Task DeleteAsync(Car car);
+
+        Task<ICollection<Car>> GetAllCarsByUserIdAsync(string userId);
+
+        Task<Car> GetCarByIdAsync(string carId);
     }
 }

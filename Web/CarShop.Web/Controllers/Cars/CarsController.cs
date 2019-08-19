@@ -1,4 +1,5 @@
-﻿using CarShop.Services.Cars;
+﻿using CarShop.Data.Models.Vehicles;
+using CarShop.Services.Cars;
 using CarShop.Services.Users;
 using CarShop.Web.ViewModels.Cars;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +29,7 @@ namespace CarShop.Web.Controllers
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(CreateCarViewModel carModel)
         {
@@ -35,20 +37,49 @@ namespace CarShop.Web.Controllers
 
             await this.carsService.CreateAsync(carModel);
 
-            return this.Redirect("Vehicles/MyVehicles");
+            return this.RedirectToAction("MyCars");
         }
 
-        [HttpPost]
-        public IActionResult Img(List<IFormFile> files)
+        [Authorize]
+        [HttpGet("/Cars/Edit/{carId}")]
+        public async Task<IActionResult> Edit(string carId)
         {
-            ;
+            var car = await this.carsService.GetCarByIdAsync(carId);
+            var carModel = AutoMapper.Mapper.Map<EditCarViewModel>(car);
+            carModel.Year = car.ManufacturedOn.Year;
+            carModel.Month = car.ManufacturedOn.Month;
 
-            return this.Redirect("/");
+            return this.View(carModel);
         }
 
-        public IActionResult MyCars()
+        [Authorize]
+        [HttpPost("/Cars/Edit/{id}")]
+        public async Task<IActionResult> Edit(EditCarInputModel carInputModel)
         {
-            return this.View();
+            carInputModel.ManufacturedOn = new DateTime(carInputModel.Year, carInputModel.Month, 1);
+            await this.carsService.EditAsync(carInputModel);
+
+            return this.RedirectToAction("MyCars");
+        }
+
+        [HttpGet("/Cars/Delete/{carId}")]
+        public async Task<IActionResult> Delete(string carId)
+        {
+            var car = await this.carsService.GetCarByIdAsync(carId);
+
+            await this.carsService.DeleteAsync(car);
+
+            var message = "You have deleted your car successfully.";
+            return this.Redirect($"/Cars/MyCars?message={message}");
+        }
+
+        public async Task<IActionResult> MyCars()
+        {
+            var userId = await this.usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
+            var cars = await this.carsService.GetAllCarsByUserIdAsync(userId);
+            var viewModel = new MyCarsViewModel { Cars = cars };
+
+            return this.View(viewModel);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CarShop.Data.Common.Models;
+using CarShop.Data.Models.Ads;
 using CarShop.Data.Models.Vehicles;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace CarShop.Data.Models.Images
     {
         public string Url { get; set; }
 
-        public Vehicle Vehicle { get; set; }
+        public string AdId { get; set; }
 
-        public string VehicleId { get; set; }
+        public Ad Ad { get; set; }
     }
 }

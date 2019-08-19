@@ -2,7 +2,6 @@
 {
     using CarShop.Data.Common.Models;
     using CarShop.Data.Models.Ads.Enums;
-    using CarShop.Data.Models.Images;
     using CarShop.Data.Models.Vehicles.Enums.Vehicle;
     using System;
     using System.Collections.Generic;
@@ -52,8 +51,7 @@
 
         public string Description { get; set; }
 
-        public BaseImage BaseImage { get; set; }
-
-        public ICollection<Image> Images { get; set; }
+        [Required]
+        public string BaseImageUrl { get; set; }
     }
 }

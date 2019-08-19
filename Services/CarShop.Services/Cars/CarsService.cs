@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarShop.Data.Common.Repositories;
 using CarShop.Data.Models.Vehicles;
+using CarShop.Data.Models.Vehicles.Contracts;
 using CarShop.Services.Mapping;
 using CarShop.Web.ViewModels.Cars;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarShop.Services.Cars
 {
@@ -26,12 +28,32 @@ namespace CarShop.Services.Cars
             await this.carsRepository.SaveChangesAsync();
         }
 
-        public async Task<ICollection<Car>> GetAllCarsByUserId(string userId)
+        public async Task DeleteAsync(Car car)
+        {
+            this.carsRepository.Delete(car);
+
+            await this.carsRepository.SaveChangesAsync();
+        }
+
+        public async Task EditAsync(EditCarInputModel carModel)
+        {
+            var car = AutoMapper.Mapper.Map<Car>(carModel);
+
+            this.carsRepository.Update(car);
+            await this.carsRepository.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<Car>> GetAllCarsByUserIdAsync(string userId)
         {
             var cars = this.carsRepository.All().Where(c => c.OwnerId == userId).ToList();
 
-
             return cars;
+        }
+
+        public async Task<Car> GetCarByIdAsync(string carId)
+        {
+            var car = this.carsRepository.All().FirstOrDefault(c => c.Id == carId);
+            return car;
         }
     }
 }

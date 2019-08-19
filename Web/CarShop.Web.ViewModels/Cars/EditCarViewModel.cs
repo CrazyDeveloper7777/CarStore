@@ -10,12 +10,15 @@ using System.Text;
 
 namespace CarShop.Web.ViewModels.Cars
 {
-    public class CreateCarViewModel : IHaveCustomMappings, IMapFrom<Car>, IMapTo<Car>
+    public class EditCarViewModel : IMapFrom<Car>, IMapTo<Car>
     {
         public string OwnerId { get; set; }
 
+        public string Id { get; set; }
+
         [Required]
-        [Range(0, 9999999)]
+        [Display(Name = "Price *")]
+        [Range(0, 999999)]
         public int Price { get; set; }
 
         [Required]
@@ -24,7 +27,6 @@ namespace CarShop.Web.ViewModels.Cars
 
         [Required]
         [Display(Name = "Model *")]
-
         public string Model { get; set; }
 
         [Required]
@@ -65,14 +67,9 @@ namespace CarShop.Web.ViewModels.Cars
         public CurrencyType Currency { get; set; }
 
         [Required]
+        [Display(Name = "Base Image Url")]
         public string BaseImageUrl { get; set; }
 
         public string Description { get; set; }
-
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<CreateCarViewModel, Car>()
-                .ForMember(x => x.ManufacturedOn, y => y.MapFrom(x => new DateTime(x.Year, x.Month, 1)));
-        }
     }
 }
