@@ -1,5 +1,4 @@
-﻿using CarShop.Data.Models.Ads.Enums;
-using CarShop.Data.Models.Vehicles;
+﻿using CarShop.Data.Models.Vehicles;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +9,9 @@ namespace CarShop.Data.Models.Ads
     {
         string PhoneNumber { get; set; }
 
-        string VehicleType { get; set; }
+        string PhoneNumber2 { get; set; }
+
+        string PhoneNumber3 { get; set; }
 
         string Description { get; set; }
 

@@ -20,5 +20,9 @@ namespace CarShop.Web.Controllers.Ads
             return this.View();
         }
 
+        public IActionResult MyAds()
+        {
+            return this.View();
+        }
     }
 }

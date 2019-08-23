@@ -1,4 +1,4 @@
-﻿using CarShop.Data.Models.Ads.Enums;
+﻿using CarShop.Data.Models.Vehicles.Enums;
 using CarShop.Data.Models.Vehicles;
 using CarShop.Data.Models.Vehicles.Enums.Vehicle;
 using CarShop.Services.Mapping;

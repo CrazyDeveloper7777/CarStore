@@ -6,6 +6,6 @@ namespace CarShop.Data.Models.Vehicles.Contracts
 {
     public interface IBus
     {
-
+       int SeatsCount { get; set; }
     }
 }

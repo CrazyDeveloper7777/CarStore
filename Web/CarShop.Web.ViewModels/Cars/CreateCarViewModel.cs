@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CarShop.Data.Models.Ads.Enums;
+using CarShop.Data.Models.Vehicles.Enums;
 using CarShop.Data.Models.Vehicles;
 using CarShop.Data.Models.Vehicles.Enums.Vehicle;
 using CarShop.Services.Mapping;
@@ -13,6 +13,9 @@ namespace CarShop.Web.ViewModels.Cars
     public class CreateCarViewModel : IHaveCustomMappings, IMapFrom<Car>, IMapTo<Car>
     {
         public string OwnerId { get; set; }
+
+        [Required]
+        public int SeatsCount { get; set; }
 
         [Required]
         [Range(0, 9999999)]

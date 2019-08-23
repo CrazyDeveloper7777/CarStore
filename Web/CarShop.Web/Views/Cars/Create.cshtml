@@ -2,11 +2,14 @@
 @using CarShop.Data.Models.Vehicles
 @using CarShop.Data.Models.Vehicles.Enums.Cars
 @using CarShop.Data.Models.Vehicles.Enums.Vehicle
-@using CarShop.Data.Models.Ads.Enums
+@using CarShop.Data.Models.Vehicles.Enums
+@using CarShop.Services.Users
+@inject IUsersService usersService
 @model CreateCarViewModel
 
 @{
     var message = "Fields in <span class=\"text-danger font-weight-bold\">RED</span> are required.";
+    var userId = this.usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
 }
 
 <h1 class="text-center font-weight-bold m-4">Welcome to create car page.</h1>
@@ -93,6 +96,11 @@
             <label asp-for="Color" class="text-danger"></label>
             <input asp-for="Color" placeholder="Color..." class="form-control" />
             <span asp-validation-for="Color"></span>
+        </div>
+        <div class="form-group col-5 m-1 mx-auto">
+            <label asp-for="SeatsCount" class="text-danger"></label>
+            <input asp-for="SeatsCount" placeholder="Seats count..." class="form-control" />
+            <span asp-validation-for="SeatsCount"></span>
         </div>
         <hr class="bg-dark mx-auto w-100" style="height: 2px" />
         <div class="form-group col-12 m-1">

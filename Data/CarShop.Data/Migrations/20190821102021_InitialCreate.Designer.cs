@@ -4,14 +4,16 @@ using CarShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190821102021_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -419,6 +421,10 @@ namespace CarShop.Data.Migrations
                 {
                     b.HasBaseType("CarShop.Data.Models.Vehicles.Vehicle");
 
+                    b.Property<int>("AxlesCount");
+
+                    b.Property<int>("LoadInKg");
+
                     b.Property<int>("SeatsCount");
 
                     b.HasDiscriminator().HasValue("Bus");
@@ -427,8 +433,6 @@ namespace CarShop.Data.Migrations
             modelBuilder.Entity("CarShop.Data.Models.Vehicles.Car", b =>
                 {
                     b.HasBaseType("CarShop.Data.Models.Vehicles.Vehicle");
-
-                    b.Property<int>("DoorsCount");
 
                     b.HasDiscriminator().HasValue("Car");
                 });
@@ -450,9 +454,14 @@ namespace CarShop.Data.Migrations
                 {
                     b.HasBaseType("CarShop.Data.Models.Vehicles.Vehicle");
 
-                    b.Property<int>("AxlesCount");
+                    b.Property<int>("AxlesCount")
+                        .HasColumnName("Truck_AxlesCount");
 
-                    b.Property<int>("LoadInKg");
+                    b.Property<int>("LoadInKg")
+                        .HasColumnName("Truck_LoadInKg");
+
+                    b.Property<int>("SeatsCount")
+                        .HasColumnName("Truck_SeatsCount");
 
                     b.HasDiscriminator().HasValue("Truck");
                 });

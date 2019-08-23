@@ -28,12 +28,6 @@
 
         public DbSet<Setting> Settings { get; set; }
 
-        public DbSet<Ad> Ads { get; set; }
-
-        public DbSet<VipAd> VipAds { get; set; }
-
-        public DbSet<TopAd> TopAds { get; set; }
-
         public DbSet<Car> Cars { get; set; }
 
         public DbSet<Truck> Trucks { get; set; }
@@ -41,6 +35,14 @@
         public DbSet<Bus> Buses { get; set; }
 
         public DbSet<Motorcycle> Motorcycles { get; set; }
+
+        public DbSet<CarAd> CarAds { get; set; }
+
+        public DbSet<TruckAd> TruckAds { get; set; }
+
+        public DbSet<BusAd>  BusAds { get; set; }
+
+        public DbSet<MotorcycleAd> MotorcycleAds { get; set; }
 
         public DbSet<Image> Images { get; set; }
 
@@ -70,6 +72,8 @@
 
             builder.Entity<Vehicle>().ToTable("Vehicles");
 
+            builder.Entity<Ad>().ToTable("Ad");
+
             ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);
@@ -80,7 +84,6 @@
             var deletableEntityTypes = entityTypes
                 .Where(et => et.ClrType != null && typeof(IDeletableEntity).IsAssignableFrom(et.ClrType) &&
                               et.ClrType.BaseType != typeof(Vehicle) &&
-                              et.ClrType.BaseType != typeof(LargerVehicle) &&
                               et.ClrType.BaseType != typeof(Ad));
             foreach (var deletableEntityType in deletableEntityTypes)
             {
@@ -95,19 +98,6 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
-
-            builder.Entity<ApplicationUser>(entity =>
-            {
-                entity
-                .HasMany(owner => owner.Vehicles)
-                .WithOne(vehicle => vehicle.Owner)
-                .HasForeignKey(vehicle => vehicle.OwnerId);
-
-                entity
-                .HasMany(dealer => dealer.Ads)
-                .WithOne(ad => ad.Dealer)
-                .HasForeignKey(ad => ad.DealerId);
-            });
 
             builder.Entity<ApplicationUser>(entity =>
             {

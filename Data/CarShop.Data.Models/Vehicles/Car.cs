@@ -8,5 +8,6 @@ namespace CarShop.Data.Models.Vehicles
 {
     public class Car : Vehicle, ICar
     {
+        public int DoorsCount { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace CarShop.Data.Models.Vehicles
 {
     using CarShop.Data.Common.Models;
-    using CarShop.Data.Models.Ads.Enums;
+    using CarShop.Data.Models.Vehicles.Enums;
     using CarShop.Data.Models.Vehicles.Enums.Vehicle;
     using System;
     using System.Collections.Generic;
