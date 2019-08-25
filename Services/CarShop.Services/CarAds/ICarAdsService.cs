@@ -1,4 +1,5 @@
-﻿using CarShop.Web.ViewModels.CarAds;
+﻿using CarShop.Data.Models.Ads;
+using CarShop.Web.ViewModels.CarAds;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,7 @@ namespace CarShop.Services.CarAds
     public interface ICarAdsService
     {
         Task CreateAsync(CreateCarAdViewModel viewModel);
+
+        Task<ICollection<CarAd>> GetAllByDealerIdAsync(string dealerId);
     }
 }

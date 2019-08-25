@@ -62,6 +62,7 @@ namespace CarShop.Web.Controllers
             return this.RedirectToAction("MyCars");
         }
 
+        [Authorize]
         [HttpGet("/Cars/Delete/{carId}")]
         public async Task<IActionResult> Delete(string carId)
         {
@@ -73,6 +74,7 @@ namespace CarShop.Web.Controllers
             return this.Redirect($"/Cars/MyCars?message={message}");
         }
 
+        [Authorize]
         public async Task<IActionResult> MyCars()
         {
             var userId = await this.usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
@@ -80,6 +82,16 @@ namespace CarShop.Web.Controllers
             var viewModel = new MyCarsViewModel { Cars = cars };
 
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        [HttpGet("/Cars/Details/{carId}")]
+        public async Task<IActionResult> Details(string carId)
+        {
+            var car = await this.carsService.GetCarByIdAsync(carId);
+            var carModel = AutoMapper.Mapper.Map<DetailsCarViewModel>(car);
+
+            return this.View(carModel);
         }
     }
 }

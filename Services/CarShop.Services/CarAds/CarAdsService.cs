@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarShop.Data.Common.Repositories;
@@ -68,6 +69,13 @@ namespace CarShop.Services.CarAds
 
             await this.carAdsRepository.AddAsync(carAd);
             await this.carAdsRepository.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<CarAd>> GetAllByDealerIdAsync(string dealerId)
+        {
+            var carAds = this.carAdsRepository.All().Where(c => c.DealerId == dealerId).ToList();
+
+            return carAds;
         }
     }
 }

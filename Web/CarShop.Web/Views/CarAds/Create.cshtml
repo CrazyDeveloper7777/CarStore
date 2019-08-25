@@ -1,14 +1,18 @@
 ﻿@using CarShop.Web.ViewModels.CarAds
 @using CarShop.Services.Cars
 @using CarShop.Services.Users
+@using CarShop.Services.CarAds
+@using System.Linq;
 @model CreateCarAdViewModel
+@inject ICarAdsService carAdsService
 @inject ICarsService carsService
 @inject IUsersService usersService
 
 @{
     var message = "Fields in <span class=\"text-danger font-weight-bold\">RED</span> are required.";
     var userId = await usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
-    var cars = await carsService.GetAllCarsByUserIdAsync(userId);
+    var carAds = await carAdsService.GetAllByDealerIdAsync(userId);
+    var carsNotIncludedInAnyAd = (await carsService.GetAllCarsByUserIdAsync(userId)).Where(c => !carAds.Any(ca => ca.CarId == c.Id)).ToList();
 }
 
 <h1 class="text-center font-weight-bold m-4">Welcome to create car ad page.</h1>
@@ -16,7 +20,7 @@
 <partial name="Partials/_MainCategoryCreateVehiclePartial" />
 <hr class="bg-dark w-50 mx-auto" style="height: 3px" />
 
-@if (cars.Count > 0)
+@if (carsNotIncludedInAnyAd.Count > 0)
 {
     <div class="w-50 text-center mx-auto alert alert-info alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -29,7 +33,7 @@
                 <label asp-for="CarId" class="text-danger">Choose from your cars</label>
                 <select asp-for="CarId" class="form-control">
                     <option selected="selected" disabled>Select car</option>
-                    @foreach (var car in cars)
+                    @foreach (var car in carsNotIncludedInAnyAd)
                     {
                         <option value="@car.Id">Brand: @car.Brand  Model: @car.Model Power: @car.Power Price: @car.Price</option>
                     }
@@ -123,5 +127,5 @@
 }
 else
 {
-<h2 class="text-center w-75 mx-auto">You currently don't have any cars if you want to create a car ad first <a asp-controller="Cars" asp-action="Create"><strong>create a car</strong></a>. Or choose another type of vehicle from the dropwdown.</h2>
+<h2 class="text-center w-75 mx-auto">You currently don't have any cars or all your cars are included in ad. If you want to create a car ad first <a asp-controller="Cars" asp-action="Create"><strong>create a car</strong></a>. Or choose another type of vehicle from the dropwdown.</h2>
 }

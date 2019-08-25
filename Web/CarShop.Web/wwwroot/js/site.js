@@ -1,1 +1,1 @@
-﻿
+﻿$(".mySlides").first().show();

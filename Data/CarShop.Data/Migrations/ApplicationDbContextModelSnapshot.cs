@@ -242,8 +242,6 @@ namespace CarShop.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn");
 
-                    b.Property<string>("Description");
-
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
