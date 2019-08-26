@@ -12,5 +12,11 @@ namespace CarShop.Services.CarAds
         Task CreateAsync(CreateCarAdViewModel viewModel);
 
         Task<ICollection<CarAd>> GetAllByDealerIdAsync(string dealerId);
+
+        Task<CarAd> GetByIdAsync(string adId);
+
+        Task EditAsync(EditCarAdViewModel inputModel);
+
+        Task DeleteAsync(string id);
     }
 }

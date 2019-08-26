@@ -1,0 +1,61 @@
+﻿@using CarShop.Services.CarAds
+@using CarShop.Services.Users
+@inject ICarAdsService carAdsService
+@inject IUsersService  usersService
+
+@{
+    var editMessage = "You have successfully edited your car ad.";
+    var deleteMessage = "You have successfully deleted your car ad.";
+
+    var userId = await usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
+    var carAds = await carAdsService.GetAllByDealerIdAsync(userId);
+}
+
+<h1 class="text-center font-weight-bold m-4">Welcome to my cars page.</h1>
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+<partial name="Partials/_MyAdsChooseCategory" />
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+
+@if (carAds.Count == 0)
+{
+    <h1 class="text-center font-weight-bold m-4">You currently don't have any car ads.</h1>
+    <h3 class="text-white text-center text-dark">You can <a class="text-dark" asp-controller="CarAds" asp-action="Create"><strong>create</strong></a> some.</h3>
+}
+else
+{
+    <table class="table table-dark w-50 mx-auto">
+        <thead>
+            <tr>
+                <th scope="col">Picture</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Model</th>
+                <th scope="col">Price</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var carAd in carAds)
+            {
+                <tr>
+                    <td>
+                        <img src="@carAd.Car.BaseImageUrl" alt="Alternate Text" style="height: 100px; width: 150px;" />
+                    </td>
+                    <td valign="middle">Audi asdasdsa</td>
+                    <td>A1818sa8</td>
+                    <td>123450 @carAd.Car.Currency</td>
+                    <td>
+                        <a href="/CarAds/Edit/@carAd.Id?message=@editMessage">Edit</a>
+                    </td>
+                    <td>
+                        <a href="/CarAds/Delete/@carAd.Id?message=@deleteMessage">Delete</a>
+                    </td>
+                    <td>
+                        <a href="/CarAds/Details/@carAd.Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

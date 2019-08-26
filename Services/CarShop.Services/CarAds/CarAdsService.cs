@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CarShop.Data.Common.Repositories;
 using CarShop.Data.Models.Ads;
 using CarShop.Web.ViewModels.CarAds;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarShop.Services.CarAds
 {
@@ -71,11 +72,38 @@ namespace CarShop.Services.CarAds
             await this.carAdsRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(string id)
+        {
+            var carAd = this.carAdsRepository.All().FirstOrDefault(c => c.Id == id);
+
+            this.carAdsRepository.Delete(carAd);
+            await this.carAdsRepository.SaveChangesAsync();
+        }
+
+        public async Task EditAsync(EditCarAdViewModel inputModel)
+        {
+            var carAd = AutoMapper.Mapper.Map<CarAd>(inputModel);
+            this.carAdsRepository.Update(carAd);
+
+            await this.carAdsRepository.SaveChangesAsync();
+        }
+
         public async Task<ICollection<CarAd>> GetAllByDealerIdAsync(string dealerId)
         {
-            var carAds = this.carAdsRepository.All().Where(c => c.DealerId == dealerId).ToList();
+            var carAds = this.carAdsRepository.All()
+                .Include(c => c.Car).Where(c => c.DealerId == dealerId)
+                .ToList();
 
             return carAds;
+        }
+
+        public async Task<CarAd> GetByIdAsync(string adId)
+        {
+            var carAd = this.carAdsRepository.All()
+                .Include(c => c.Car)
+                .FirstOrDefault(ca => ca.Id == adId);
+
+            return carAd;
         }
     }
 }

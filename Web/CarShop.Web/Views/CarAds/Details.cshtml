@@ -1,0 +1,237 @@
+﻿@using CarShop.Web.ViewModels.CarAds
+@model CarAdDetailsViewModel
+
+<h1 class="text-center font-weight-bold m-4">Car ad details</h1>
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+
+<div class="float-left mt-3">
+
+    <link href="~/css/slider.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/slider.js"></script>
+
+    <div class="slideshow-container">
+
+            <div class="mySlides">
+                <div class="numbertext">1 / 10</div>
+                <img src="@Model.Car.BaseImageUrl" alt="Base Image not found">
+            </div>
+
+        @if (Model.Image1 != null)
+        {
+            <div class="mySlides">
+                <div class="numbertext">2 / 10</div>
+                <img src="@Model.Image1.Url" alt="Image 1 not found">
+            </div>
+        }
+        else
+        {
+            <div class="mySlides">
+                <div class="numbertext">2 / 10</div>
+                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 1 no image">
+            </div>
+        }
+
+        @if (Model.Image2 != null)
+        {
+            <div class="mySlides">
+                <div class="numbertext">3 / 10</div>
+                <img src="@Model.Image2.Url" alt="Image 2 not found">
+            </div>
+        }
+        else
+        {
+            <div class="mySlides">
+                <div class="numbertext">3 / 10</div>
+                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 2 no image">
+            </div>
+        }
+
+        @if (Model.Image3 != null)
+        {
+            <div class="mySlides">
+                <div class="numbertext">4 / 10</div>
+                <img src="@Model.Image3.Url" alt="Image 3 not found">
+            </div>
+        }
+        else
+        {
+            <div class="mySlides">
+                <div class="numbertext">4 / 10</div>
+                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 3 no image">
+            </div>
+        }
+
+        @if (Model.Image4 != null)
+        {
+            <div class="mySlides">
+                <div class="numbertext">5 / 10</div>
+                <img src="@Model.Image4.Url" alt="Image 4 not found">
+            </div>
+        }
+        else
+        {
+            <div class="mySlides">
+                <div class="numbertext">5 / 10</div>
+                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 4 no image">
+            </div>
+        }
+
+        @if (Model.Image5 != null)
+        {
+            <div class="mySlides">
+                <div class="numbertext">6 / 10</div>
+                <img src="@Model.Image5.Url" alt="Image 5 not found">
+            </div>
+        }
+        else
+        {
+            <div class="mySlides">
+                <div class="numbertext">6 / 10</div>
+                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 5 no image">
+            </div>
+        }
+
+        @if (Model.Image6 != null)
+        {
+            <div class="mySlides">
+                <div class="numbertext">7 / 10</div>
+                <img src="@Model.Image6.Url" alt="Image 6 not found">
+            </div>
+        }
+        else
+        {
+            <div class="mySlides">
+                <div class="numbertext">7 / 10</div>
+                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 1 no image">
+            </div>
+        }
+
+        @if (Model.Image7 != null)
+        {
+            <div class="mySlides">
+                <div class="numbertext">8 / 10</div>
+                <img src="@Model.Image7.Url" alt="Image 7 not found">
+            </div>
+        }
+        else
+        {
+            <div class="mySlides">
+                <div class="numbertext">8 / 10</div>
+                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 7 no image">
+            </div>
+        }
+
+        @if (Model.Image8 != null)
+        {
+            <div class="mySlides">
+                <div class="numbertext">9 / 10</div>
+                <img src="@Model.Image8.Url" alt="Image 8 not found">
+            </div>
+        }
+        else
+        {
+            <div class="mySlides">
+                <div class="numbertext">9 / 10</div>
+                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 8 no image">
+            </div>
+        }
+
+        @if (Model.Image9 != null)
+        {
+            <div class="mySlides">
+                <div class="numbertext">10 / 10</div>
+                <img src="@Model.Image9.Url" alt="Image 9 not found">
+            </div>
+        }
+        else
+        {
+            <div class="mySlides">
+                <div class="numbertext">10 / 10</div>
+                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 9 no image">
+            </div>
+        }
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br>
+
+    <div style="text-align:center; width: 700px;">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+        <span class="dot" onclick="currentSlide(7)"></span>
+        <span class="dot" onclick="currentSlide(8)"></span>
+        <span class="dot" onclick="currentSlide(9)"></span>
+        <span class="dot" onclick="currentSlide(10)"></span>
+    </div>
+
+    <script>
+        $(document).ready(() => $(".mySlides").first().addClass("d-flex justify-content-center"));
+    </script>
+</div>
+
+<div class="d-flex justify-content-center">
+    <table class="table w-50 table-primary mt-3">
+        <tbody>
+            <tr>
+                <th scope="row">Brand</th>
+                <td>@Model.Car.Brand</td>
+            </tr>
+            <tr>
+                <th scope="row">Model</th>
+                <td>@Model.Car.Model</td>
+            </tr>
+            <tr>
+                <th scope="row">Power</th>
+                <td>@Model.Car.Power</td>
+            </tr>
+            <tr>
+                <th scope="row">Run</th>
+                <td>@Model.Car.Run</td>
+            </tr>
+            <tr>
+                <th scope="row">Color</th>
+                <td>@Model.Car.Color</td>
+            </tr>
+            <tr>
+                <th scope="row">Doors Count</th>
+                <td>@Model.Car.DoorsCount</td>
+            </tr>
+            <tr>
+                <th scope="row">Price</th>
+                <td>@Model.Car.Price</td>
+            </tr>
+            <tr>
+                <th scope="row">Currency</th>
+                <td>@Model.Car.Currency</td>
+            </tr>
+            <tr>
+                <th scope="row">Engine Type</th>
+                <td>@Model.Car.EngineType</td>
+            </tr>
+            <tr>
+                <th scope="row">Manufactured on</th>
+                <td>@Model.Car.ManufacturedOn.ToShortDateString()</td>
+            </tr>
+            <tr>
+                <th scope="row">Transmission</th>
+                <td>@Model.Car.Transmission</td>
+            </tr>
+            <tr>
+                <th scope="row">State</th>
+                <td>@Model.Car.State</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+<div>
+    <h2 class="text-center">Description:</h2>
+    <h4 class="text-wrap text-center mt-2">@Model.Description</h4>
+</div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarShop.Data.Models;
+using CarShop.Data.Models.Ads;
 using CarShop.Services.CarAds;
 using CarShop.Services.Users;
 using CarShop.Web.ViewModels.CarAds;
@@ -52,7 +53,46 @@ namespace CarShop.Web.Controllers.CarAds
         {
             await this.carAdsService.CreateAsync(createCarAdModel);
 
-            return this.Redirect("Ads/MyAds");
+            return this.Redirect("CarAds/MyCarAds");
+        }
+
+        public async Task<IActionResult> MyCarAds()
+        {
+            return this.View();
+        }
+
+        [HttpGet("/CarAds/Edit/{id}")]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var carAd = await this.carAdsService.GetByIdAsync(id);
+            var viewModel = AutoMapper.Mapper.Map<EditCarAdViewModel>(carAd);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditCarAdViewModel inputModel)
+        {
+            await this.carAdsService.EditAsync(inputModel);
+
+            return this.RedirectToAction("MyCarAds");
+        }
+
+        [HttpGet("/CarAds/Delete/{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.carAdsService.DeleteAsync(id);
+
+            return this.RedirectToAction("MyCarAds");
+        }
+
+        [HttpGet("/CarAds/Details/{id}")]
+        public async Task<IActionResult> Details(string id)
+        {
+            var carAd = await this.carAdsService.GetByIdAsync(id);
+            var viewModel = AutoMapper.Mapper.Map<CarAdDetailsViewModel>(carAd);
+
+            return this.View(viewModel);
         }
     }
 }

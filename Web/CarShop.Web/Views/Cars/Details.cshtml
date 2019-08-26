@@ -1,0 +1,67 @@
+﻿@using CarShop.Web.ViewModels.Cars
+@model DetailsCarViewModel
+
+<h1 class="text-center font-weight-bold m-4">Car details</h1>
+<hr class="bg-dark w-50 mx-auto" style="height: 2px" />
+
+<div class="d-flex justify-content-center">
+    <div class="float-left">
+        <img src="@Model.BaseImageUrl" alt="Alternate Text" style="width: 600px; height: 560px;" class="m-3" />
+    </div>
+
+    <table class="table w-25 table-primary mt-3">
+        <tbody>
+            <tr>
+                <th scope="row">Brand</th>
+                <td>@Model.Brand</td>
+            </tr>
+            <tr>
+                <th scope="row">Model</th>
+                <td>@Model.Model</td>
+            </tr>
+            <tr>
+                <th scope="row">Power</th>
+                <td>@Model.Power</td>
+            </tr>
+            <tr>
+                <th scope="row">Run</th>
+                <td>@Model.Run</td>
+            </tr>
+            <tr>
+                <th scope="row">Color</th>
+                <td>@Model.Color</td>
+            </tr>
+            <tr>
+                <th scope="row">Doors Count</th>
+                <td>@Model.DoorsCount</td>
+            </tr>
+            <tr>
+                <th scope="row">Price</th>
+                <td>@Model.Price</td>
+            </tr>
+            <tr>
+                <th scope="row">Currency</th>
+                <td>@Model.Currency</td>
+            </tr>
+            <tr>
+                <th scope="row">Engine Type</th>
+                <td>@Model.EngineType</td>
+            </tr>
+            <tr>
+                <th scope="row">Manufactured on</th>
+                <td>@Model.ManufacturedOn.ToShortDateString()</td>
+            </tr>
+            <tr>
+                <th scope="row">Transmission</th>
+                <td>@Model.Transmission</td>
+            </tr>
+            <tr>
+                <th scope="row">State</th>
+                <td>@Model.State</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+

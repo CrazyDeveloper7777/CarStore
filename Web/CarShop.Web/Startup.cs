@@ -152,8 +152,8 @@
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseHttpsRedirection();
             app.UseCookiePolicy();
             app.UseAuthentication();
 

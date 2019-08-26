@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Data\CarShop.Data.Models\CarShop.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\CarShop.Services.Mapping\CarShop.Services.Mapping.csproj" />
   </ItemGroup>
