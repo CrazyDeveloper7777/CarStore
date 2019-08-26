@@ -1,149 +1,131 @@
-﻿<h1 class="text-center font-weight-bold m-4">Car ad details</h1>
-<hr class="bg-dark w-50 mx-auto" style="height: 2px" />
+﻿@using CarShop.Web.ViewModels.Motorcycles
+@using CarShop.Data.Models.Vehicles
+@using CarShop.Data.Models.Vehicles.Enums.Cars
+@using CarShop.Data.Models.Vehicles.Enums.Vehicle
+@using CarShop.Data.Models.Vehicles.Enums
+@using CarShop.Services.Users
+@inject IUsersService usersService
+@model CreateMotorcycleViewModel
 
-<div class="float-left mt-3">
+@{
+    var message = "Fields in <span class=\"text-danger font-weight-bold\">RED</span> are required.";
+    var userId = await this.usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
+}
 
-    <link href="~/css/slider.css" rel="stylesheet" />
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/js/site.js"></script>
-    <script src="~/js/slider.js"></script>
-
-    <div class="slideshow-container">
-
-        <!-- Full-width images with number and caption text -->
-        <div class="mySlides">
-            <div class="numbertext">1 / 10</div>
-            <img src="http://www.irdes.fr/imgs2017/images/about-imgs.jpg">
-        </div>
-
-        <div class="mySlides">
-            <div class="numbertext">2 / 10</div>
-            <img src="https://restaurant-table-des-faubourgs.com/assets/components/tdf/js/fullPage-master/examples/imgs/bg3.jpg">
-        </div>
-
-        <div class="mySlides">
-            <div class="numbertext">3 / 10</div>
-            <img src="https://blog.matcharesident.com/wp-content/uploads/2019/07/iStock-944453634-750x450.jpg" alt="Alternate Text" />
-        </div>
-
-        <div class="mySlides">
-            <div class="numbertext">4 / 10</div>
-            <img src="http://www.irdes.fr/imgs2017/images/about-imgs.jpg">
-        </div>
-
-        <div class="mySlides">
-            <div class="numbertext">5 / 10</div>
-            <img src="https://restaurant-table-des-faubourgs.com/assets/components/tdf/js/fullPage-master/examples/imgs/bg3.jpg">
-        </div>
-
-        <div class="mySlides">
-            <div class="numbertext">6 / 10</div>
-            <img src="https://blog.matcharesident.com/wp-content/uploads/2019/07/iStock-944453634-750x450.jpg" alt="Alternate Text" />
-        </div>
-
-        <div class="mySlides">
-            <div class="numbertext">7 / 10</div>
-            <img src="http://www.irdes.fr/imgs2017/images/about-imgs.jpg">
-        </div>
-
-        <div class="mySlides">
-            <div class="numbertext">8 / 10</div>
-            <img src="https://restaurant-table-des-faubourgs.com/assets/components/tdf/js/fullPage-master/examples/imgs/bg3.jpg">
-        </div>
-
-        <div class="mySlides">
-            <div class="numbertext">9 / 10</div>
-            <img src="https://blog.matcharesident.com/wp-content/uploads/2019/07/iStock-944453634-750x450.jpg" alt="Alternate Text" />
-        </div>
-
-        <div class="mySlides">
-            <div class="numbertext">10 / 10</div>
-            <img src="https://blog.matcharesident.com/wp-content/uploads/2019/07/iStock-944453634-750x450.jpg" alt="Alternate Text" />
-        </div>
-
-        <!-- Next and previous buttons -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
-    <br>
-
-    <!-- The dots/circles -->
-    <div style="text-align:center; width: 700px;">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
-        <span class="dot" onclick="currentSlide(5)"></span>
-        <span class="dot" onclick="currentSlide(6)"></span>
-        <span class="dot" onclick="currentSlide(7)"></span>
-        <span class="dot" onclick="currentSlide(8)"></span>
-        <span class="dot" onclick="currentSlide(9)"></span>
-        <span class="dot" onclick="currentSlide(10)"></span>
-    </div>
-
-    <script>
-        $(document).ready(() => $(".mySlides").first().addClass("d-flex justify-content-center"));
-    </script>
+<h1 class="text-center font-weight-bold m-4">Welcome to create motorcycle page.</h1>
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+<partial name="Partials/_MainCategoryCreateVehiclePartial" />
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+<div class="w-50 text-center mx-auto alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    @Html.Raw(message)
 </div>
-
-<div class="d-flex justify-content-center">
-    <table class="table w-25 table-primary">
-        <tbody>
-            <tr>
-                <th scope="row">Brand</th>
-                <td>Brad</td>
-            </tr>
-            <tr>
-                <th scope="row">Model</th>
-                <td>Model</td>
-            </tr>
-            <tr>
-                <th scope="row">Power</th>
-                <td>Power</td>
-            </tr>
-            <tr>
-                <th scope="row">Run</th>
-                <td>Run</td>
-            </tr>
-            <tr>
-                <th scope="row">Color</th>
-                <td>Color</td>
-            </tr>
-            <tr>
-                <th scope="row">Doors Count</th>
-                <td>DoorsCount</td>
-            </tr>
-            <tr>
-                <th scope="row">Price</th>
-                <td>Price</td>
-            </tr>
-            <tr>
-                <th scope="row">Currency</th>
-                <td>Currency</td>
-            </tr>
-            <tr>
-                <th scope="row">Engine Type</th>
-                <td>EngineType</td>
-            </tr>
-            <tr>
-                <th scope="row">Manufactured on</th>
-                <td>ManufacturedOn.ToShortDateString()</td>
-            </tr>
-            <tr>
-                <th scope="row">Transmission</th>
-                <td>Transmission</td>
-            </tr>
-            <tr>
-                <th scope="row">State</th>
-                <td>State</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container-fluid">
+    <form asp-controller="Motorcycles" asp-action="Create" method="post" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center">
+        <input type="hidden" name="OwnerId" value="@userId" />
+        <div class="form-group col-3 m-1">
+            <label asp-for="Brand" class="text-danger"></label>
+            <input asp-for="Brand" placeholder="Brand..." class="form-control" />
+            <span asp-validation-for="Brand"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Model" class="text-danger"></label>
+            <input asp-for="Model" placeholder="Model..." class="form-control" />
+            <span asp-validation-for="Model"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="EngineType" class="text-danger"></label>
+            <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
+                <option selected="selected" disabled>Select engine type</option>
+            </select>
+            <span asp-validation-for="EngineType"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="State" class="text-danger"></label>
+            <select asp-for="State" asp-items="Html.GetEnumSelectList<VehicleState>()" class="form-control">
+                <option selected="selected">All</option>
+            </select>
+            <span asp-validation-for="State"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Power" class="text-danger"></label>
+            <input asp-for="Power" placeholder="Power in horse power..." class="form-control" />
+            <span asp-validation-for="Power"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Transmission" class="text-danger"></label>
+            <select asp-for="Transmission" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
+                <option selected="selected">All</option>
+            </select>
+            <span asp-validation-for="Transmission"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Price" class="text-danger"></label>
+            <input asp-for="Price" placeholder="Price..." class="form-control" />
+            <span asp-validation-for="Price"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Currency" class="text-danger"></label>
+            <select asp-for="Currency" asp-items="Html.GetEnumSelectList<CurrencyType>()" class="form-control">
+                <option selected="selected" disabled>Select currency</option>
+            </select>
+            <span asp-validation-for="Currency"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Run" class="text-danger"></label>
+            <input asp-for="Run" placeholder="Run in kilometers..." class="form-control" />
+            <span asp-validation-for="Run"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Month" class="text-danger"></label>
+            <select asp-for="Month" asp-items="Html.GetEnumSelectList<Months>()" class="form-control">
+                <option selected="selected" disabled>Select month</option>
+            </select>
+            <span asp-validation-for="Month"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="Year" class="text-danger"></label>
+            <select asp-for="Year" class="form-control">
+                <option selected="selected" disabled>Select year</option>
+                @for (int i = 1930; i <= DateTime.Now.Year; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+            <span asp-validation-for="Year"></span>
+        </div>
+        <div class="form-group col-3">
+            <label asp-for="Color" class="text-danger"></label>
+            <input asp-for="Color" placeholder="Color..." class="form-control" />
+            <span asp-validation-for="Color"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="CubicMeter" class="text-danger"></label>
+            <input asp-for="CubicMeter" placeholder="Cubic meter..." class="form-control" />
+            <span asp-validation-for="CubicMeter"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="TactsOfEngine" class="text-danger"></label>
+            <input asp-for="TactsOfEngine" placeholder="Tacts of engine count..." class="form-control" />
+            <span asp-validation-for="TactsOfEngine"></span>
+        </div>
+        <div class="form-group col-3 m-1">
+            <label asp-for="TypeOfCooling" class="text-danger"></label>
+            <select asp-for="TypeOfCooling" asp-items="Html.GetEnumSelectList<TypeOfCooling>()" class="form-control">
+                <option selected="selected" disabled>Select type of cooling</option>
+            </select>
+            <span asp-validation-for="TypeOfCooling"></span>
+        </div>
+        <hr class="bg-dark mx-auto w-100" style="height: 2px" />
+        <div class="form-group col-12 m-1">
+            <h5 class="text-info font-weight-bold">Now you can just add base car image after that if you create ad with this vehicle you will be able to add more.</h5>
+            <label asp-for="BaseImageUrl" class="text-danger"></label>
+            <input asp-for="BaseImageUrl" placeholder="Base image url..." class="form-control" />
+            <span asp-validation-for="BaseImageUrl"></span>
+        </div>
+        <hr class="bg-dark mx-auto w-100" style="height: 3px" />
+        <div class="d-flex justify-content-center col-12 row mt-5">
+            <button type="submit" class="btn btn-dark text-white col-6">Create motorcycle</button>
+        </div>
+    </form>
 </div>
-
-<div>
-    <h3>Description: </h3>
-    <p>asdasSADASDASDasfAFasfasFASFasfA</p>
-</div>
-
-

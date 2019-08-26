@@ -26,9 +26,9 @@ namespace CarShop.Web.Controllers.Buses
 
         [Authorize]
         [HttpPost]
-        public IActionResult Create(CreateBusViewModel inputModel)
+        public async Task<IActionResult> Create(CreateBusViewModel inputModel)
         {
-            this.busesService.CreateAsync(inputModel);
+            await this.busesService.CreateAsync(inputModel);
 
             return this.RedirectToAction("MyBuses");
         }

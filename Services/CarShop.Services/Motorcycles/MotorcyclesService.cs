@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CarShop.Data.Common.Repositories;
 using CarShop.Data.Models.Vehicles;
+using CarShop.Web.ViewModels.Motorcycles;
 
 namespace CarShop.Services.Motorcycles
 {
@@ -22,6 +23,35 @@ namespace CarShop.Services.Motorcycles
             var motorcycles = this.motorcyclesRepository.All().Where(t => t.OwnerId == userId).ToList();
 
             return motorcycles;
+        }
+
+        public async Task CreateAsync(CreateMotorcycleViewModel inputModel)
+        {
+            var motorcycle = AutoMapper.Mapper.Map<Motorcycle>(inputModel);
+
+            await this.motorcyclesRepository.AddAsync(motorcycle);
+            await this.motorcyclesRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(Motorcycle motorcycle)
+        {
+            this.motorcyclesRepository.Delete(motorcycle);
+
+            await this.motorcyclesRepository.SaveChangesAsync();
+        }
+
+        public async Task EditAsync(EditMotorcycleViewModel motorcycleModel)
+        {
+            var motorcycle = AutoMapper.Mapper.Map<Motorcycle>(motorcycleModel);
+
+            this.motorcyclesRepository.Update(motorcycle);
+            await this.motorcyclesRepository.SaveChangesAsync();
+        }
+
+        public async Task<Motorcycle> GetMotorcycleByIdAsync(string motorcycleId)
+        {
+            var motorcycle = this.motorcyclesRepository.All().FirstOrDefault(c => c.Id == motorcycleId);
+            return motorcycle;
         }
     }
 }

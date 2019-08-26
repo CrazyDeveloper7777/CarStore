@@ -1,1 +1,63 @@
-﻿<partial name="Partials/_MainCategoryMyVehiclesPartial" />
+﻿@using CarShop.Services.Motorcycles
+@using CarShop.Services.Users
+@inject IMotorcyclesService motorcyclesService
+@inject IUsersService  usersService
+
+@{
+    var userId = await usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
+    var motorcycles = await motorcyclesService.GetAllMotorcyclesByUserId(userId);
+}
+
+@if (motorcycles.Count == 0)
+{
+    <h1 class="text-center font-weight-bold m-4">You currently don't have any motorcycles.</h1>
+    <h3 class="text-white text-center text-dark">You can <a class="text-dark" asp-controller="Motorcycles" asp-action="Create"><strong>create</strong></a> some.</h3>
+}
+else
+{
+    <h1 class="text-center font-weight-bold m-4">Welcome to my motorcycles page.</h1>
+    <hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+    <partial name="Partials/_MainCategoryMyVehiclesPartial" />
+    <hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+    <div class="d-flex justify-content-center mt-3">
+        <table class="table table-borderless w-75">
+            <thead>
+                <tr class="row text-center d-flex justify-content-center">
+                    <th class="col-2"><h1>Picture</h1></th>
+                    <th class="col-2"><h1>Brand</h1></th>
+                    <th class="col-2"><h1>Model</h1></th>
+                    <th class="col-2"><h1>Edit</h1></th>
+                    <th class="col-2"><h1>Delete</h1></th>
+                    <th class="col-2"><h1>Details</h1></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var motorcycle in motorcycles)
+                {
+                    <tr class="row text-center d-flex justify-content-center ">
+                        <td class="col-2">
+                            <img src="@motorcycle.BaseImageUrl" alt="Alternate Text" style="height: 150px; width: 200px;" />
+                        </td>
+                        <td class="col-2 my-auto"><h3>@motorcycle.Brand</h3></td>
+                        <td class="col-2 my-auto"><h3>@motorcycle.Model</h3></td>
+                        <td class="col-2 my-auto">
+                            <h3>
+                                <a href="/Motorcycles/Edit/@motorcycle.Id">Edit</a>
+                            </h3>
+                        </td>
+                        <td class="col-2 my-auto">
+                            <h3>
+                                <a href="/Motorcycles/Delete/@motorcycle.Id">Delete</a>
+                            </h3>
+                        </td>
+                        <td class="col-2 my-auto">
+                            <h3>
+                                <a href="/Motorcycles/Details/@motorcycle.Id">Details</a>
+                            </h3>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
