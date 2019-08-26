@@ -70,8 +70,6 @@ namespace CarShop.Web.ViewModels.Cars
         [Required]
         public string BaseImageUrl { get; set; }
 
-        public string Description { get; set; }
-
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<CreateCarViewModel, Car>()

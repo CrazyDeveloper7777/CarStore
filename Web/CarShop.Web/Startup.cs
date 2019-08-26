@@ -10,11 +10,14 @@
     using CarShop.Data.Models.Vehicles;
     using CarShop.Data.Repositories;
     using CarShop.Data.Seeding;
+    using CarShop.Services.Buses;
     using CarShop.Services.CarAds;
     using CarShop.Services.Cars;
     using CarShop.Services.Data;
     using CarShop.Services.Mapping;
     using CarShop.Services.Messaging;
+    using CarShop.Services.Motorcycles;
+    using CarShop.Services.Trucks;
     using CarShop.Services.Users;
     using CarShop.Services.Vehicles;
     using CarShop.Web.ViewModels;
@@ -116,6 +119,9 @@
             services.AddTransient<ISmsSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<ITrucksService, TrucksService>();
+            services.AddTransient<IMotorcyclesService, MotorcyclesService>();
+            services.AddTransient<IBusesService, BusesService>();
             services.AddTransient<ICarsService, CarsService>();
             services.AddTransient<IVehiclesService, VehiclesService>();
             services.AddTransient<ICarAdsService, CarAdsService>();

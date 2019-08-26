@@ -54,7 +54,7 @@ namespace CarShop.Web.Controllers
 
         [Authorize]
         [HttpPost("/Cars/Edit/{id}")]
-        public async Task<IActionResult> Edit(EditCarInputModel carInputModel)
+        public async Task<IActionResult> Edit(EditCarViewModel carInputModel)
         {
             carInputModel.ManufacturedOn = new DateTime(carInputModel.Year, carInputModel.Month, 1);
             await this.carsService.EditAsync(carInputModel);

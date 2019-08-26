@@ -35,7 +35,7 @@ namespace CarShop.Services.Cars
             await this.carsRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(EditCarInputModel carModel)
+        public async Task EditAsync(EditCarViewModel carModel)
         {
             var car = AutoMapper.Mapper.Map<Car>(carModel);
 

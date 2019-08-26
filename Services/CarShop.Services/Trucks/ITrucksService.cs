@@ -1,4 +1,5 @@
 ﻿using CarShop.Data.Models.Vehicles;
+using CarShop.Web.ViewModels.Trucks;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,14 @@ namespace CarShop.Services.Trucks
 {
     public interface ITrucksService
     {
-        Task<ICollection<Truck>> GetAllTrucksByUserId(string userId);
+        Task<ICollection<Truck>> GetAllTrucksByUserIdAsync(string userId);
+
+        Task<Truck> GetTruckByIdAsync(string truckId);
+
+        Task CreateAsync(CreateTruckViewModel inputModel);
+
+        Task EditAsync(EditTruckViewModel truckModel);
+
+        Task DeleteAsync(Truck truck);
     }
 }

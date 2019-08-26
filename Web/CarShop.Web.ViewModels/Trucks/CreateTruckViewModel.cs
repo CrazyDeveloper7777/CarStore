@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CarShop.Data.Models.Vehicles.Enums;
 using CarShop.Data.Models.Vehicles;
+using CarShop.Data.Models.Vehicles.Enums;
 using CarShop.Data.Models.Vehicles.Enums.Vehicle;
 using CarShop.Services.Mapping;
 using System;
@@ -8,17 +8,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace CarShop.Web.ViewModels.Cars
+namespace CarShop.Web.ViewModels.Trucks
 {
-    public class EditCarViewModel : IMapFrom<Car>, IMapTo<Car>
+    public class CreateTruckViewModel : IHaveCustomMappings, IMapFrom<Truck>, IMapTo<Truck>
     {
         public string OwnerId { get; set; }
 
-        public string Id { get; set; }
-
         [Required]
-        [Display(Name = "Price *")]
-        [Range(0, 999999)]
+        [Range(0, 9999999)]
         public int Price { get; set; }
 
         [Required]
@@ -27,9 +24,8 @@ namespace CarShop.Web.ViewModels.Cars
 
         [Required]
         [Display(Name = "Model *")]
-        public string Model { get; set; }
 
-        public DateTime ManufacturedOn { get; set; }
+        public string Model { get; set; }
 
         [Required]
         [Display(Name = "Engine Type *")]
@@ -69,10 +65,18 @@ namespace CarShop.Web.ViewModels.Cars
         public CurrencyType Currency { get; set; }
 
         [Required]
-        [Display(Name = "Base Image Url")]
         public string BaseImageUrl { get; set; }
 
         [Required]
-        public int SeatsCount { get; set; }
+        public int AxlesCount { get; set; }
+
+        [Range(0, 999999)]
+        public int LoadInKg { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<CreateTruckViewModel, Truck>()
+                .ForMember(x => x.ManufacturedOn, y => y.MapFrom(x => new DateTime(x.Year, x.Month, 1)));
+        }
     }
 }

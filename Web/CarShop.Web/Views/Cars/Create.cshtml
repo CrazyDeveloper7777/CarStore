@@ -9,7 +9,7 @@
 
 @{
     var message = "Fields in <span class=\"text-danger font-weight-bold\">RED</span> are required.";
-    var userId = this.usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
+    var userId = await this.usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
 }
 
 <h1 class="text-center font-weight-bold m-4">Welcome to create car page.</h1>
@@ -21,6 +21,7 @@
 </div>
 <div class="container-fluid">
     <form asp-controller="Cars" asp-action="Create" method="post" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center">
+        <input type="hidden" name="OwnerId" value="@userId" />
         <div class="form-group col-3 m-1">
             <label asp-for="Brand" class="text-danger"></label>
             <input asp-for="Brand" placeholder="Brand..." class="form-control" />

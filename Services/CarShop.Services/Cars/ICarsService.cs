@@ -12,7 +12,7 @@ namespace CarShop.Services.Cars
     {
         Task CreateAsync(CreateCarViewModel model);
 
-        Task EditAsync(EditCarInputModel carModel);
+        Task EditAsync(EditCarViewModel carModel);
 
         Task DeleteAsync(Car car);
 

@@ -1,22 +1,22 @@
-﻿@using CarShop.Web.ViewModels.Cars
+﻿@using CarShop.Web.ViewModels.Trucks
 @using CarShop.Data.Models.Vehicles
 @using CarShop.Data.Models.Vehicles.Enums.Cars
 @using CarShop.Data.Models.Vehicles.Enums.Vehicle
 @using CarShop.Data.Models.Vehicles.Enums
-@model EditCarViewModel
+@model EditTruckViewModel
 
 @{
     var message = "Fields in <span class=\"text-danger font-weight-bold\">RED</span> are required.";
 }
 
-<h1 class="text-center font-weight-bold m-4">Welcome to edit car page.</h1>
+<h1 class="text-center font-weight-bold m-4">Welcome to edit truck page.</h1>
 <hr class="bg-dark w-50 mx-auto" style="height: 3px" />
 <div class="w-50 text-center mx-auto alert alert-info alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     @Html.Raw(message)
 </div>
 <div class="container-fluid">
-    <form method="post" action="/Cars/Edit/@Model.Id?ownerId=@Model.OwnerId" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center">
+    <form method="post" action="/Trucks/Edit/@Model.Id?ownerId=@Model.OwnerId" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center">
         <div class="form-group col-3 m-1">
             <label asp-for="Brand" class="text-danger"></label>
             <input asp-for="Brand" placeholder="Brand..." class="form-control" />
@@ -102,9 +102,14 @@
             <span asp-validation-for="Color"></span>
         </div>
         <div class="form-group col-5 m-1 mx-auto">
-            <label asp-for="SeatsCount" class="text-danger"></label>
-            <input asp-for="SeatsCount" placeholder="Seats count..." class="form-control" />
-            <span asp-validation-for="SeatsCount"></span>
+            <label asp-for="AxlesCount" class="text-danger"></label>
+            <input asp-for="AxlesCount" placeholder="Axles Count..." class="form-control" />
+            <span asp-validation-for="AxlesCount"></span>
+        </div>
+        <div class="form-group col-5 m-1 mx-auto">
+            <label asp-for="LoadInKg" class="text-danger"></label>
+            <input asp-for="LoadInKg" placeholder="Load in kg..." class="form-control" />
+            <span asp-validation-for="LoadInKg"></span>
         </div>
         <hr class="bg-dark mx-auto w-100" style="height: 2px" />
         <div class="form-group col-12 m-1">
@@ -114,7 +119,7 @@
         </div>
         <hr class="bg-dark mx-auto w-100" style="height: 2px" />
         <div class="d-flex justify-content-center col-12 row mt-5">
-            <button type="submit" class="btn btn-dark text-white col-6">Edit car</button>
+            <button type="submit" class="btn btn-dark text-white col-6">Edit truck</button>
         </div>
     </form>
 </div>
