@@ -46,8 +46,6 @@ namespace CarShop.Web.ViewModels.Trucks
         [Required]
         public DateTime ManufacturedOn { get; set; }
 
-        public string Description { get; set; }
-
         [Required]
         public string BaseImageUrl { get; set; }
 

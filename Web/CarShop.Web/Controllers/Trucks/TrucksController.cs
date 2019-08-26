@@ -34,12 +34,6 @@ namespace CarShop.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult MyTrucks()
-        {
-            return this.View();
-        }
-
-        [Authorize]
         [HttpGet("/Trucks/Edit/{id}")]
         public async Task<IActionResult> Edit(string id)
         {
@@ -81,6 +75,12 @@ namespace CarShop.Web.Controllers
             var truckModel = AutoMapper.Mapper.Map<DetailsTruckViewModel>(truck);
 
             return this.View(truckModel);
+        }
+
+        [Authorize]
+        public IActionResult MyTrucks()
+        {
+            return this.View();
         }
     }
 }

@@ -7,12 +7,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace CarShop.Web.ViewModels.Cars
+namespace CarShop.Web.ViewModels.Buses
 {
-    public class DetailsCarViewModel : IMapFrom<Car>, IMapTo<Car>
+    public class DetailsBusViewModel : IMapTo<Bus>, IMapFrom<Bus>
     {
-        public string OwnerId { get; set; }
-
         [Required]
         [Range(0, 9999999)]
         public int Price { get; set; }
@@ -52,6 +50,6 @@ namespace CarShop.Web.ViewModels.Cars
         public string BaseImageUrl { get; set; }
 
         [Required]
-        public int DoorsCount { get; set; }
+        public int SeatsCount { get; set; }
     }
 }
