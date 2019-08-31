@@ -1,22 +1,22 @@
-﻿@using CarShop.Services.CarAds
+﻿@using CarShop.Services.BusAds
 @using CarShop.Services.Users
-@inject ICarAdsService carAdsService
+@inject IBusAdsService busAdsService
 @inject IUsersService  usersService
 
 @{
     var userId = await usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
-    var carAds = await carAdsService.GetAllByDealerIdAsync(userId);
+    var busAds = await busAdsService.GetAllByDealerIdAsync(userId);
 }
 
-<h1 class="text-center font-weight-bold m-4">Welcome to my cars page.</h1>
+<h1 class="text-center font-weight-bold m-4">Welcome to my bus ads page.</h1>
 <hr class="bg-dark w-50 mx-auto" style="height: 3px" />
 <partial name="Partials/_MyAdsChooseCategory" />
 <hr class="bg-dark w-50 mx-auto" style="height: 3px" />
 
-@if (carAds.Count == 0)
+@if (busAds.Count == 0)
 {
-    <h1 class="text-center font-weight-bold m-4">You currently don't have any car ads.</h1>
-    <h3 class="text-white text-center text-dark">You can <a class="text-dark" asp-controller="CarAds" asp-action="Create"><strong>create</strong></a> some.</h3>
+    <h1 class="text-center font-weight-bold m-4">You currently don't have any bus ads.</h1>
+    <h3 class="text-white text-center text-dark">You can <a class="text-dark" asp-controller="BusAds" asp-action="Create"><strong>create</strong></a> some.</h3>
 }
 else
 {
@@ -33,23 +33,23 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var carAd in carAds)
+            @foreach (var busAd in busAds)
             {
                 <tr>
                     <td>
-                        <img src="@carAd.Car.BaseImageUrl" alt="Alternate Text" style="height: 100px; width: 150px;" />
+                        <img src="@busAd.Bus.BaseImageUrl" alt="Alternate Text" style="height: 100px; width: 150px;" />
                     </td>
-                    <td valign="middle">@carAd.Car.Brand</td>
-                    <td>@carAd.Car.Model</td>
-                    <td>123450 @carAd.Car.Currency</td>
+                    <td valign="middle">@busAd.Bus.Brand</td>
+                    <td>@busAd.Bus.Model</td>
+                    <td>123450 @busAd.Bus.Currency</td>
                     <td>
-                        <a href="/CarAds/Edit/@carAd.Id">Edit</a>
-                    </td>
-                    <td>
-                        <a href="/CarAds/Delete/@carAd.Id">Delete</a>
+                        <a href="/BusAds/Edit/@busAd.Id">Edit</a>
                     </td>
                     <td>
-                        <a href="/CarAds/Details/@carAd.Id">Details</a>
+                        <a href="/BusAds/Delete/@busAd.Id">Delete</a>
+                    </td>
+                    <td>
+                        <a href="/BusAds/Details/@busAd.Id">Details</a>
                     </td>
                 </tr>
             }

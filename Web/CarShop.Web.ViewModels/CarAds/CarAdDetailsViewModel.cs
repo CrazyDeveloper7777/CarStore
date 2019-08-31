@@ -45,7 +45,5 @@ namespace CarShop.Web.ViewModels.CarAds
         public Image Image8 { get; set; }
 
         public Image Image9 { get; set; }
-
-        public Image Image10 { get; set; }
     }
 }

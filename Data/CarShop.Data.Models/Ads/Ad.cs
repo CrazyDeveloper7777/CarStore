@@ -13,7 +13,7 @@ namespace CarShop.Data.Models.Ads
     {
         public Ad()
         {
-            this.Images = new HashSet<Image>();
+            this.Images = new List<Image>();
         }
 
         [Required]
@@ -37,6 +37,6 @@ namespace CarShop.Data.Models.Ads
         public string PopulatedPlace { get; set; }
 
         public ICollection<Image> Images { get; set; }
-       
+
     }
 }

@@ -34,7 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\BusAds\" />
     <Folder Include="Views\MotorcycleAds\" />
     <Folder Include="Views\TruckAds\" />
   </ItemGroup>

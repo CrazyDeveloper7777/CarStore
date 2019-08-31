@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using CarShop.Data.Models;
-using CarShop.Data.Models.Ads;
+﻿using CarShop.Data.Models.Ads;
 using CarShop.Data.Models.Images;
 using CarShop.Services.Mapping;
 using System;
@@ -8,9 +6,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace CarShop.Web.ViewModels.CarAds
+namespace CarShop.Web.ViewModels.BusAds
 {
-    public class CreateCarAdViewModel : IMapTo<CarAd>, IMapFrom<CarAd>
+    public class CreateBusAdViewModel : IMapTo<BusAd>, IMapFrom<BusAd>
     {
         [Required]
         public string PhoneNumber { get; set; }
@@ -25,7 +23,7 @@ namespace CarShop.Web.ViewModels.CarAds
         public string DealerId { get; set; }
 
         [Required]
-        public string CarId { get; set; }
+        public string BusId { get; set; }
 
         [Required]
         public string Region { get; set; }

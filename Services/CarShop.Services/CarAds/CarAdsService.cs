@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CarShop.Data.Common.Repositories;
 using CarShop.Data.Models.Ads;
+using CarShop.Data.Models.Images;
+using CarShop.Services.Images;
 using CarShop.Web.ViewModels.CarAds;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,60 +15,27 @@ namespace CarShop.Services.CarAds
     public class CarAdsService : ICarAdsService
     {
         private readonly IDeletableEntityRepository<CarAd> carAdsRepository;
+        private readonly IImagesService imagesService;
 
-        public CarAdsService(IDeletableEntityRepository<CarAd> carAdsRepository)
+        public CarAdsService(IDeletableEntityRepository<CarAd> carAdsRepository, IImagesService imagesService)
         {
             this.carAdsRepository = carAdsRepository;
+            this.imagesService = imagesService;
         }
 
         public async Task CreateAsync(CreateCarAdViewModel viewModel)
         {
             var carAd = AutoMapper.Mapper.Map<CarAd>(viewModel);
 
-            if (viewModel.Image1.Url != null)
-            {
-                carAd.Images.Add(viewModel.Image1);
-            }
-
-            if (viewModel.Image2.Url != null)
-            {
-                carAd.Images.Add(viewModel.Image2);
-            }
-
-            if (viewModel.Image3.Url != null)
-            {
-                carAd.Images.Add(viewModel.Image3);
-            }
-
-            if (viewModel.Image4.Url != null)
-            {
-                carAd.Images.Add(viewModel.Image4);
-            }
-
-            if (viewModel.Image5.Url != null)
-            {
-                carAd.Images.Add(viewModel.Image5);
-            }
-
-            if (viewModel.Image6.Url != null)
-            {
-                carAd.Images.Add(viewModel.Image6);
-            }
-
-            if (viewModel.Image7.Url != null)
-            {
-                carAd.Images.Add(viewModel.Image7);
-            }
-
-            if (viewModel.Image8.Url != null)
-            {
-                carAd.Images.Add(viewModel.Image8);
-            }
-
-            if (viewModel.Image9.Url != null)
-            {
-                carAd.Images.Add(viewModel.Image9);
-            }
+            carAd.Images.Add(viewModel.Image1);
+            carAd.Images.Add(viewModel.Image2);
+            carAd.Images.Add(viewModel.Image3);
+            carAd.Images.Add(viewModel.Image4);
+            carAd.Images.Add(viewModel.Image5);
+            carAd.Images.Add(viewModel.Image6);
+            carAd.Images.Add(viewModel.Image7);
+            carAd.Images.Add(viewModel.Image8);
+            carAd.Images.Add(viewModel.Image9);
 
             await this.carAdsRepository.AddAsync(carAd);
             await this.carAdsRepository.SaveChangesAsync();
@@ -83,15 +52,29 @@ namespace CarShop.Services.CarAds
         public async Task EditAsync(EditCarAdViewModel inputModel)
         {
             var carAd = AutoMapper.Mapper.Map<CarAd>(inputModel);
-            this.carAdsRepository.Update(carAd);
 
+            await this.imagesService.DeleteAllByAdIdAsync(inputModel.Id);
+
+            carAd.Images.Add(inputModel.Image1);
+            carAd.Images.Add(inputModel.Image2);
+            carAd.Images.Add(inputModel.Image3);
+            carAd.Images.Add(inputModel.Image4);
+            carAd.Images.Add(inputModel.Image5);
+            carAd.Images.Add(inputModel.Image6);
+            carAd.Images.Add(inputModel.Image7);
+            carAd.Images.Add(inputModel.Image8);
+            carAd.Images.Add(inputModel.Image9);
+
+            this.carAdsRepository.Update(carAd);
             await this.carAdsRepository.SaveChangesAsync();
         }
 
         public async Task<ICollection<CarAd>> GetAllByDealerIdAsync(string dealerId)
         {
             var carAds = this.carAdsRepository.All()
-                .Include(c => c.Car).Where(c => c.DealerId == dealerId)
+                .Include(c => c.Car)
+                .Include(p => p.Images)
+                .Where(c => c.DealerId == dealerId)
                 .ToList();
 
             return carAds;
@@ -101,6 +84,7 @@ namespace CarShop.Services.CarAds
         {
             var carAd = this.carAdsRepository.All()
                 .Include(c => c.Car)
+                .Include(p => p.Images)
                 .FirstOrDefault(ca => ca.Id == adId);
 
             return carAd;

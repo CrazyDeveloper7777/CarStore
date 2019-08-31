@@ -72,7 +72,7 @@
 
             builder.Entity<Vehicle>().ToTable("Vehicles");
 
-            builder.Entity<Ad>().ToTable("Ad");
+            builder.Entity<Ad>().ToTable("Ads");
 
             ConfigureUserIdentityRelations(builder);
 

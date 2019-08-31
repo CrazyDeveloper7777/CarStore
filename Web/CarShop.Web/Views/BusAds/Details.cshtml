@@ -1,7 +1,7 @@
-﻿@using CarShop.Web.ViewModels.CarAds
-@model CarAdDetailsViewModel
+﻿@using CarShop.Web.ViewModels.BusAds
+@model BusAdDetailsViewModel
 
-<h1 class="text-center font-weight-bold m-4">Car ad details</h1>
+<h1 class="text-center font-weight-bold m-4">Bus ad details</h1>
 <hr class="bg-dark w-50 mx-auto" style="height: 3px" />
 
 <div class="float-left mt-3 ml-3" style="border: 5px double black">
@@ -11,11 +11,11 @@
     <script src="~/js/site.js"></script>
     <script src="~/js/slider.js"></script>
 
-    <div class="slideshow-container mt-5">
+    <div class="slideshow-container mt-3">
 
         <div class="mySlides">
             <div class="numbertext">1 / 10</div>
-            <img src="@Model.Car.BaseImageUrl" alt="Base Image not found">
+            <img src="@Model.Bus.BaseImageUrl" alt="Base Image not found">
         </div>
 
         @if (Model.Image1.Url != null)
@@ -138,7 +138,7 @@
             </div>
         }
 
-        @if (Model.Image9.Url != null)
+        @if (Model.Image9 != null)
         {
             <div class="mySlides">
                 <div class="numbertext">10 / 10</div>
@@ -181,51 +181,51 @@
         <tbody>
             <tr>
                 <th scope="row">Brand</th>
-                <td>@Model.Car.Brand</td>
+                <td>@Model.Bus.Brand</td>
             </tr>
             <tr>
                 <th scope="row">Model</th>
-                <td>@Model.Car.Model</td>
+                <td>@Model.Bus.Model</td>
             </tr>
             <tr>
                 <th scope="row">Power</th>
-                <td>@Model.Car.Power</td>
+                <td>@Model.Bus.Power</td>
             </tr>
             <tr>
                 <th scope="row">Run</th>
-                <td>@Model.Car.Run</td>
+                <td>@Model.Bus.Run</td>
             </tr>
             <tr>
                 <th scope="row">Color</th>
-                <td>@Model.Car.Color</td>
+                <td>@Model.Bus.Color</td>
             </tr>
             <tr>
-                <th scope="row">Doors Count</th>
-                <td>@Model.Car.DoorsCount</td>
+                <th scope="row">Seats Count</th>
+                <td>@Model.Bus.SeatsCount</td>
             </tr>
             <tr>
                 <th scope="row">Price</th>
-                <td>@Model.Car.Price</td>
+                <td>@Model.Bus.Price</td>
             </tr>
             <tr>
                 <th scope="row">Currency</th>
-                <td>@Model.Car.Currency</td>
+                <td>@Model.Bus.Currency</td>
             </tr>
             <tr>
                 <th scope="row">Engine Type</th>
-                <td>@Model.Car.EngineType</td>
+                <td>@Model.Bus.EngineType</td>
             </tr>
             <tr>
                 <th scope="row">Manufactured on</th>
-                <td>@Model.Car.ManufacturedOn.ToShortDateString()</td>
+                <td>@Model.Bus.ManufacturedOn.ToShortDateString()</td>
             </tr>
             <tr>
                 <th scope="row">Transmission</th>
-                <td>@Model.Car.Transmission</td>
+                <td>@Model.Bus.Transmission</td>
             </tr>
             <tr>
                 <th scope="row">State</th>
-                <td>@Model.Car.State</td>
+                <td>@Model.Bus.State</td>
             </tr>
         </tbody>
     </table>

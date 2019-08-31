@@ -10,10 +10,12 @@
     using CarShop.Data.Models.Vehicles;
     using CarShop.Data.Repositories;
     using CarShop.Data.Seeding;
+    using CarShop.Services.BusAds;
     using CarShop.Services.Buses;
     using CarShop.Services.CarAds;
     using CarShop.Services.Cars;
     using CarShop.Services.Data;
+    using CarShop.Services.Images;
     using CarShop.Services.Mapping;
     using CarShop.Services.Messaging;
     using CarShop.Services.Motorcycles;
@@ -125,6 +127,8 @@
             services.AddTransient<ICarsService, CarsService>();
             services.AddTransient<IVehiclesService, VehiclesService>();
             services.AddTransient<ICarAdsService, CarAdsService>();
+            services.AddTransient<IBusAdsService, BusAdsService>();
+            services.AddTransient<IImagesService, ImagesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
