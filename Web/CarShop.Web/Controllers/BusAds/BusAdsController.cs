@@ -7,6 +7,7 @@ using CarShop.Data.Models.Images;
 using CarShop.Services.BusAds;
 using CarShop.Web.ViewModels;
 using CarShop.Web.ViewModels.BusAds;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,7 @@ namespace CarShop.Web.Controllers.BusAds
             this.userManager = userManager;
         }
 
-
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             var user = await userManager.GetUserAsync(this.User);
@@ -47,6 +48,7 @@ namespace CarShop.Web.Controllers.BusAds
             return this.View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(CreateBusAdViewModel createBusAdViewModel)
         {
@@ -60,6 +62,7 @@ namespace CarShop.Web.Controllers.BusAds
             return this.View();
         }
 
+        [Authorize]
         [HttpGet("/BusAds/Edit/{id}")]
         public async Task<IActionResult> Edit(string id)
         {
@@ -79,6 +82,7 @@ namespace CarShop.Web.Controllers.BusAds
             return this.View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(EditBusAdViewModel inputModel)
         {
@@ -87,6 +91,7 @@ namespace CarShop.Web.Controllers.BusAds
             return this.RedirectToAction("MyBusAds");
         }
 
+        [Authorize]
         [HttpGet("/BusAds/Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
@@ -95,6 +100,7 @@ namespace CarShop.Web.Controllers.BusAds
             return this.RedirectToAction("MyBusAds");
         }
 
+        [Authorize]
         [HttpGet("/BusAds/Details/{id}")]
         public async Task<IActionResult> Details(string id)
         {

@@ -73,6 +73,6 @@ namespace CarShop.Web.ViewModels.Cars
         public string BaseImageUrl { get; set; }
 
         [Required]
-        public int SeatsCount { get; set; }
+        public int DoorsCount { get; set; }
     }
 }

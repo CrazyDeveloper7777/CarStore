@@ -1,0 +1,58 @@
+﻿@using CarShop.Services.TruckAds
+@using CarShop.Services.Users
+@inject ITruckAdsService truckAdsService
+@inject IUsersService usersService
+
+@{
+    var userId = await usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
+    var truckAds = await truckAdsService.GetAllByDealerIdAsync(userId);
+}
+
+<h1 class="text-center font-weight-bold m-4">Welcome to my trucks page.</h1>
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+<partial name="Partials/_MyAdsChooseCategory" />
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+
+@if (truckAds.Count == 0)
+{
+    <h1 class="text-center font-weight-bold m-4">You currently don't have any trucks ads.</h1>
+    <h3 class="text-white text-center text-dark">You can <a class="text-dark" asp-controller="TruckAds" asp-action="Create"><strong>create</strong></a> some.</h3>
+}
+else
+{
+    <table class="table table-dark w-50 mx-auto">
+        <thead>
+            <tr>
+                <th scope="col">Picture</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Model</th>
+                <th scope="col">Price</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var truckAd in truckAds)
+            {
+                <tr>
+                    <td>
+                        <img src="@truckAd.Truck.BaseImageUrl" alt="Alternate Text" style="height: 100px; width: 150px;" />
+                    </td>
+                    <td valign="middle">@truckAd.Truck.Brand</td>
+                    <td>@truckAd.Truck.Model</td>
+                    <td>@truckAd.Truck.Price @truckAd.Truck.Currency</td>
+                    <td>
+                        <a href="/TruckAds/Edit/@truckAd.Id">Edit</a>
+                    </td>
+                    <td>
+                        <a href="/TruckAds/Delete/@truckAd.Id">Delete</a>
+                    </td>
+                    <td>
+                        <a href="/TruckAds/Details/@truckAd.Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

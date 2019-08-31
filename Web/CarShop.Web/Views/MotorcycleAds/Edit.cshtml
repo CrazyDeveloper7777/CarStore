@@ -1,21 +1,21 @@
-﻿@using CarShop.Web.ViewModels.BusAds
-@using CarShop.Services.Buses
+﻿@using CarShop.Web.ViewModels.MotorcyclesAds
+@using CarShop.Services.Motorcycles
 @using CarShop.Services.Users
-@using CarShop.Services.BusAds
+@using CarShop.Services.MotorcycleAds
 @using System.Linq;
-@model EditBusAdViewModel
-@inject IBusAdsService busAdsService
-@inject IBusesService busesService
+@model EditMotorcycleAdViewModel
+@inject IMotorcycleAdsService motorcycleAdsService
+@inject IMotorcyclesService carsService
 @inject IUsersService usersService
 
 @{
     var message = "Fields in <span class=\"text-danger font-weight-bold\">RED</span> are required.";
     var userId = await usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
-    var busAds = await busAdsService.GetAllByDealerIdAsync(userId);
-    var busesNotIncludedInAnyAd = (await busesService.GetAllBusesByUserIdAsync(userId)).Where(b => !busAds.Any(ba => ba.BusId == b.Id && ba.Id != Model.Id)).ToList();
+    var motorcycleAds = await motorcycleAdsService.GetAllByDealerIdAsync(userId);
+    var motorcyclesNotIncludedInAnyAd = (await carsService.GetAllMotorcyclesByUserId(userId)).Where(m => !motorcycleAds.Any(ma => ma.MotorcycleId == m.Id && ma.Id != Model.Id)).ToList();
 }
 
-<h1 class="text-center font-weight-bold m-4">Welcome to edit bus ad page.</h1>
+<h1 class="text-center font-weight-bold m-4">Welcome to edit motorcycle ad page.</h1>
 <hr class="bg-dark w-50 mx-auto" style="height: 3px" />
 
 <div class="w-50 text-center mx-auto alert alert-info alert-dismissible" role="alert">
@@ -23,19 +23,19 @@
     @Html.Raw(message)
 </div>
 <div class="container-fluid">
-    <form asp-controller="BusAds" asp-action="Edit" method="post" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center">
+    <form asp-controller="MotorcycleAds" asp-action="Edit" method="post" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center">
         <input type="hidden" name="DealerId" value="@userId" />
         <input type="hidden" name="Id" value="@Model.Id" />
         <div class="form-group col-12 m-1">
-            <label asp-for="BusId" class="text-danger">Choose from your buses</label>
-            <select asp-for="BusId" class="form-control">
-                <option selected="selected" disabled>Select bus</option>
-                @foreach (var bus in busesNotIncludedInAnyAd)
+            <label asp-for="MotorcycleId" class="text-danger">Choose from your cars</label>
+            <select asp-for="MotorcycleId" class="form-control">
+                <option selected="selected" disabled>Select car</option>
+                @foreach (var motorcycle in motorcyclesNotIncludedInAnyAd)
                 {
-                    <option value="@bus.Id">Brand: @bus.Brand  Model: @bus.Model Power: @bus.Power Price: @bus.Price</option>
+                    <option value="@motorcycle.Id">Brand: @motorcycle.Brand  Model: @motorcycle.Model Power: @motorcycle.Power Price: @motorcycle.Price</option>
                 }
             </select>
-            <span asp-validation-for="BusId"></span>
+            <span asp-validation-for="MotorcycleId"></span>
         </div>
         <div class="form-group col-5 m-1">
             <label asp-for="Region" class="text-danger"></label>
@@ -115,7 +115,7 @@
         </div>
         <hr class="bg-dark mx-auto w-100" style="height: 2px" />
         <div class="d-flex justify-content-center col-12 row mt-5">
-            <button type="submit" class="btn btn-dark text-white col-6">Edit bus ad</button>
+            <button type="submit" class="btn btn-dark text-white col-6">Edit motorcycle ad</button>
         </div>
     </form>
 </div>

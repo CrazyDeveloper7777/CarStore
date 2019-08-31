@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace CarShop.Web.ViewModels.BusAds
+namespace CarShop.Web.ViewModels.MotorcyclesAds
 {
-    public class BusAdDetailsViewModel : IMapTo<BusAd>, IMapFrom<BusAd>
+    public class MotorcycleAdDetailsViewModel : IMapTo<MotorcycleAd>, IMapFrom<MotorcycleAd>
     {
-        public Bus Bus { get; set; }
+        public Motorcycle Motorcycle { get; set; }
 
         [Required]
         public string PhoneNumber { get; set; }

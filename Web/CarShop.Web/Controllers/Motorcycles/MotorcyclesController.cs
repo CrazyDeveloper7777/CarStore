@@ -77,7 +77,7 @@ namespace CarShop.Web.Controllers.Motorcycles
             return this.View(MotorcycleModel);
         }
 
-
+        [Authorize]
         public IActionResult MyMotorcycles()
         {
             return this.View();

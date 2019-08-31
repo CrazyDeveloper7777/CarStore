@@ -15,6 +15,7 @@ namespace CarShop.Web.Controllers.Vehicles
             return this.View();
         }
 
+        [Authorize]
         public IActionResult MyVehicles()
         {
             return this.View();

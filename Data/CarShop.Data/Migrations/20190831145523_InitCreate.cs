@@ -228,7 +228,7 @@ namespace CarShop.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ad",
+                name: "Ads",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -251,33 +251,33 @@ namespace CarShop.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ad", x => x.Id);
+                    table.PrimaryKey("PK_Ads", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ad_AspNetUsers_DealerId",
+                        name: "FK_Ads_AspNetUsers_DealerId",
                         column: x => x.DealerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Ad_Vehicles_BusId",
+                        name: "FK_Ads_Vehicles_BusId",
                         column: x => x.BusId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Ad_Vehicles_CarId",
+                        name: "FK_Ads_Vehicles_CarId",
                         column: x => x.CarId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Ad_Vehicles_MotorcycleId",
+                        name: "FK_Ads_Vehicles_MotorcycleId",
                         column: x => x.MotorcycleId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Ad_Vehicles_TruckId",
+                        name: "FK_Ads_Vehicles_TruckId",
                         column: x => x.TruckId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
@@ -300,41 +300,41 @@ namespace CarShop.Data.Migrations
                 {
                     table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Images_Ad_AdId",
+                        name: "FK_Images_Ads_AdId",
                         column: x => x.AdId,
-                        principalTable: "Ad",
+                        principalTable: "Ads",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ad_DealerId",
-                table: "Ad",
+                name: "IX_Ads_DealerId",
+                table: "Ads",
                 column: "DealerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ad_IsDeleted",
-                table: "Ad",
+                name: "IX_Ads_IsDeleted",
+                table: "Ads",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ad_BusId",
-                table: "Ad",
+                name: "IX_Ads_BusId",
+                table: "Ads",
                 column: "BusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ad_CarId",
-                table: "Ad",
+                name: "IX_Ads_CarId",
+                table: "Ads",
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ad_MotorcycleId",
-                table: "Ad",
+                name: "IX_Ads_MotorcycleId",
+                table: "Ads",
                 column: "MotorcycleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ad_TruckId",
-                table: "Ad",
+                name: "IX_Ads_TruckId",
+                table: "Ads",
                 column: "TruckId");
 
             migrationBuilder.CreateIndex(
@@ -439,7 +439,7 @@ namespace CarShop.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Ad");
+                name: "Ads");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");

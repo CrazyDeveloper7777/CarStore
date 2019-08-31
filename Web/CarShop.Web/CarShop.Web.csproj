@@ -32,9 +32,4 @@
     <ProjectReference Include="..\CarShop.Web.Infrastructure\CarShop.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\CarShop.Web.ViewModels\CarShop.Web.ViewModels.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\MotorcycleAds\" />
-    <Folder Include="Views\TruckAds\" />
-  </ItemGroup>
 </Project>

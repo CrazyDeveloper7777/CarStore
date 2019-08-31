@@ -1,0 +1,132 @@
+﻿@using CarShop.Web.ViewModels.MotorcyclesAds
+@using CarShop.Services.Motorcycles
+@using CarShop.Services.Users
+@using CarShop.Services.MotorcycleAds
+@using System.Linq;
+@model CreateMotorcycleAdViewModel
+@inject IMotorcycleAdsService motorcycleAdsService
+@inject IMotorcyclesService motorcyclesService
+@inject IUsersService usersService
+
+@{
+    var message = "Fields in <span class=\"text-danger font-weight-bold\">RED</span> are required.";
+    var userId = await usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
+    var motorcycleAds = await motorcycleAdsService.GetAllByDealerIdAsync(userId);
+    var motorcyclesNotIncludedInAnyAd = (await motorcyclesService.GetAllMotorcyclesByUserId(userId)).Where(m => !motorcycleAds.Any(ma => ma.MotorcycleId == m.Id)).ToList();
+}
+
+<h1 class="text-center font-weight-bold m-4">Welcome to create motorcycle ad page.</h1>
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+<partial name="Partials/_MainCategoryCreateVehiclePartial" />
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+
+@if (motorcyclesNotIncludedInAnyAd.Count > 0)
+{
+    <div class="w-50 text-center mx-auto alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @Html.Raw(message)
+    </div>
+    <div class="container-fluid">
+        <form asp-controller="MotorcycleAds" asp-action="Create" method="post" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center">
+            <input type="hidden" name="DealerId" value="@userId" />
+            <div class="form-group col-12 m-1">
+                <label asp-for="MotorcycleId" class="text-danger">Choose from your motorcycles</label>
+                <select asp-for="MotorcycleId" class="form-control">
+                    <option selected="selected" disabled>Select motorcycle</option>
+                    @foreach (var motorcycle in motorcyclesNotIncludedInAnyAd)
+                    {
+                        <option value="@motorcycle.Id">Brand: @motorcycle.Brand  Model: @motorcycle.Model Power: @motorcycle.Power Price: @motorcycle.Price</option>
+                    }
+                </select>
+                <span asp-validation-for="MotorcycleId"></span>
+            </div>
+            <div class="form-group col-5 m-1">
+                <label asp-for="Region" class="text-danger"></label>
+                <input asp-for="Region" placeholder="Region..." class="form-control" />
+                <span asp-validation-for="Region"></span>
+            </div>
+            <div class="form-group col-5 m-1">
+                <label asp-for="PopulatedPlace" class="text-danger"></label>
+                <input asp-for="PopulatedPlace" placeholder="Populated Place..." class="form-control" />
+                <span asp-validation-for="PopulatedPlace"></span>
+            </div>
+            <hr class="bg-dark mx-auto w-100" style="height: 2px" />
+            <h3 class="mx-auto text-info">The phone number must starts with 0 and must be exactly 10 digits long.</h3>
+            <div class="form-group col-3 m-1">
+                <label asp-for="PhoneNumber" class="text-danger"></label>
+                <input asp-for="PhoneNumber" placeholder="Phone Number..." class="form-control" />
+                <span asp-validation-for="PhoneNumber"></span>
+            </div>
+            <div class="form-group col-3 m-1">
+                <label asp-for="PhoneNumber2"></label>
+                <input asp-for="PhoneNumber2" placeholder="Phone Number 2..." class="form-control" />
+                <span asp-validation-for="PhoneNumber2"></span>
+            </div>
+            <div class="form-group col-3 m-1">
+                <label asp-for="PhoneNumber3"></label>
+                <input asp-for="PhoneNumber3" placeholder="Phone Number 3..." class="form-control" />
+                <span asp-validation-for="PhoneNumber3"></span>
+            </div>
+            <hr class="bg-dark mx-auto w-100" style="height: 2px" />
+            <div class="form-group col-3 m-1">
+                <label asp-for="Image1.Url"></label>
+                <input asp-for="Image1.Url" placeholder="Image 1 Url..." class="form-control" />
+                <span asp-validation-for="Image1.Url"></span>
+            </div>
+            <div class="form-group col-3 m-1">
+                <label asp-for="Image2.Url"></label>
+                <input asp-for="Image2.Url" placeholder="Image 2 Url..." class="form-control" />
+                <span asp-validation-for="Image2.Url"></span>
+            </div>
+            <div class="form-group col-3 m-1">
+                <label asp-for="Image3.Url"></label>
+                <input asp-for="Image3.Url" placeholder="Image 3 Url..." class="form-control" />
+                <span asp-validation-for="Image3.Url"></span>
+            </div>
+            <div class="form-group col-3 m-1">
+                <label asp-for="Image4.Url"></label>
+                <input asp-for="Image4.Url" placeholder="Image 4 Url..." class="form-control" />
+                <span asp-validation-for="Image4.Url"></span>
+            </div>
+            <div class="form-group col-3 m-1">
+                <label asp-for="Image5.Url"></label>
+                <input asp-for="Image5.Url" placeholder="Image 5 Url..." class="form-control" />
+                <span asp-validation-for="Image5.Url"></span>
+            </div>
+            <div class="form-group col-3 m-1">
+                <label asp-for="Image6.Url"></label>
+                <input asp-for="Image6.Url" placeholder="Image 6 Url..." class="form-control" />
+                <span asp-validation-for="Image6.Url"></span>
+            </div>
+            <div class="form-group col-3 m-1">
+                <label asp-for="Image7.Url"></label>
+                <input asp-for="Image7.Url" placeholder="Image 7 Url..." class="form-control" />
+                <span asp-validation-for="Image7.Url"></span>
+            </div>
+            <div class="form-group col-3 m-1">
+                <label asp-for="Image8.Url"></label>
+                <input asp-for="Image8.Url" placeholder="Image 8 Url..." class="form-control" />
+                <span asp-validation-for="Image8.Url"></span>
+            </div>
+            <div class="form-group col-3 m-1">
+                <label asp-for="Image9.Url"></label>
+                <input asp-for="Image9.Url" placeholder="Image 9 Url..." class="form-control" />
+                <span asp-validation-for="Image9.Url"></span>
+            </div>
+            <hr class="bg-dark mx-auto w-100" style="height: 2px" />
+            <div class="form-group col-12 m-1">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" placeholder="Description..." class="form-control"></textarea>
+                <span asp-validation-for="Description"></span>
+            </div>
+            <hr class="bg-dark mx-auto w-100" style="height: 2px" />
+            <div class="d-flex justify-content-center col-12 row mt-5">
+                <button type="submit" class="btn btn-dark text-white col-6">Create motorcycle ad</button>
+            </div>
+        </form>
+    </div>
+}
+else
+{
+<h2 class="text-center w-75 mx-auto">You currently don't have any motorcycles or all your motorcycles are included in ad. If you want to create a motorcycle ad first <a asp-controller="Motorcycles" asp-action="Create"><strong>create a motorcycle</strong></a>. Or choose another type of vehicle from the dropwdown.</h2>
+}

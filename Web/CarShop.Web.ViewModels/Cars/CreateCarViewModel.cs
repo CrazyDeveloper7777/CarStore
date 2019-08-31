@@ -15,7 +15,7 @@ namespace CarShop.Web.ViewModels.Cars
         public string OwnerId { get; set; }
 
         [Required]
-        public int SeatsCount { get; set; }
+        public int DoorsCount { get; set; }
 
         [Required]
         [Range(0, 9999999)]

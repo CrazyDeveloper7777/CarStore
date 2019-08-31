@@ -1,18 +1,15 @@
 ﻿using CarShop.Data.Models.Ads;
 using CarShop.Data.Models.Images;
-using CarShop.Data.Models.Vehicles;
 using CarShop.Services.Mapping;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace CarShop.Web.ViewModels.BusAds
+namespace CarShop.Web.ViewModels.MotorcyclesAds
 {
-    public class BusAdDetailsViewModel : IMapTo<BusAd>, IMapFrom<BusAd>
+    public class CreateMotorcycleAdViewModel : IMapTo<MotorcycleAd>, IMapFrom<MotorcycleAd>
     {
-        public Bus Bus { get; set; }
-
         [Required]
         public string PhoneNumber { get; set; }
 
@@ -21,6 +18,12 @@ namespace CarShop.Web.ViewModels.BusAds
         public string PhoneNumber3 { get; set; }
 
         public string Description { get; set; }
+
+        [Required]
+        public string DealerId { get; set; }
+
+        [Required]
+        public string MotorcycleId { get; set; }
 
         [Required]
         public string Region { get; set; }

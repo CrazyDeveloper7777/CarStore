@@ -18,7 +18,9 @@
     using CarShop.Services.Images;
     using CarShop.Services.Mapping;
     using CarShop.Services.Messaging;
+    using CarShop.Services.MotorcycleAds;
     using CarShop.Services.Motorcycles;
+    using CarShop.Services.TruckAds;
     using CarShop.Services.Trucks;
     using CarShop.Services.Users;
     using CarShop.Services.Vehicles;
@@ -128,6 +130,8 @@
             services.AddTransient<IVehiclesService, VehiclesService>();
             services.AddTransient<ICarAdsService, CarAdsService>();
             services.AddTransient<IBusAdsService, BusAdsService>();
+            services.AddTransient<ITruckAdsService, TruckAdsService>();
+            services.AddTransient<IMotorcycleAdsService, MotorcycleAdsService>();
             services.AddTransient<IImagesService, ImagesService>();
         }
 

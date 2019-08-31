@@ -77,6 +77,7 @@ namespace CarShop.Web.Controllers.Buses
             return this.View(busModel);
         }
 
+        [Authorize]
         public IActionResult MyBuses()
         {
             return this.View();
