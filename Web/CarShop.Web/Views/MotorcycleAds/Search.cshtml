@@ -1,0 +1,52 @@
+﻿@using CarShop.Data.Models.Ads
+@model ICollection<MotorcycleAd>
+
+<h1 class="text-center font-weight-bold m-4">Welcome to motorcycles page.</h1>
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+<partial name="Partials/_MainCategorySearchVehicles" />
+<hr class="bg-dark w-50 mx-auto" style="height: 3px" />
+
+@if (Model.Count == 0)
+{
+    <h1 class="text-center font-weight-bold m-4">Currently there are no any motorcycle ads.</h1>
+}
+else
+{
+    <table class="table table-dark w-50 mx-auto">
+        <thead>
+            <tr>
+                <th scope="col">Picture</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Model</th>
+                <th scope="col">Price</th>
+                @if (this.User.IsInRole("Administrator"))
+                {
+                    <th scope="col">Delete</th>
+                }
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var motorcycleAd in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@motorcycleAd.Motorcycle.BaseImageUrl" alt="Alternate Text" style="height: 100px; width: 150px;" />
+                    </td>
+                    <td valign="middle">@motorcycleAd.Motorcycle.Brand</td>
+                    <td>@motorcycleAd.Motorcycle.Model</td>
+                    <td>@motorcycleAd.Motorcycle.Price @motorcycleAd.Motorcycle.Currency</td>
+                    @if (this.User.IsInRole("Administrator"))
+                    {
+                        <td>
+                            <a href="/MotorcycleAds/Delete/@motorcycleAd.Id">Delete</a>
+                        </td>
+                    }
+                    <td>
+                        <a href="/MotorcycleAds/Details/@motorcycleAd.Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
