@@ -28,6 +28,11 @@ namespace CarShop.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateTruckViewModel inputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
             await this.trucksService.CreateAsync(inputModel);
 
             return this.RedirectToAction("MyTrucks");
@@ -49,6 +54,11 @@ namespace CarShop.Web.Controllers
         [HttpPost("/Trucks/Edit/{id}")]
         public async Task<IActionResult> Edit(EditTruckViewModel truckModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(truckModel);
+            }
+
             truckModel.ManufacturedOn = new DateTime(truckModel.Year, truckModel.Month, 1);
             await this.trucksService.EditAsync(truckModel);
 

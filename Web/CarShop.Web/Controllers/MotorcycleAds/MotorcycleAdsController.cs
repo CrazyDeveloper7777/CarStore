@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarShop.Data.Models;
+using CarShop.Data.Models.Ads;
 using CarShop.Data.Models.Images;
 using CarShop.Services.MotorcycleAds;
 using CarShop.Web.ViewModels.MotorcyclesAds;
@@ -51,6 +52,11 @@ namespace CarShop.Web.Controllers.MotorcycleAds
         [HttpPost]
         public async Task<IActionResult> Create(CreateMotorcycleAdViewModel createMotorcycleAdModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(createMotorcycleAdModel);
+            }
+
             await this.motorcycleAdsService.CreateAsync(createMotorcycleAdModel);
 
             return this.RedirectToAction("MyMotorcycleAds");
@@ -86,6 +92,11 @@ namespace CarShop.Web.Controllers.MotorcycleAds
         [HttpPost]
         public async Task<IActionResult> Edit(EditMotorcycleAdViewModel inputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
             await this.motorcycleAdsService.EditAsync(inputModel);
 
             return this.RedirectToAction("MyMotorcycleAds");
@@ -118,6 +129,22 @@ namespace CarShop.Web.Controllers.MotorcycleAds
             viewModel.Image9 = ((List<Image>)motorcycleAd.Images)[8];
 
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Search()
+        {
+            var motorcycleAds = new List<MotorcycleAd>();
+            if (this.User.Identity.Name != null)
+            {
+                var user = await this.userManager.GetUserAsync(this.User);
+                motorcycleAds = (List<MotorcycleAd>)await this.motorcycleAdsService.GetAllWithoutYoursAsync(user.Id);
+
+                return this.View(motorcycleAds);
+            }
+
+            motorcycleAds = (List<MotorcycleAd>)await this.motorcycleAdsService.GetAllWithoutYoursAsync(null);
+
+            return this.View(motorcycleAds);
         }
     }
 }

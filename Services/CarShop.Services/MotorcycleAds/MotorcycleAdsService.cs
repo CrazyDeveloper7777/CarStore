@@ -67,6 +67,17 @@ namespace CarShop.Services.MotorcycleAds
             await this.motorcycleAdsRepository.SaveChangesAsync();
         }
 
+        public async Task<ICollection<MotorcycleAd>> GetAllWithoutYoursAsync(string id)
+        {
+            var motorcycleAds = this.motorcycleAdsRepository
+                .All()
+                .Include(m => m.Motorcycle)
+                .Include(i => i.Images)
+                .Where(m => m.DealerId != id).ToList();
+
+            return motorcycleAds;
+        }
+
         public async Task<ICollection<MotorcycleAd>> GetAllByDealerIdAsync(string dealerId)
         {
             var motorcycleAd = this.motorcycleAdsRepository.All()

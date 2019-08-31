@@ -13,6 +13,8 @@ namespace CarShop.Services.BusAds
 
         Task<ICollection<BusAd>> GetAllByDealerIdAsync(string dealerId);
 
+        Task<ICollection<BusAd>> GetAllWithoutYoursAsync(string id);
+
         Task<BusAd> GetByIdAsync(string adId);
 
         Task EditAsync(EditBusAdViewModel inputModel);

@@ -54,6 +54,11 @@ namespace CarShop.Web.Controllers.CarAds
         [HttpPost]
         public async Task<IActionResult> Create(CreateCarAdViewModel createCarAdModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(createCarAdModel);
+            }
+
             await this.carAdsService.CreateAsync(createCarAdModel);
 
             return this.RedirectToAction("MyCarAds");
@@ -89,6 +94,11 @@ namespace CarShop.Web.Controllers.CarAds
         [HttpPost]
         public async Task<IActionResult> Edit(EditCarAdViewModel inputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
             await this.carAdsService.EditAsync(inputModel);
 
             return this.RedirectToAction("MyCarAds");
@@ -121,6 +131,22 @@ namespace CarShop.Web.Controllers.CarAds
             viewModel.Image9 = ((List<Image>)carAd.Images)[8];
 
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Search()
+        {
+            var carAds = new List<CarAd>();
+            if (this.User.Identity.Name != null)
+            {
+                var user = await this.userManager.GetUserAsync(this.User);
+                carAds = (List<CarAd>)await this.carAdsService.GetAllWithoutYoursAsync(user.Id);
+
+                return this.View(carAds);
+            }
+
+            carAds = (List<CarAd>)await this.carAdsService.GetAllWithoutYoursAsync(null);
+
+            return this.View(carAds);
         }
     }
 }

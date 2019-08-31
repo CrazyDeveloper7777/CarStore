@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarShop.Data.Models;
+using CarShop.Data.Models.Ads;
 using CarShop.Data.Models.Images;
 using CarShop.Services.TruckAds;
 using CarShop.Web.ViewModels.TruckAds;
@@ -51,6 +52,11 @@ namespace CarShop.Web.Controllers.TruckAds
         [HttpPost]
         public async Task<IActionResult> Create(CreateTruckAdViewModel createTruckAdModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(createTruckAdModel);
+            }
+
             await this.truckAdsService.CreateAsync(createTruckAdModel);
 
             return this.RedirectToAction("MyTruckAds");
@@ -86,6 +92,11 @@ namespace CarShop.Web.Controllers.TruckAds
         [HttpPost]
         public async Task<IActionResult> Edit(EditTruckAdViewModel inputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
             await this.truckAdsService.EditAsync(inputModel);
 
             return this.RedirectToAction("MyTruckAds");
@@ -118,6 +129,22 @@ namespace CarShop.Web.Controllers.TruckAds
             viewModel.Image9 = ((List<Image>)truckAd.Images)[8];
 
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Search()
+        {
+            var truckAds = new List<TruckAd>();
+            if(this.User.Identity.Name != null)
+            {
+                var user = await this.userManager.GetUserAsync(this.User);
+                truckAds = (List<TruckAd>)await this.truckAdsService.GetAllWithoutYoursAsync(user.Id);
+
+                return this.View(truckAds);
+            }
+
+            truckAds = (List<TruckAd>)await this.truckAdsService.GetAllWithoutYoursAsync(null);
+
+            return this.View(truckAds);
         }
     }
 }

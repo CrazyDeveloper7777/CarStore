@@ -43,7 +43,7 @@ namespace CarShop.Web.ViewModels.Cars
         public string Color { get; set; }
 
         [Required]
-        [Range(typeof(decimal), "0", "9999999")]
+        [Range(0, 9999999)]
         [Display(Name = "Run *")]
         public int Run { get; set; }
 

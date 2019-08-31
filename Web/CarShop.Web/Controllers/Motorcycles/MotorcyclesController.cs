@@ -28,6 +28,11 @@ namespace CarShop.Web.Controllers.Motorcycles
         [HttpPost]
         public async Task<IActionResult> Create(CreateMotorcycleViewModel inputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
             await this.motorcyclesService.CreateAsync(inputModel);
 
             return this.RedirectToAction("MyMotorcycles");
@@ -49,6 +54,11 @@ namespace CarShop.Web.Controllers.Motorcycles
         [HttpPost("/Motorcycles/Edit/{id}")]
         public async Task<IActionResult> Edit(EditMotorcycleViewModel MotorcycleModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(MotorcycleModel);
+            }
+
             MotorcycleModel.ManufacturedOn = new DateTime(MotorcycleModel.Year, MotorcycleModel.Month, 1);
             await this.motorcyclesService.EditAsync(MotorcycleModel);
 

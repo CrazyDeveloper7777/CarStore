@@ -14,6 +14,8 @@ namespace CarShop.Services.MotorcycleAds
 
         Task<ICollection<MotorcycleAd>> GetAllByDealerIdAsync(string dealerId);
 
+        Task<ICollection<MotorcycleAd>> GetAllWithoutYoursAsync(string id);
+
         Task<MotorcycleAd> GetByIdAsync(string adId);
 
         Task EditAsync(EditMotorcycleAdViewModel inputModel);

@@ -37,7 +37,7 @@
         public string Color { get; set; }
 
         [Required]
-        [Range(typeof(decimal), "0", "9999999")]
+        [Range(0, 9999999)]
         public int Run { get; set; }
 
         [Required]
