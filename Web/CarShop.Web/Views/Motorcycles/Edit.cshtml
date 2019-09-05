@@ -16,7 +16,9 @@
     @Html.Raw(message)
 </div>
 <div class="container-fluid">
-    <form method="post" action="/Motorcycles/Edit/@Model.Id?ownerId=@Model.OwnerId" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center">
+    <form method="post" asp-controller="Motorcycles" asp-action="Edit" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="ownerId" value="@Model.OwnerId" />
         <div class="form-group col-3 m-1">
             <label asp-for="Brand" class="text-danger"></label>
             <input asp-for="Brand" placeholder="Brand..." class="form-control" />

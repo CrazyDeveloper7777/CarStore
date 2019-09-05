@@ -26,6 +26,7 @@ namespace CarShop.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(CreateTruckViewModel inputModel)
         {
             if (!this.ModelState.IsValid)
@@ -51,7 +52,8 @@ namespace CarShop.Web.Controllers
         }
 
         [Authorize]
-        [HttpPost("/Trucks/Edit/{id}")]
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(EditTruckViewModel truckModel)
         {
             if (!this.ModelState.IsValid)

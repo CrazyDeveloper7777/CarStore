@@ -50,6 +50,7 @@ namespace CarShop.Web.Controllers.TruckAds
 
         [Authorize]
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(CreateTruckAdViewModel createTruckAdModel)
         {
             if (!this.ModelState.IsValid)
@@ -90,6 +91,7 @@ namespace CarShop.Web.Controllers.TruckAds
 
         [Authorize]
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(EditTruckAdViewModel inputModel)
         {
             if (!this.ModelState.IsValid)

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190831154407_Changes")]
-    partial class Changes
+    [Migration("20190905195528_InitCreate")]
+    partial class InitCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,15 +55,11 @@ namespace CarShop.Data.Migrations
                     b.Property<string>("Region")
                         .IsRequired();
 
-                    b.Property<string>("VehicleId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DealerId");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("VehicleId");
 
                     b.ToTable("Ads");
 
@@ -467,10 +463,6 @@ namespace CarShop.Data.Migrations
                         .WithMany("Ads")
                         .HasForeignKey("DealerId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("CarShop.Data.Models.Vehicles.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId");
                 });
 
             modelBuilder.Entity("CarShop.Data.Models.Images.Image", b =>
