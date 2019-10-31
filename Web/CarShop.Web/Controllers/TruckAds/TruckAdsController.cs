@@ -37,12 +37,12 @@ namespace CarShop.Web.Controllers.TruckAds
 
             if (user.PhoneNumber2 != null)
             {
-                viewModel.PhoneNumber = user.PhoneNumber2;
+                viewModel.PhoneNumber2 = user.PhoneNumber2;
             }
 
             if (user.PhoneNumber3 != null)
             {
-                viewModel.PhoneNumber = user.PhoneNumber3;
+                viewModel.PhoneNumber3 = user.PhoneNumber3;
             }
 
             return this.View(viewModel);

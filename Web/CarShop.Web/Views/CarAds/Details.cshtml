@@ -1,4 +1,13 @@
 ﻿@using CarShop.Web.ViewModels.CarAds
+@using Microsoft.AspNetCore.Identity
+@using CarShop.Data.Models
+
+@inject UserManager<ApplicationUser> userManager
+
+@{ 
+    var user = await userManager.GetUserAsync(this.User);
+}
+
 @model CarAdDetailsViewModel
 
 <h1 class="text-center font-weight-bold m-4">Car ad details</h1>
@@ -232,22 +241,57 @@
 </div>
 <hr class="bg-dark w-50 mx-auto" style="height: 3px" />
 <div class="d-flex justify-content-center">
-    <table class="table w-50 table-primary mt-3 mx-auto">
-        <thead>
-            <tr>
-                <th>Phone number 1</th>
-                <th>Phone number 2</th>
-                <th>Phone number 3</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@Model.PhoneNumber</td>
-                <td>@Model.PhoneNumber2</td>
-                <td>@Model.PhoneNumber3</td>
-            </tr>
-        </tbody>
-    </table>
+    <div>
+        <table class="table table-primary mt-3 mx-auto">
+            <thead>
+                <tr>
+                    <th>Phone number 1</th>
+                    <th>Phone number 2</th>
+                    <th>Phone number 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.PhoneNumber</td>
+                    <td>@Model.PhoneNumber2</td>
+                    <td>@Model.PhoneNumber3</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-primary mt-3 mx-auto">
+            <thead>
+                <tr>
+                    <th>Region</th>
+                    <th>City</th>
+                    <th>Dealer First Name</th>
+                    <th>Dealer Last Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Region</td>
+                    <td>@Model.PopulatedPlace</td>
+                    @if (@user.FirstName != null)
+                    {
+                        <td>@user.FirstName</td>
+                    }
+                    else
+                    {
+                        <td>None</td>
+                    }
+                    @if (@user.LastName != null)
+                    {
+                        <td>@user.LastName</td>
+                    }
+                    else
+                    {
+                        <td>None</td>
+                    }-|-</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <hr class="bg-dark w-50 mx-auto" style="height: 3px" />
 <div>
