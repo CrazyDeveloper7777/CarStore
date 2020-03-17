@@ -65,20 +65,20 @@
                 .AddDefaultTokenProviders()
                 .AddDefaultUI(UIFramework.Bootstrap4);
 
-            services.AddAuthentication()
-                .AddFacebook(facebookOptions =>
-                {
-                    facebookOptions.AppId = this.configuration["Authentication:Facebook:AppId"];
-                    facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
-                })
-                .AddGoogle(options =>
-                 {
-                     IConfigurationSection googleAuthNSection =
-                         this.configuration.GetSection("Authentication:Google");
-
-                     options.ClientId = googleAuthNSection["ClientId"];
-                     options.ClientSecret = googleAuthNSection["ClientSecret"];
-                 });
+            services.AddAuthentication();
+                //.AddFacebook(facebookOptions =>
+                //{
+                //    facebookOptions.AppId = this.configuration["Authentication:Facebook:AppId"];
+                //    facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
+                //})
+                //.AddGoogle(options =>
+                //{
+                //    IConfigurationSection googleAuthNSection =
+                //        this.configuration.GetSection("Authentication:Google");
+                //
+                //    options.ClientId = googleAuthNSection["ClientId"];
+                //   options.ClientSecret = googleAuthNSection["ClientSecret"];
+                //});
 
             services
                 .AddMvc()
