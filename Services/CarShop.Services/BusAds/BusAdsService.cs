@@ -1,10 +1,12 @@
 ﻿using CarShop.Data.Common.Repositories;
 using CarShop.Data.Models.Ads;
 using CarShop.Services.Images;
+using CarShop.Services.Mapping;
 using CarShop.Web.ViewModels.BusAds;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +26,9 @@ namespace CarShop.Services.BusAds
 
         public async Task CreateAsync(CreateBusAdViewModel viewModel)
         {
-            var busAd = AutoMapper.Mapper.Map<BusAd>(viewModel);
+            var busAd = AutoMapperConfig.MapperInstance.Map<BusAd>(viewModel);
+
+            busAd.Id = Guid.NewGuid().ToString();
 
             busAd.Images.Add(viewModel.Image1);
             busAd.Images.Add(viewModel.Image2);
@@ -50,7 +54,7 @@ namespace CarShop.Services.BusAds
 
         public async Task EditAsync(EditBusAdViewModel inputModel)
         {
-            var busAd = AutoMapper.Mapper.Map<BusAd>(inputModel);
+            var busAd = AutoMapperConfig.MapperInstance.Map<BusAd>(inputModel);
 
             await this.imagesService.DeleteAllByAdIdAsync(inputModel.Id);
 

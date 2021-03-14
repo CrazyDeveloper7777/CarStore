@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CarShop.Data.Common.Repositories;
 using CarShop.Data.Models.Vehicles;
+using CarShop.Services.Mapping;
 using CarShop.Web.ViewModels.Motorcycles;
 
 namespace CarShop.Services.Motorcycles
@@ -27,7 +28,8 @@ namespace CarShop.Services.Motorcycles
 
         public async Task CreateAsync(CreateMotorcycleViewModel inputModel)
         {
-            var motorcycle = AutoMapper.Mapper.Map<Motorcycle>(inputModel);
+            var motorcycle = AutoMapperConfig.MapperInstance.Map<Motorcycle>(inputModel);
+            motorcycle.Id = Guid.NewGuid().ToString();
 
             await this.motorcyclesRepository.AddAsync(motorcycle);
             await this.motorcyclesRepository.SaveChangesAsync();
@@ -42,7 +44,7 @@ namespace CarShop.Services.Motorcycles
 
         public async Task EditAsync(EditMotorcycleViewModel motorcycleModel)
         {
-            var motorcycle = AutoMapper.Mapper.Map<Motorcycle>(motorcycleModel);
+            var motorcycle = AutoMapperConfig.MapperInstance.Map<Motorcycle>(motorcycleModel);
 
             this.motorcyclesRepository.Update(motorcycle);
             await this.motorcyclesRepository.SaveChangesAsync();

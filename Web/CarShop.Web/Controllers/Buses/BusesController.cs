@@ -1,4 +1,5 @@
 ﻿using CarShop.Services.Buses;
+using CarShop.Services.Mapping;
 using CarShop.Web.ViewModels.Buses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,7 @@ namespace CarShop.Web.Controllers.Buses
         public async Task<IActionResult> Edit(string id)
         {
             var bus = await this.busesService.GetBusByIdAsync(id);
-            var busModel = AutoMapper.Mapper.Map<EditBusViewModel>(bus);
+            var busModel = AutoMapperConfig.MapperInstance.Map<EditBusViewModel>(bus);
             busModel.Year = bus.ManufacturedOn.Year;
             busModel.Month = bus.ManufacturedOn.Month;
 
@@ -84,7 +85,7 @@ namespace CarShop.Web.Controllers.Buses
         public async Task<IActionResult> Details(string id)
         {
             var bus = await this.busesService.GetBusByIdAsync(id);
-            var busModel = AutoMapper.Mapper.Map<DetailsBusViewModel>(bus);
+            var busModel = AutoMapperConfig.MapperInstance.Map<DetailsBusViewModel>(bus);
 
             return this.View(busModel);
         }

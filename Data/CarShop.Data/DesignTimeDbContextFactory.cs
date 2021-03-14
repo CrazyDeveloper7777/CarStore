@@ -17,13 +17,8 @@
                 .Build();
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-
             builder.UseSqlServer(connectionString);
-
-            // Stop client query evaluation
-            builder.ConfigureWarnings(w => w.Throw(RelationalEventId.QueryClientEvaluationWarning));
 
             return new ApplicationDbContext(builder.Options);
         }

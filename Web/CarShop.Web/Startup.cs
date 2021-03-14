@@ -36,6 +36,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
 
     public class Startup
@@ -63,32 +64,24 @@
                 .AddUserStore<ApplicationUserStore>()
                 .AddRoleStore<ApplicationRoleStore>()
                 .AddDefaultTokenProviders()
-                .AddDefaultUI(UIFramework.Bootstrap4);
+                .AddDefaultUI();
 
             services.AddAuthentication();
-                //.AddFacebook(facebookOptions =>
-                //{
-                //    facebookOptions.AppId = this.configuration["Authentication:Facebook:AppId"];
-                //    facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
-                //})
-                //.AddGoogle(options =>
-                //{
-                //    IConfigurationSection googleAuthNSection =
-                //        this.configuration.GetSection("Authentication:Google");
-                //
-                //    options.ClientId = googleAuthNSection["ClientId"];
-                //   options.ClientSecret = googleAuthNSection["ClientSecret"];
-                //});
+            //.AddFacebook(facebookOptions =>
+            //{
+            //    facebookOptions.AppId = this.configuration["Authentication:Facebook:AppId"];
+            //    facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
+            //})
+            //.AddGoogle(options =>
+            //{
+            //    IConfigurationSection googleAuthNSection =
+            //        this.configuration.GetSection("Authentication:Google");
+            //
+            //    options.ClientId = googleAuthNSection["ClientId"];
+            //   options.ClientSecret = googleAuthNSection["ClientSecret"];
+            //});
 
-            services
-                .AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddRazorPagesOptions(options =>
-                {
-                    options.AllowAreas = true;
-                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
-                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-                });
+            services.AddControllersWithViews();
 
             services
                 .ConfigureApplicationCookie(options =>
@@ -98,14 +91,14 @@
                     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 });
 
-            //services
-            //    .Configure<CookiePolicyOptions>(options =>
-            //    {
-            //        // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-            //        options.CheckConsentNeeded = context => true;
-            //        options.MinimumSameSitePolicy = SameSiteMode.Lax;
-            //        options.ConsentCookie.Name = ".AspNetCore.ConsentCookie";
-            //    });
+            services
+                .Configure<CookiePolicyOptions>(options =>
+                {
+                    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                    options.CheckConsentNeeded = context => true;
+                    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+                    options.ConsentCookie.Name = ".AspNetCore.ConsentCookie";
+                });
 
             services.AddSingleton(this.configuration);
 
@@ -136,7 +129,7 @@
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             AutoMapperConfig.RegisterMappings(
                 typeof(ErrorViewModel).GetTypeInfo().Assembly,
@@ -158,7 +151,7 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                //app.UseMigrationsEndPoint();
             }
             else
             {
@@ -166,15 +159,20 @@
                 app.UseHsts();
             }
 
+            app.UseRouting();
+
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseAuthorization();
 
-            app.UseMvc(routes =>
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

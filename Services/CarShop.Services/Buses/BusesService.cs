@@ -1,5 +1,6 @@
 ﻿using CarShop.Data.Common.Repositories;
 using CarShop.Data.Models.Vehicles;
+using CarShop.Services.Mapping;
 using CarShop.Web.ViewModels.Buses;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,8 @@ namespace CarShop.Services.Buses
 
         public async Task CreateAsync(CreateBusViewModel inputModel)
         {
-            var bus = AutoMapper.Mapper.Map<Bus>(inputModel);
+            var bus = AutoMapperConfig.MapperInstance.Map<Bus>(inputModel);
+            bus.Id = Guid.NewGuid().ToString();
 
             await this.busesRepository.AddAsync(bus);
             await this.busesRepository.SaveChangesAsync();
@@ -42,7 +44,7 @@ namespace CarShop.Services.Buses
 
         public async Task EditAsync(EditBusViewModel busModel)
         {
-            var bus = AutoMapper.Mapper.Map<Bus>(busModel);
+            var bus = AutoMapperConfig.MapperInstance.Map<Bus>(busModel);
 
             this.busesRepository.Update(bus);
             await this.busesRepository.SaveChangesAsync();

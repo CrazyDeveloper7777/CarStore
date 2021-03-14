@@ -22,8 +22,8 @@ namespace CarShop.Services.Cars
 
         public async Task CreateAsync(CreateCarViewModel model)
         {
-            var car = AutoMapper.Mapper.Map<Car>(model);
-
+            var car = AutoMapperConfig.MapperInstance.Map<Car>(model);
+            car.Id = Guid.NewGuid().ToString();
             await this.carsRepository.AddAsync(car);
             await this.carsRepository.SaveChangesAsync();
         }
@@ -37,7 +37,7 @@ namespace CarShop.Services.Cars
 
         public async Task EditAsync(EditCarViewModel carModel)
         {
-            var car = AutoMapper.Mapper.Map<Car>(carModel);
+            var car = AutoMapperConfig.MapperInstance.Map<Car>(carModel);
 
             this.carsRepository.Update(car);
             await this.carsRepository.SaveChangesAsync();

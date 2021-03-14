@@ -1,5 +1,6 @@
 ﻿using CarShop.Data.Models.Vehicles;
 using CarShop.Services.Cars;
+using CarShop.Services.Mapping;
 using CarShop.Services.Users;
 using CarShop.Web.ViewModels.Cars;
 using Microsoft.AspNetCore.Authorization;
@@ -39,8 +40,6 @@ namespace CarShop.Web.Controllers
                 return this.View(carModel);
             }
 
-            carModel.OwnerId = await this.usersService.GetUserIdByUsernameAsync(this.User.Identity.Name);
-
             await this.carsService.CreateAsync(carModel);
 
             return this.RedirectToAction("MyCars");
@@ -51,7 +50,7 @@ namespace CarShop.Web.Controllers
         public async Task<IActionResult> Edit(string carId)
         {
             var car = await this.carsService.GetCarByIdAsync(carId);
-            var carModel = AutoMapper.Mapper.Map<EditCarViewModel>(car);
+            var carModel = AutoMapperConfig.MapperInstance.Map<EditCarViewModel>(car);
             carModel.Year = car.ManufacturedOn.Year;
             carModel.Month = car.ManufacturedOn.Month;
 
@@ -101,7 +100,7 @@ namespace CarShop.Web.Controllers
         public async Task<IActionResult> Details(string carId)
         {
             var car = await this.carsService.GetCarByIdAsync(carId);
-            var carModel = AutoMapper.Mapper.Map<DetailsCarViewModel>(car);
+            var carModel = AutoMapperConfig.MapperInstance.Map<DetailsCarViewModel>(car);
 
             return this.View(carModel);
         }

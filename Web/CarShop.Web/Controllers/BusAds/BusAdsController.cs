@@ -6,6 +6,7 @@ using CarShop.Data.Models;
 using CarShop.Data.Models.Ads;
 using CarShop.Data.Models.Images;
 using CarShop.Services.BusAds;
+using CarShop.Services.Mapping;
 using CarShop.Web.ViewModels;
 using CarShop.Web.ViewModels.BusAds;
 using Microsoft.AspNetCore.Authorization;
@@ -74,7 +75,7 @@ namespace CarShop.Web.Controllers.BusAds
         public async Task<IActionResult> Edit(string id)
         {
             var busAd = await this.busAdsService.GetByIdAsync(id);
-            var viewModel = AutoMapper.Mapper.Map<EditBusAdViewModel>(busAd);
+            var viewModel = AutoMapperConfig.MapperInstance.Map<EditBusAdViewModel>(busAd);
 
             viewModel.Image1 = ((List<Image>)busAd.Images)[0];
             viewModel.Image2 = ((List<Image>)busAd.Images)[1];
@@ -118,7 +119,7 @@ namespace CarShop.Web.Controllers.BusAds
         public async Task<IActionResult> Details(string id)
         {
             var busAd = await this.busAdsService.GetByIdAsync(id);
-            var viewModel = AutoMapper.Mapper.Map<BusAdDetailsViewModel>(busAd);
+            var viewModel = AutoMapperConfig.MapperInstance.Map<BusAdDetailsViewModel>(busAd);
 
             viewModel.Image1 = ((List<Image>)busAd.Images)[0];
             viewModel.Image2 = ((List<Image>)busAd.Images)[1];

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CarShop.Data.Models;
 using CarShop.Data.Models.Ads;
 using CarShop.Data.Models.Images;
+using CarShop.Services.Mapping;
 using CarShop.Services.MotorcycleAds;
 using CarShop.Web.ViewModels.MotorcyclesAds;
 using Microsoft.AspNetCore.Authorization;
@@ -74,7 +75,7 @@ namespace CarShop.Web.Controllers.MotorcycleAds
         public async Task<IActionResult> Edit(string id)
         {
             var truckAd = await this.motorcycleAdsService.GetByIdAsync(id);
-            var viewModel = AutoMapper.Mapper.Map<EditMotorcycleAdViewModel>(truckAd);
+            var viewModel = AutoMapperConfig.MapperInstance.Map<EditMotorcycleAdViewModel>(truckAd);
 
             viewModel.Image1 = ((List<Image>)truckAd.Images)[0];
             viewModel.Image2 = ((List<Image>)truckAd.Images)[1];
@@ -118,7 +119,7 @@ namespace CarShop.Web.Controllers.MotorcycleAds
         public async Task<IActionResult> Details(string id)
         {
             var motorcycleAd = await this.motorcycleAdsService.GetByIdAsync(id);
-            var viewModel = AutoMapper.Mapper.Map<MotorcycleAdDetailsViewModel>(motorcycleAd);
+            var viewModel = AutoMapperConfig.MapperInstance.Map<MotorcycleAdDetailsViewModel>(motorcycleAd);
 
             viewModel.Image1 = ((List<Image>)motorcycleAd.Images)[0];
             viewModel.Image2 = ((List<Image>)motorcycleAd.Images)[1];

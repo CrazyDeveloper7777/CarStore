@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CarShop.Data.Common.Repositories;
 using CarShop.Data.Models.Vehicles;
+using CarShop.Services.Mapping;
 using CarShop.Web.ViewModels.Trucks;
 
 namespace CarShop.Services.Trucks
@@ -20,7 +21,8 @@ namespace CarShop.Services.Trucks
 
         public async Task CreateAsync(CreateTruckViewModel inputModel)
         {
-            var truck = AutoMapper.Mapper.Map<Truck>(inputModel);
+            var truck = AutoMapperConfig.MapperInstance.Map<Truck>(inputModel);
+            truck.Id = Guid.NewGuid().ToString();
 
             await this.trucksRepository.AddAsync(truck);
             await this.trucksRepository.SaveChangesAsync();
@@ -35,7 +37,7 @@ namespace CarShop.Services.Trucks
 
         public async Task EditAsync(EditTruckViewModel truckModel)
         {
-            var truck = AutoMapper.Mapper.Map<Truck>(truckModel);
+            var truck = AutoMapperConfig.MapperInstance.Map<Truck>(truckModel);
 
             this.trucksRepository.Update(truck);
             await this.trucksRepository.SaveChangesAsync();
