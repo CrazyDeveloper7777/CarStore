@@ -27,7 +27,8 @@
         @Html.Raw(message)
     </div>
     <div class="container-fluid">
-        <form asp-controller="BusAds" asp-action="Create" method="post" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center">
+        <form asp-controller="BusAds" asp-action="Create" method="post" class="row d-flex justify-content-between mt-5 w-75 mx-auto text-center"
+              enctype="multipart/form-data">
             <input type="hidden" name="DealerId" value="@userId" />
             <div class="form-group col-12 m-1">
                 <label asp-for="BusId" class="text-danger">Choose from your buses</label>
@@ -68,50 +69,10 @@
                 <span asp-validation-for="PhoneNumber3"></span>
             </div>
             <hr class="bg-dark mx-auto w-100" style="height: 2px" />
-            <div class="form-group col-3 m-1">
-                <label asp-for="Image1.Url"></label>
-                <input asp-for="Image1.Url" placeholder="Image 1 Url..." class="form-control" />
-                <span asp-validation-for="Image1.Url"></span>
-            </div>
-            <div class="form-group col-3 m-1">
-                <label asp-for="Image2.Url"></label>
-                <input asp-for="Image2.Url" placeholder="Image 2 Url..." class="form-control" />
-                <span asp-validation-for="Image2.Url"></span>
-            </div>
-            <div class="form-group col-3 m-1">
-                <label asp-for="Image3.Url"></label>
-                <input asp-for="Image3.Url" placeholder="Image 3 Url..." class="form-control" />
-                <span asp-validation-for="Image3.Url"></span>
-            </div>
-            <div class="form-group col-3 m-1">
-                <label asp-for="Image4.Url"></label>
-                <input asp-for="Image4.Url" placeholder="Image 4 Url..." class="form-control" />
-                <span asp-validation-for="Image4.Url"></span>
-            </div>
-            <div class="form-group col-3 m-1">
-                <label asp-for="Image5.Url"></label>
-                <input asp-for="Image5.Url" placeholder="Image 5 Url..." class="form-control" />
-                <span asp-validation-for="Image5.Url"></span>
-            </div>
-            <div class="form-group col-3 m-1">
-                <label asp-for="Image6.Url"></label>
-                <input asp-for="Image6.Url" placeholder="Image 6 Url..." class="form-control" />
-                <span asp-validation-for="Image6.Url"></span>
-            </div>
-            <div class="form-group col-3 m-1">
-                <label asp-for="Image7.Url"></label>
-                <input asp-for="Image7.Url" placeholder="Image 7 Url..." class="form-control" />
-                <span asp-validation-for="Image7.Url"></span>
-            </div>
-            <div class="form-group col-3 m-1">
-                <label asp-for="Image8.Url"></label>
-                <input asp-for="Image8.Url" placeholder="Image 8 Url..." class="form-control" />
-                <span asp-validation-for="Image8.Url"></span>
-            </div>
-            <div class="form-group col-3 m-1">
-                <label asp-for="Image9.Url"></label>
-                <input asp-for="Image9.Url" placeholder="Image 9 Url..." class="form-control" />
-                <span asp-validation-for="Image9.Url"></span>
+            <div class="form-group col-6 mx-auto">
+                <label asp-for="Images"></label>
+                <input asp-for="Images" placeholder="Images..." class="form-control" />
+                <span asp-validation-for="Images"></span>
             </div>
             <hr class="bg-dark mx-auto w-100" style="height: 2px" />
             <div class="form-group col-12 m-1">

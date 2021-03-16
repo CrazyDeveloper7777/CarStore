@@ -65,9 +65,6 @@ namespace CarShop.Web.ViewModels.Buses
         public CurrencyType Currency { get; set; }
 
         [Required]
-        public string BaseImageUrl { get; set; }
-
-        [Required]
         public int SeatsCount { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

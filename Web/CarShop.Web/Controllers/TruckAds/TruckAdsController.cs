@@ -77,16 +77,6 @@ namespace CarShop.Web.Controllers.TruckAds
             var truckAd = await this.truckAdsService.GetByIdAsync(id);
             var viewModel = AutoMapperConfig.MapperInstance.Map<EditTruckAdViewModel>(truckAd);
 
-            viewModel.Image1 = ((List<Image>)truckAd.Images)[0];
-            viewModel.Image2 = ((List<Image>)truckAd.Images)[1];
-            viewModel.Image3 = ((List<Image>)truckAd.Images)[2];
-            viewModel.Image4 = ((List<Image>)truckAd.Images)[3];
-            viewModel.Image5 = ((List<Image>)truckAd.Images)[4];
-            viewModel.Image6 = ((List<Image>)truckAd.Images)[5];
-            viewModel.Image7 = ((List<Image>)truckAd.Images)[6];
-            viewModel.Image8 = ((List<Image>)truckAd.Images)[7];
-            viewModel.Image9 = ((List<Image>)truckAd.Images)[8];
-
             return this.View(viewModel);
         }
 
@@ -111,6 +101,12 @@ namespace CarShop.Web.Controllers.TruckAds
         {
             await this.truckAdsService.DeleteAsync(id);
 
+            var user = await this.userManager.GetUserAsync(this.User);
+            if (await this.userManager.IsInRoleAsync(user, "Administrator"))
+            {
+                return this.RedirectToAction("Search");
+            }
+
             return this.RedirectToAction("MyTruckAds");
         }
 
@@ -120,16 +116,6 @@ namespace CarShop.Web.Controllers.TruckAds
         {
             var truckAd = await this.truckAdsService.GetByIdAsync(id);
             var viewModel = AutoMapperConfig.MapperInstance.Map<TruckAdDetailsViewModel>(truckAd);
-
-            viewModel.Image1 = ((List<Image>)truckAd.Images)[0];
-            viewModel.Image2 = ((List<Image>)truckAd.Images)[1];
-            viewModel.Image3 = ((List<Image>)truckAd.Images)[2];
-            viewModel.Image4 = ((List<Image>)truckAd.Images)[3];
-            viewModel.Image5 = ((List<Image>)truckAd.Images)[4];
-            viewModel.Image6 = ((List<Image>)truckAd.Images)[5];
-            viewModel.Image7 = ((List<Image>)truckAd.Images)[6];
-            viewModel.Image8 = ((List<Image>)truckAd.Images)[7];
-            viewModel.Image9 = ((List<Image>)truckAd.Images)[8];
 
             return this.View(viewModel);
         }

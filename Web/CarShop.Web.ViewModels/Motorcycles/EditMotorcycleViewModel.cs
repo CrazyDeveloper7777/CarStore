@@ -68,10 +68,6 @@ namespace CarShop.Web.ViewModels.Motorcycles
         public CurrencyType Currency { get; set; }
 
         [Required]
-        [Display(Name = "Base Image Url")]
-        public string BaseImageUrl { get; set; }
-
-        [Required]
         public TypeOfCooling TypeOfCooling { get; set; }
 
         [Required]

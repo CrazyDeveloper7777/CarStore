@@ -68,10 +68,6 @@ namespace CarShop.Web.ViewModels.Trucks
         public CurrencyType Currency { get; set; }
 
         [Required]
-        [Display(Name = "Base Image Url")]
-        public string BaseImageUrl { get; set; }
-
-        [Required]
         public int AxlesCount { get; set; }
 
         [Range(0, 999999)]

@@ -36,22 +36,6 @@ namespace CarShop.Web.ViewModels.TruckAds
         [Required]
         public string PopulatedPlace { get; set; }
 
-        public Image Image1 { get; set; }
-
-        public Image Image2 { get; set; }
-
-        public Image Image3 { get; set; }
-
-        public Image Image4 { get; set; }
-
-        public Image Image5 { get; set; }
-
-        public Image Image6 { get; set; }
-
-        public Image Image7 { get; set; }
-
-        public Image Image8 { get; set; }
-
-        public Image Image9 { get; set; }
+        public ICollection<Image> Images { get; set; }
     }
 }

@@ -62,51 +62,10 @@
             <input asp-for="PhoneNumber3" placeholder="Phone Number 3..." class="form-control" />
         </div>
         <hr class="bg-dark mx-auto w-100" style="height: 2px" />
-        <div class="form-group col-3 m-1">
-            <label asp-for="Image1.Url"></label>
-            <input asp-for="Image1.Url" placeholder="Image 1 Url..." class="form-control" />
-            <span asp-validation-for="Image1.Url"></span>
-        </div>
-        <div class="form-group col-3 m-1">
-            <label asp-for="Image2.Url"></label>
-            <input asp-for="Image2.Url" placeholder="Image 2 Url..." class="form-control" />
-            <span asp-validation-for="Image2.Url"></span>
-        </div>
-        <div class="form-group col-3 m-1">
-            <label asp-for="Image3.Url"></label>
-            <input asp-for="Image3.Url" placeholder="Image 3 Url..." class="form-control" />
-            <span asp-validation-for="Image3.Url"></span>
-        </div>
-        <div class="form-group col-3 m-1">
-            <label asp-for="Image4.Url"></label>
-            <input asp-for="Image4.Url" placeholder="Image 4 Url..." class="form-control" />
-            <span asp-validation-for="Image4.Url"></span>
-        </div>
-        <div class="form-group col-3 m-1">
-            <label asp-for="Image5.Url"></label>
-            <input asp-for="Image5.Url" placeholder="Image 5 Url..." class="form-control" />
-            <span asp-validation-for="Image5.Url"></span>
-        </div>
-        <div class="form-group col-3 m-1">
-            <label asp-for="Image6.Url"></label>
-            <input asp-for="Image6.Url" placeholder="Image 6 Url..." class="form-control" />
-            <span asp-validation-for="Image6.Url"></span>
-        </div>
-        <div class="form-group col-3 m-1">
-            <label asp-for="Image7.Url"></label>
-            <input asp-for="Image7.Url" placeholder="Image 7 Url..." class="form-control" />
-            <span asp-validation-for="Image7.Url"></span>
-        </div>
-        <div class="form-group col-3 m-1">
-            <label asp-for="Image8.Url"></label>
-            <input asp-for="Image8.Url" placeholder="Image 8 Url..." class="form-control" />
-            <span asp-validation-for="Image8.Url"></span>
-        </div>
-        <div class="form-group col-3 m-1">
-            <label asp-for="Image9.Url"></label>
-            <input asp-for="Image9.Url" placeholder="Image 9 Url..." class="form-control" />
-            <span asp-validation-for="Image9.Url"></span>
-        </div>
+        @foreach (var image in this.Model.Images)
+        {
+            <img class="col-3" src="~/images/@image.Name" />
+        }
         <hr class="bg-dark mx-auto w-100" style="height: 2px" />
         <div class="form-group col-12 m-1">
             <label asp-for="Description"></label>

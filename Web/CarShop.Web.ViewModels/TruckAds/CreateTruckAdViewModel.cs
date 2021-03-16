@@ -1,14 +1,17 @@
-﻿using CarShop.Data.Models.Ads;
+﻿using AutoMapper;
+using CarShop.Data.Models.Ads;
 using CarShop.Data.Models.Images;
 using CarShop.Services.Mapping;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 
 namespace CarShop.Web.ViewModels.TruckAds
 {
-    public class CreateTruckAdViewModel : IMapTo<TruckAd>, IMapFrom<TruckAd>
+    public class CreateTruckAdViewModel : IHaveCustomMappings, IMapTo<TruckAd>, IMapFrom<TruckAd>
     {
         [Required]
         public string PhoneNumber { get; set; }
@@ -31,22 +34,16 @@ namespace CarShop.Web.ViewModels.TruckAds
         [Required]
         public string PopulatedPlace { get; set; }
 
-        public Image Image1 { get; set; }
+        [Required]
+        public IEnumerable<IFormFile> Images { get; set; }
 
-        public Image Image2 { get; set; }
-
-        public Image Image3 { get; set; }
-
-        public Image Image4 { get; set; }
-
-        public Image Image5 { get; set; }
-
-        public Image Image6 { get; set; }
-
-        public Image Image7 { get; set; }
-
-        public Image Image8 { get; set; }
-
-        public Image Image9 { get; set; }
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<CreateTruckAdViewModel, TruckAd>()
+                .ForMember(db => db.Images,
+                vm => vm
+                    .MapFrom(x => x.Images
+                                .Select(i => new Image() { Id = Guid.NewGuid().ToString(), Name = i.FileName, Length = i.Length })));
+        }
     }
 }

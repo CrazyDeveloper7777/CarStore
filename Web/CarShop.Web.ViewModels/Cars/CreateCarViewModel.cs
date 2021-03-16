@@ -67,9 +67,6 @@ namespace CarShop.Web.ViewModels.Cars
         [Display(Name = "Currency *")]
         public CurrencyType Currency { get; set; }
 
-        [Required]
-        public string BaseImageUrl { get; set; }
-
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<CreateCarViewModel, Car>()

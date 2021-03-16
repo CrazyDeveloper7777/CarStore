@@ -23,7 +23,6 @@ else
         <table class="table table-borderless w-75">
             <thead>
                 <tr class="row text-center d-flex justify-content-center">
-                    <th class="col-2"><h1>Picture</h1></th>
                     <th class="col-2"><h1>Brand</h1></th>
                     <th class="col-2"><h1>Model</h1></th>
                     <th class="col-2"><h1>Edit</h1></th>
@@ -35,9 +34,6 @@ else
                 @foreach (var car in cars)
                 {
                     <tr class="row text-center d-flex justify-content-center ">
-                        <td class="col-2">
-                            <img src="@car.BaseImageUrl" alt="Alternate Text" style="height: 150px; width: 200px;" />
-                        </td>
                         <td class="col-2 my-auto"><h3>@car.Brand</h3></td>
                         <td class="col-2 my-auto"><h3>@car.Model</h3></td>
                         <td class="col-2 my-auto">

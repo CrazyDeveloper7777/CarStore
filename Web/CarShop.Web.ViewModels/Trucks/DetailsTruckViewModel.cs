@@ -47,9 +47,6 @@ namespace CarShop.Web.ViewModels.Trucks
         public DateTime ManufacturedOn { get; set; }
 
         [Required]
-        public string BaseImageUrl { get; set; }
-
-        [Required]
         public int AxlesCount { get; set; }
 
         [Range(0, 999999)]

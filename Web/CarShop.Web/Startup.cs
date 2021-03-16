@@ -1,5 +1,6 @@
 ﻿namespace CarShop.Web
 {
+    using System.Linq;
     using System.Reflection;
 
     using CarShop.Data;
@@ -20,6 +21,7 @@
     using CarShop.Services.Messaging;
     using CarShop.Services.MotorcycleAds;
     using CarShop.Services.Motorcycles;
+    using CarShop.Services.SaveImagesService;
     using CarShop.Services.TruckAds;
     using CarShop.Services.Trucks;
     using CarShop.Services.Users;
@@ -126,6 +128,7 @@
             services.AddTransient<ITruckAdsService, TruckAdsService>();
             services.AddTransient<IMotorcycleAdsService, MotorcycleAdsService>();
             services.AddTransient<IImagesService, ImagesService>();
+            services.AddTransient<ISaveImagesService, SaveImagesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -139,11 +142,7 @@
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-                if (env.IsDevelopment())
-                {
-                    dbContext.Database.Migrate();
-                }
+                dbContext.Database.Migrate();
 
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
@@ -151,7 +150,6 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseMigrationsEndPoint();
             }
             else
             {

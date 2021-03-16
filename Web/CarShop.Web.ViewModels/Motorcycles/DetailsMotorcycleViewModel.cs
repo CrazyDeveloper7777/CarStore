@@ -47,9 +47,6 @@ namespace CarShop.Web.ViewModels.Motorcycles
         public DateTime ManufacturedOn { get; set; }
 
         [Required]
-        public string BaseImageUrl { get; set; }
-
-        [Required]
         public TypeOfCooling TypeOfCooling { get; set; }
 
         [Required]

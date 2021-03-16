@@ -2,6 +2,7 @@
 using CarShop.Data.Models.Ads;
 using CarShop.Services.Images;
 using CarShop.Services.Mapping;
+using CarShop.Services.SaveImagesService;
 using CarShop.Web.ViewModels.BusAds;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,37 +18,36 @@ namespace CarShop.Services.BusAds
     {
         private readonly IDeletableEntityRepository<BusAd> busAdsRepository;
         private readonly IImagesService imagesService;
+        private readonly ISaveImagesService saveImagesService;
 
-        public BusAdsService(IDeletableEntityRepository<BusAd> busAdsRepository, IImagesService imagesService)
+        public BusAdsService(IDeletableEntityRepository<BusAd> busAdsRepository, IImagesService imagesService, ISaveImagesService saveImagesService)
         {
             this.busAdsRepository = busAdsRepository;
             this.imagesService = imagesService;
+            this.saveImagesService = saveImagesService;
         }
 
         public async Task CreateAsync(CreateBusAdViewModel viewModel)
         {
+            var sanitizedImages = saveImagesService.SanitazeImages(viewModel.Images);
+            viewModel.Images = sanitizedImages;
             var busAd = AutoMapperConfig.MapperInstance.Map<BusAd>(viewModel);
-
             busAd.Id = Guid.NewGuid().ToString();
 
-            busAd.Images.Add(viewModel.Image1);
-            busAd.Images.Add(viewModel.Image2);
-            busAd.Images.Add(viewModel.Image3);
-            busAd.Images.Add(viewModel.Image4);
-            busAd.Images.Add(viewModel.Image5);
-            busAd.Images.Add(viewModel.Image6);
-            busAd.Images.Add(viewModel.Image7);
-            busAd.Images.Add(viewModel.Image8);
-            busAd.Images.Add(viewModel.Image9);
-
+            await this.saveImagesService.SaveImagesAsync(sanitizedImages);
             await this.busAdsRepository.AddAsync(busAd);
             await this.busAdsRepository.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(string id)
         {
-            var busAd = this.busAdsRepository.All().FirstOrDefault(c => c.Id == id);
+            var busAd = this.busAdsRepository
+                .All()
+                .Include(b => b.Images)
+                .FirstOrDefault(c => c.Id == id);
 
+            await this.saveImagesService.DeleteImagesAsync(busAd.Images);
+            await this.imagesService.DeleteAllByAdIdAsync(busAd.Id);
             this.busAdsRepository.Delete(busAd);
             await this.busAdsRepository.SaveChangesAsync();
         }
@@ -56,20 +56,7 @@ namespace CarShop.Services.BusAds
         {
             var busAd = AutoMapperConfig.MapperInstance.Map<BusAd>(inputModel);
 
-            await this.imagesService.DeleteAllByAdIdAsync(inputModel.Id);
-
-            busAd.Images.Add(inputModel.Image1);
-            busAd.Images.Add(inputModel.Image2);
-            busAd.Images.Add(inputModel.Image3);
-            busAd.Images.Add(inputModel.Image4);
-            busAd.Images.Add(inputModel.Image5);
-            busAd.Images.Add(inputModel.Image6);
-            busAd.Images.Add(inputModel.Image7);
-            busAd.Images.Add(inputModel.Image8);
-            busAd.Images.Add(inputModel.Image9);
-
             this.busAdsRepository.Update(busAd);
-
             await this.busAdsRepository.SaveChangesAsync();
         }
 

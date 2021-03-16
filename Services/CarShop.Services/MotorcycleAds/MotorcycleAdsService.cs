@@ -2,6 +2,7 @@
 using CarShop.Data.Models.Ads;
 using CarShop.Services.Images;
 using CarShop.Services.Mapping;
+using CarShop.Services.SaveImagesService;
 using CarShop.Web.ViewModels.MotorcyclesAds;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,36 +16,36 @@ namespace CarShop.Services.MotorcycleAds
     {
         private readonly IDeletableEntityRepository<MotorcycleAd> motorcycleAdsRepository;
         private readonly IImagesService imagesService;
+        private readonly ISaveImagesService saveImagesService;
 
-        public MotorcycleAdsService(IDeletableEntityRepository<MotorcycleAd> motorcycleAdsRepository, IImagesService imagesService)
+        public MotorcycleAdsService(IDeletableEntityRepository<MotorcycleAd> motorcycleAdsRepository, IImagesService imagesService, ISaveImagesService saveImagesService)
         {
             this.motorcycleAdsRepository = motorcycleAdsRepository;
             this.imagesService = imagesService;
+            this.saveImagesService = saveImagesService;
         }
 
         public async Task CreateAsync(CreateMotorcycleAdViewModel viewModel)
         {
+            var sanitizedImages = saveImagesService.SanitazeImages(viewModel.Images);
+            viewModel.Images = sanitizedImages;
             var motorcycleAd = AutoMapperConfig.MapperInstance.Map<MotorcycleAd>(viewModel);
             motorcycleAd.Id = Guid.NewGuid().ToString();
 
-            motorcycleAd.Images.Add(viewModel.Image1);
-            motorcycleAd.Images.Add(viewModel.Image2);
-            motorcycleAd.Images.Add(viewModel.Image3);
-            motorcycleAd.Images.Add(viewModel.Image4);
-            motorcycleAd.Images.Add(viewModel.Image5);
-            motorcycleAd.Images.Add(viewModel.Image6);
-            motorcycleAd.Images.Add(viewModel.Image7);
-            motorcycleAd.Images.Add(viewModel.Image8);
-            motorcycleAd.Images.Add(viewModel.Image9);
-
+            await this.saveImagesService.SaveImagesAsync(sanitizedImages);
             await this.motorcycleAdsRepository.AddAsync(motorcycleAd);
             await this.motorcycleAdsRepository.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(string id)
         {
-            var motorcycleAd = this.motorcycleAdsRepository.All().FirstOrDefault(c => c.Id == id);
+            var motorcycleAd = this.motorcycleAdsRepository
+                .All()
+                .Include(m => m.Images)
+                .FirstOrDefault(c => c.Id == id);
 
+            await this.saveImagesService.DeleteImagesAsync(motorcycleAd.Images);
+            await this.imagesService.DeleteAllByAdIdAsync(motorcycleAd.Id);
             this.motorcycleAdsRepository.Delete(motorcycleAd);
             await this.motorcycleAdsRepository.SaveChangesAsync();
         }
@@ -53,20 +54,7 @@ namespace CarShop.Services.MotorcycleAds
         {
             var motorcylceAd = AutoMapperConfig.MapperInstance.Map<MotorcycleAd>(inputModel);
 
-            await this.imagesService.DeleteAllByAdIdAsync(inputModel.Id);
-
-            motorcylceAd.Images.Add(inputModel.Image1);
-            motorcylceAd.Images.Add(inputModel.Image2);
-            motorcylceAd.Images.Add(inputModel.Image3);
-            motorcylceAd.Images.Add(inputModel.Image4);
-            motorcylceAd.Images.Add(inputModel.Image5);
-            motorcylceAd.Images.Add(inputModel.Image6);
-            motorcylceAd.Images.Add(inputModel.Image7);
-            motorcylceAd.Images.Add(inputModel.Image8);
-            motorcylceAd.Images.Add(inputModel.Image9);
-
             this.motorcycleAdsRepository.Update(motorcylceAd);
-
             await this.motorcycleAdsRepository.SaveChangesAsync();
         }
 

@@ -22,144 +22,16 @@
 
     <div class="slideshow-container mt-5">
 
-        <div class="mySlides">
-            <div class="numbertext">1 / 10</div>
-            <img src="@Model.Truck.BaseImageUrl" alt="Base Image not found">
-        </div>
-
-        @if (Model.Image1.Url != null)
-        {
-            <div class="mySlides">
-                <div class="numbertext">2 / 10</div>
-                <img src="@Model.Image1.Url" alt="Image 1 not found">
-            </div>
-        }
-        else
-        {
-            <div class="mySlides">
-                <div class="numbertext">2 / 10</div>
-                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 1 no image">
-            </div>
-        }
-
-        @if (Model.Image2.Url != null)
-        {
-            <div class="mySlides">
-                <div class="numbertext">3 / 10</div>
-                <img src="@Model.Image2.Url" alt="Image 2 not found">
-            </div>
-        }
-        else
-        {
-            <div class="mySlides">
-                <div class="numbertext">3 / 10</div>
-                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 2 no image">
-            </div>
-        }
-
-        @if (Model.Image3.Url != null)
-        {
-            <div class="mySlides">
-                <div class="numbertext">4 / 10</div>
-                <img src="@Model.Image3.Url" alt="Image 3 not found">
-            </div>
-        }
-        else
-        {
-            <div class="mySlides">
-                <div class="numbertext">4 / 10</div>
-                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 3 no image">
-            </div>
-        }
-
-        @if (Model.Image4.Url != null)
-        {
-            <div class="mySlides">
-                <div class="numbertext">5 / 10</div>
-                <img src="@Model.Image4.Url" alt="Image 4 not found">
-            </div>
-        }
-        else
-        {
-            <div class="mySlides">
-                <div class="numbertext">5 / 10</div>
-                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 4 no image">
-            </div>
-        }
-
-        @if (Model.Image5.Url != null)
-        {
-            <div class="mySlides">
-                <div class="numbertext">6 / 10</div>
-                <img src="@Model.Image5.Url" alt="Image 5 not found">
-            </div>
-        }
-        else
-        {
-            <div class="mySlides">
-                <div class="numbertext">6 / 10</div>
-                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 5 no image">
-            </div>
-        }
-
-        @if (Model.Image6.Url != null)
-        {
-            <div class="mySlides">
-                <div class="numbertext">7 / 10</div>
-                <img src="@Model.Image6.Url" alt="Image 6 not found">
-            </div>
-        }
-        else
-        {
-            <div class="mySlides">
-                <div class="numbertext">7 / 10</div>
-                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 1 no image">
-            </div>
-        }
-
-        @if (Model.Image7.Url != null)
-        {
-            <div class="mySlides">
-                <div class="numbertext">8 / 10</div>
-                <img src="@Model.Image7.Url" alt="Image 7 not found">
-            </div>
-        }
-        else
-        {
-            <div class="mySlides">
-                <div class="numbertext">8 / 10</div>
-                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 7 no image">
-            </div>
-        }
-
-        @if (Model.Image8.Url != null)
-        {
-            <div class="mySlides">
-                <div class="numbertext">9 / 10</div>
-                <img src="@Model.Image8.Url" alt="Image 8 not found">
-            </div>
-        }
-        else
-        {
-            <div class="mySlides">
-                <div class="numbertext">9 / 10</div>
-                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 8 no image">
-            </div>
-        }
-
-        @if (Model.Image9.Url != null)
-        {
-            <div class="mySlides">
-                <div class="numbertext">10 / 10</div>
-                <img src="@Model.Image9.Url" alt="Image 9 not found">
-            </div>
-        }
-        else
-        {
-            <div class="mySlides">
-                <div class="numbertext">10 / 10</div>
-                <img src="https://www.aiu.edu.sy/ui/cash/C320280no_image.jpg" alt="Image 9 no image">
-            </div>
+        @{
+            var imageIndex = 1;
+            foreach (var image in this.Model.Images)
+            {
+                <div class="mySlides">
+                    <div class="numbertext">@imageIndex / @this.Model.Images.Count</div>
+                    <img src="~/images/@image.Name" alt="Base Image not found">
+                </div>
+                imageIndex++;
+            }
         }
 
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -168,16 +40,10 @@
     <br>
 
     <div style="text-align:center; width: 700px;">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
-        <span class="dot" onclick="currentSlide(5)"></span>
-        <span class="dot" onclick="currentSlide(6)"></span>
-        <span class="dot" onclick="currentSlide(7)"></span>
-        <span class="dot" onclick="currentSlide(8)"></span>
-        <span class="dot" onclick="currentSlide(9)"></span>
-        <span class="dot" onclick="currentSlide(10)"></span>
+        @for (int currentSlide = 1; currentSlide <= this.Model.Images.Count; currentSlide++)
+        {
+            <span class="dot" onclick="currentSlide(@currentSlide)"></span>
+        }
     </div>
 
     <script>

@@ -31,7 +31,5 @@ namespace CarShop.Data.Models.Vehicles
         VehicleState State { get; set; }
 
         TransmissionType Transmission { get; set; }
-
-        string BaseImageUrl { get; set; }
     }
 }

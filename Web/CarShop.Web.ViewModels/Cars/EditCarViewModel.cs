@@ -69,10 +69,6 @@ namespace CarShop.Web.ViewModels.Cars
         public CurrencyType Currency { get; set; }
 
         [Required]
-        [Display(Name = "Base Image Url")]
-        public string BaseImageUrl { get; set; }
-
-        [Required]
         public int DoorsCount { get; set; }
     }
 }

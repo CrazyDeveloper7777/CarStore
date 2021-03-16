@@ -77,16 +77,6 @@ namespace CarShop.Web.Controllers.MotorcycleAds
             var truckAd = await this.motorcycleAdsService.GetByIdAsync(id);
             var viewModel = AutoMapperConfig.MapperInstance.Map<EditMotorcycleAdViewModel>(truckAd);
 
-            viewModel.Image1 = ((List<Image>)truckAd.Images)[0];
-            viewModel.Image2 = ((List<Image>)truckAd.Images)[1];
-            viewModel.Image3 = ((List<Image>)truckAd.Images)[2];
-            viewModel.Image4 = ((List<Image>)truckAd.Images)[3];
-            viewModel.Image5 = ((List<Image>)truckAd.Images)[4];
-            viewModel.Image6 = ((List<Image>)truckAd.Images)[5];
-            viewModel.Image7 = ((List<Image>)truckAd.Images)[6];
-            viewModel.Image8 = ((List<Image>)truckAd.Images)[7];
-            viewModel.Image9 = ((List<Image>)truckAd.Images)[8];
-
             return this.View(viewModel);
         }
 
@@ -111,6 +101,12 @@ namespace CarShop.Web.Controllers.MotorcycleAds
         {
             await this.motorcycleAdsService.DeleteAsync(id);
 
+            var user = await this.userManager.GetUserAsync(this.User);
+            if (await this.userManager.IsInRoleAsync(user, "Administrator"))
+            {
+                return this.RedirectToAction("Search");
+            }
+
             return this.RedirectToAction("MyMotorcycleAds");
         }
 
@@ -120,16 +116,6 @@ namespace CarShop.Web.Controllers.MotorcycleAds
         {
             var motorcycleAd = await this.motorcycleAdsService.GetByIdAsync(id);
             var viewModel = AutoMapperConfig.MapperInstance.Map<MotorcycleAdDetailsViewModel>(motorcycleAd);
-
-            viewModel.Image1 = ((List<Image>)motorcycleAd.Images)[0];
-            viewModel.Image2 = ((List<Image>)motorcycleAd.Images)[1];
-            viewModel.Image3 = ((List<Image>)motorcycleAd.Images)[2];
-            viewModel.Image4 = ((List<Image>)motorcycleAd.Images)[3];
-            viewModel.Image5 = ((List<Image>)motorcycleAd.Images)[4];
-            viewModel.Image6 = ((List<Image>)motorcycleAd.Images)[5];
-            viewModel.Image7 = ((List<Image>)motorcycleAd.Images)[6];
-            viewModel.Image8 = ((List<Image>)motorcycleAd.Images)[7];
-            viewModel.Image9 = ((List<Image>)motorcycleAd.Images)[8];
 
             return this.View(viewModel);
         }

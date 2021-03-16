@@ -48,8 +48,5 @@
 
         [Required]
         public DateTime ManufacturedOn { get; set; }
-
-        [Required]
-        public string BaseImageUrl { get; set; }
     }
 }
