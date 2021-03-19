@@ -1,6 +1,7 @@
 ﻿namespace CarShop.Web.Areas.Identity.Pages.Account
 {
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
     using CarShop.Common.Attributes;
@@ -60,10 +61,10 @@
                     return this.LocalRedirect(returnUrl + "?message=" + message);
                 }
 
-                foreach (var error in result.Errors)
-                {
-                    this.ModelState.AddModelError(string.Empty, error.Description);
-                }
+                this.ModelState.AddModelError("Input.Password", string.Join("\r\n", result.Errors.Select(e => e.Description)));
+                this.ModelState.AddModelError("Input.ConfirmPassword", string.Join("\r\n", result.Errors.Select(e => e.Description)));
+
+                return this.Page();
             }
 
             // If we got this far, something failed, redisplay form
