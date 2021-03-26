@@ -21,7 +21,6 @@ namespace CarShop.Services.SaveImagesService
         public SaveImagesService(IWebHostEnvironment env)
         {
             this.env = env;
-            Tinify.Key = API_KEY;
 
             pathToDirectory = env.ContentRootPath + @"\wwwroot\images";
             if (!Directory.Exists(pathToDirectory))
@@ -32,6 +31,7 @@ namespace CarShop.Services.SaveImagesService
 
         public async Task SaveImagesAsync(IEnumerable<IFormFile> images)
         {
+            Tinify.Key = API_KEY;
             foreach (var image in images)
             {
                 var pathToFile = Path.Combine(pathToDirectory, image.FileName);
