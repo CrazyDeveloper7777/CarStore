@@ -170,6 +170,8 @@
             app.UseAuthorization();
             app.UseResponseCaching();
 
+            //app.UseResponseCompression();
+
 
             app.UseEndpoints(endpoints =>
             {
