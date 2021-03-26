@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TinifyAPI;
 
 namespace CarShop.Services.SaveImagesService
 {
@@ -15,10 +16,12 @@ namespace CarShop.Services.SaveImagesService
         private static ICollection<string> allowedTypes = new HashSet<string> { ".jpeg", ".jpg", ".png", ".svg", ".gif" };
         private static string pathToDirectory;
         private readonly IWebHostEnvironment env;
+        private const string API_KEY = "yXzKQtGjHByyX64G3967khC9sqHBCkvw";
 
         public SaveImagesService(IWebHostEnvironment env)
         {
             this.env = env;
+            Tinify.Key = API_KEY;
 
             pathToDirectory = env.ContentRootPath + @"\wwwroot\images";
             if (!Directory.Exists(pathToDirectory))
@@ -36,6 +39,9 @@ namespace CarShop.Services.SaveImagesService
                 {
                     await image.CopyToAsync(fileStream);
                 }
+
+                var source = Tinify.FromFile(pathToFile);
+                source.ToFile(pathToFile);
             }
         }
 

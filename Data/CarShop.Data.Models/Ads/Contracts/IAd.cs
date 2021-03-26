@@ -1,4 +1,5 @@
-﻿using CarShop.Data.Models.Vehicles;
+﻿using CarShop.Data.Models.Images;
+using CarShop.Data.Models.Vehicles;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,5 +23,8 @@ namespace CarShop.Data.Models.Ads
         string Region { get; set; }
 
         string PopulatedPlace { get; set; }
+
+        ICollection<Image> Images { get; set; }
+
     }
 }

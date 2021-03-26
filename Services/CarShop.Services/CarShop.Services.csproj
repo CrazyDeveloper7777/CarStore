@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.4" />
     <PackageReference Include="Sendgrid" Version="9.22.0" />
+    <PackageReference Include="Tinify" Version="1.5.2" />
   </ItemGroup>
 
   <ItemGroup>

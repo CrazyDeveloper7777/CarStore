@@ -41,7 +41,6 @@ namespace CarShop.Services.TruckAds
         {
             var truckAd = this.truckAdsRepository
                 .All()
-                .Include(t => t.Images)
                 .FirstOrDefault(c => c.Id == id);
 
             await this.saveImagesService.DeleteImagesAsync(truckAd.Images);
@@ -62,8 +61,6 @@ namespace CarShop.Services.TruckAds
         {
             var truckAds = this.truckAdsRepository
                 .All()
-                .Include(t => t.Truck)
-                .Include(i => i.Images)
                 .Where(t => t.DealerId != id).ToList();
 
             return truckAds;
@@ -72,8 +69,6 @@ namespace CarShop.Services.TruckAds
         public async Task<ICollection<TruckAd>> GetAllByDealerIdAsync(string dealerId)
         {
             var truckAds = this.truckAdsRepository.All()
-                .Include(t => t.Truck)
-                .Include(i => i.Images)
                 .Where(c => c.DealerId == dealerId)
                 .ToList();
 
@@ -83,8 +78,6 @@ namespace CarShop.Services.TruckAds
         public async Task<TruckAd> GetByIdAsync(string adId)
         {
             var truckAds = this.truckAdsRepository.All()
-                .Include(t => t.Truck)
-                .Include(i => i.Images)
                 .FirstOrDefault(ca => ca.Id == adId);
 
             return truckAds;

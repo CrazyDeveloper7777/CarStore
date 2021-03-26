@@ -56,7 +56,11 @@
             // Framework services
             // TODO: Add pooling when this bug is fixed: https://github.com/aspnet/EntityFrameworkCore/issues/9741
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+                options =>
+                {
+                    options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
+                    options.UseLazyLoadingProxies();
+                });
 
             services
                 .AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -164,6 +168,7 @@
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseResponseCaching();
 
 
             app.UseEndpoints(endpoints =>

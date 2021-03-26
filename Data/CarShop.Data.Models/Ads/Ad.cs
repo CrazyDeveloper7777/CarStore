@@ -36,7 +36,7 @@ namespace CarShop.Data.Models.Ads
         [Required]
         public string PopulatedPlace { get; set; }
 
-        public ICollection<Image> Images { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
 
     }
 }
